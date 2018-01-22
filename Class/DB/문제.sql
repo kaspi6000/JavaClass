@@ -586,11 +586,12 @@ SELECT count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn
 -- 41.
 SELECT count(decode(buseo, '개발부', 1)) AS 개발부, count(decode(buseo, '영업부', 1)) AS 영업부, count(decode(buseo, '총무부', 1)) AS 총무부 FROM tblinsa WHERE city = '서울';
 
--- 42.
+-- 42. 서울 사람의 남자와 여자의 기본급합 출력.
 SELECT sum(basicpay), sum(decode(substr(ssn, 8, 1), '1', 1)) FROM tblinsa WHERE city = '서울';
+SELECT * FROM tblinsa WHERE city = '서울';
 
--- 43.
+-- 43. 남자와 여자의 기본급 평균값 출력. AVG(), DECODE() 함수 이용.
 SELECT (decode(substr(ssn, 8, 1), '1', 1)), basicpay FROM tblinsa;
 
--- 44.
+-- 44. 개발부의 남자, 여자 기본급 평균값 출력.
 SELECT decode(substr(ssn, 8, 1), '1', 1), basicpay FROM tblinsa WHERE buseo = '개발부';
