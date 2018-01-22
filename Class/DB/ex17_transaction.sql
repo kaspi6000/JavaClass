@@ -81,3 +81,25 @@ CREATE TABLE tbltemp2(seq NUMBER);
 DELETE FROM 서울시 WHERE name = '유관순';
 
 ROLLBACK;
+
+-- SAVEPOINT
+COMMIT;
+
+SAVEPOINT a;
+
+DELETE FROM 서울시 WHERE name = '유관순';
+
+SAVEPOINT b;
+
+DELETE FROM 서울시 WHERE name = '김인수';
+
+SAVEPOINT c;
+
+DELETE FROM 서울시 WHERE name = '김영년';
+
+ROLLBACK;
+
+ROLLBACK TO c;
+ROLLBACK TO a;
+COMMIT;
+SELECT * FROM 서울시;
