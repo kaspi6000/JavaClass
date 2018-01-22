@@ -1,0 +1,10 @@
+1513559219046	Move compilation unit
+1513578100454	Encapsulate field 'data'
+1513582464749	Encapsulate field 'data'
+1513729608886	Encapsulate field 'name'
+1513729617305	Encapsulate field 'age'
+1513729619801	Encapsulate field 'address'
+1513729622359	Encapsulate field 'tel'
+1513824215098	Extract method 'getFileCount'
+1513840364641	Delete element
+1513916957290	Delete element

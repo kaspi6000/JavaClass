@@ -1,0 +1,54 @@
+커리큘럼
+
+1. 애플리케이션 구현
+2. 네트워크 소프트웨어
+3. 요구사항 
+4. 데이터베이스
+5. SQL
+6. 개발자 테스트
+7. 정보 시스템 이행
+8. 제품 소프트웨어 패키징
+
+
+1. JAVA, 자바
+2. Oracle, 데이터베이스
+3. 1 + 2 = JDBC
+========================= 콘솔 기반
+4. HTML, CSS, JavaScript //Client-Side ( React.js )
+5. Servlet, JSP //Server-Side ( Node.js )
+========================= 웹 사이트
+6. Spring, MyBatis //5번 버전업 -> 정부 표준프레임워크
+7. XML, jQuery를 써야하나??????, Ajax, Open API...
+
+
+
+개발환경
+
+1. 편집 툴, 개발 도구
+	a. Editplus, 메모장
+	   - 텍스트 편집기
+	b. 생산성이 높은 개발 도구
+	   - IDE, 통합 개발 환경
+	   - Eclipse, NetBeans, IntelliJ
+	c. SublimeText, Atom, Visual Studio Code...
+
+2. 개발 (실행) 환경
+	a. Java + Windows
+	b. 개발 환경 -> JDK 설치
+		Java SE Development Kit 8u151
+
+		JDK 8
+		JDK 1.8
+
+	c. 실행 환경 -> JRE 설치
+	d. 자바 : http://oracle.com ( http://sun.com )
+
+운영체제 (OS)		JDK(JRE)		나중에 추가(Eclipse)
+- Win + Pause
+
+1. 32bit		32bit			32bit
+
+2. 64bit		32bit, 64bit		32bit, 64bit
+
+3. Path 설정
+	- 윈도우 설정 > Path 환경 변수 > 특정 폴더의

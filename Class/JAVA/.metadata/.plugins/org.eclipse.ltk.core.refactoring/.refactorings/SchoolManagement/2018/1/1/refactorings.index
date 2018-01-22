@@ -1,0 +1,6 @@
+1515114003091	Encapsulate field 'title'
+1515114008004	Encapsulate field 'num'
+1515114010871	Encapsulate field 'author'
+1515114013340	Encapsulate field 'content'
+1515116973776	Convert local variable 'scan' to field
+1515132252639	Encapsulate field 'boardPwd'

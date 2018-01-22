@@ -1,0 +1,8 @@
+1513143218608	Encapsulate field 'title'
+1513152922040	Encapsulate field 'totalCount'
+1513153349300	Encapsulate field 'wholeCount'
+1513221861743	Move compilation unit
+1513222240824	Move compilation units
+1513222257133	Move file
+1513323727223	Encapsulate field 'color'
+1513323730331	Encapsulate field 'ink'

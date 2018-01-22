@@ -1,0 +1,56 @@
+package com.test.question;
+
+public class MyStack {
+
+	//1. 멤버 변수
+		private String[] list;	//데이터 저장
+		private int index; 		//입출력 요소의 위치
+		private int capacity;	//배열 초기 크기
+		
+		//2. 생성자
+		public MyStack() {
+			
+			
+		}
+		
+		public MyStack(int capacity) {
+			
+			
+		}
+		
+		//3. toString() 재정의 -> 배열 데이터 덤프
+		@Override
+		public String toString() {
+		
+			return super.toString();
+		}
+		
+		//4. 주업무
+		public void push(String s) {
+			
+			
+		}
+		public void pop() {
+			
+			
+		}
+		public void size() {
+			
+			
+		}
+		public void peak() {
+			
+			
+		}
+		public void trimToSize() {
+			
+			
+		}
+}
+
+
+	//	a. push
+	//	b. pop
+	//	c. size
+	//	d. peak
+	//	e. trimToSize
