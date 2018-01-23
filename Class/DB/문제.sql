@@ -587,11 +587,277 @@ SELECT count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn
 SELECT count(decode(buseo, '개발부', 1)) AS 개발부, count(decode(buseo, '영업부', 1)) AS 영업부, count(decode(buseo, '총무부', 1)) AS 총무부 FROM tblinsa WHERE city = '서울';
 
 -- 42. 서울 사람의 남자와 여자의 기본급합 출력.
-SELECT sum(basicpay), sum(decode(substr(ssn, 8, 1), '1', 1)) FROM tblinsa WHERE city = '서울';
-SELECT * FROM tblinsa WHERE city = '서울';
+SELECT sum(decode(substr(ssn, 8, 1), '1', basicpay)) AS 남자급여, sum(decode(substr(ssn, 8, 1), '2', basicpay)) AS 여자급여 FROM tblinsa WHERE city = '서울';
 
 -- 43. 남자와 여자의 기본급 평균값 출력. AVG(), DECODE() 함수 이용.
-SELECT (decode(substr(ssn, 8, 1), '1', 1)), basicpay FROM tblinsa;
+SELECT round(avg(decode(substr(ssn, 8, 1), '1', basicpay))) AS 남자평균, round(avg(decode(substr(ssn, 8, 1), '2', basicpay))) AS 여자평균 FROM tblinsa;
 
 -- 44. 개발부의 남자, 여자 기본급 평균값 출력.
-SELECT decode(substr(ssn, 8, 1), '1', 1), basicpay FROM tblinsa WHERE buseo = '개발부';
+SELECT round(avg(decode(substr(ssn, 8, 1), '1', basicpay))) AS 남자평균, round(avg(decode(substr(ssn, 8, 1), '2', basicpay))) AS 여자평균 FROM tblinsa WHERE buseo = '개발부';
+
+-- 45. 부서별 남자와 여자 인원수 구하기
+SELECT buseo, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자 FROM tblinsa GROUP BY buseo;
+        
+-- 46. 지역별 남자와 여자 인원수 구하기
+SELECT city, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자 FROM tblinsa GROUP BY city;
+
+-- 47. 입사년도별 남자와 여자 인원수 구하기
+SELECT to_char(ibsadate, 'YY') || '년도' AS 입사년도, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자 FROM tblinsa GROUP BY to_char(ibsadate, 'YY');
+
+-- 48. 영업부, 총무부 인원만을 가지고 입사년도별 남자와 여자 인원수 구하기
+SELECT to_char(ibsadate, 'YY') || '년도' AS 입사년도, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자 FROM tblinsa WHERE buseo IN('영업부', '총무부') GROUP BY to_char(ibsadate, 'YY');
+
+-- 49. 서울 사람중 부서별 남자와 여자인원수, 남자와 여자 급여합 출력.
+SELECT buseo, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자, sum(decode(substr(ssn, 8, 1), '1', basicpay)) AS 남자급여, sum(decode(substr(ssn, 8, 1), '2', basicpay)) AS 여자급여 FROM tblinsa WHERE city = '서울' GROUP BY buseo;
+
+-- 50. 부서별 인원수 출력. 인원수가 10 이상인 경우만.
+SELECT buseo, count(*) FROM tblinsa GROUP BY buseo HAVING count(*) >= 10;
+
+-- 51. 부서별 남,여 인원수 출력. 여자인원수가 5명 이상인 부서만 출력.
+SELECT buseo, count(decode(substr(ssn, 8, 1), '1', 1)) AS 남자, count(decode(substr(ssn, 8, 1), '2', 1)) AS 여자 FROM tblinsa GROUP BY buseo HAVING count(decode(substr(ssn, 8, 1), '2', 1)) >= 5;
+ 
+-- 52. 이름, 성별, 나이 출력
+--        성별: 주민번호 1,3->남자, 2,4->여자 (DECODE 사용)
+--        나이: 주민번호 이용해서
+SELECT name, decode(substr(ssn, 8, 1), '1', '남자', '2', '여자') AS 성별, ('20' || substr(sysdate, 1, 2)) - ('19' || substr(ssn, 1, 2)) AS 나이 FROM tblinsa;
+ 
+-- 53. 서울 사람 중에서 기본급이 200만원 이상이 사람. (이름, 기본급)
+SELECT name, basicpay FROM tblinsa WHERE city = '서울' AND basicpay >= 2000000;
+ 
+-- 54. 입사월별 인원수 구하기. (월, 인원수)   COUNT, GROUP BY, TO_CHAR 사용
+--         출력형태 ----------
+--         월      인원수
+--         1월    10명
+--         2월    25명
+SELECT to_char(ibsadate, 'mm') || '월' AS 입사월, count(*) FROM tblinsa GROUP BY to_char(ibsadate, 'mm');
+
+-- 55. 이름, 생년월일, 기본급, 수당을 출력.
+--        생년월일은 주민번호 기준 (2000-10-10 형식으로 출력)
+--        기본급은 \1,000,000 형식으로 출력
+SELECT name, to_char(to_date('19' || substr(ssn, 1, 6), 'YYYY-mm-dd'), 'YYYY-mm-dd') AS 생년월일, to_char(basicpay, '999,999,999,999') AS 기본급여, sudang FROM tblinsa;
+ 
+-- 56. 이름, 출신도, 기본급을 출력하되 출신도 내림차순 출력(1차 정렬 기준). 
+-- 출신도가 같으면 기본급 오름차순 출력(2차 정렬 기준).
+SELECT name, city, basicpay FROM tblinsa ORDER BY city DESC, basicpay ASC;
+ 
+-- 57. 전화번호가 NULL이 아닌것만 출력. (이름, 전화번호)
+SELECT name, tel FROM tblinsa WHERE tel IS NOT NULL;
+
+-- 58. 근무년수가 15년 이상인 사람 출력. (이름, 입사일)
+SELECT name, ibsadate FROM tblinsa WHERE to_char(sysdate, 'YYYY') - to_char(ibsadate, 'YYYY') >= 15;
+ 
+-- 59. 주민번호를 기준으로 75~82년생 출력. (이름, 주민번호, 출신도). 
+-- SUBSTR() 함수, BEWTEEN AND 구문, TO_NUMBER() 함수 이용.
+SELECT name, ssn, city FROM tblinsa WHERE substr(ssn, 1, 2) BETWEEN 75 AND 82;
+
+-- 60. 근무년수가 15~20년인 사람 출력. (이름, 입사일)
+SELECT name, ibsadate FROM tblinsa WHERE to_char(sysdate, 'YYYY') - to_char(ibsadate, 'YYYY') BETWEEN 15 AND 20;
+ 
+-- 61. 김씨, 이씨, 박씨만 출력 (이름, 부서). SUBSTR() 함수 이용.
+SELECT name, buseo FROM tblinsa WHERE substr(name, 1, 1) IN('김', '이', '박');
+ 
+-- 62. 입사일을 "년-월-일 요일" 형식으로 남자만 출력 (이름, 주민번호, 입사일)
+SELECT name, ssn, to_char(ibsadate, 'YYYY-mm-dd d') AS 입사일 FROM tblinsa WHERE substr(ssn, 8, 1) IN('1', '3');
+
+-- 63. 부서별 직위별 급여합 구하기. (부서, 직위, 급여합)
+SELECT buseo, jikwi, sum(basicpay) FROM tblinsa GROUP BY buseo, jikwi ORDER BY buseo;
+
+-- 64. 부서별 직위별 인원수, 급여합, 급여평균 구하기. (부서, 직위, 급여합)
+SELECT buseo, jikwi, count(*), sum(basicpay), round(avg(basicpay)) FROM tblinsa GROUP BY buseo, jikwi ORDER BY buseo;
+ 
+-- 65. 부서별 직위별 인원수를 구하되 인원수가 5명 이상인 경우만 출력.
+SELECT buseo, jikwi, count(*) FROM tblinsa GROUP BY buseo, jikwi HAVING count(*) >= 5;
+
+-- 66. 2000년에 입사한 여사원. (이름, 주민번호, 입사일)
+SELECT name, ssn, ibsadate FROM tblinsa WHERE to_char(ibsadate, 'YYYY') = '2000' AND substr(ssn, 8, 1) = 2;
+ 
+-- 67. 성씨가 한 글자(김, 이, 박 등)라는 가정하에 성씨별 인원수 (성씨, 인원수)
+SELECT substr(name, 1, 1) AS 성씨, count(*) AS 인원수 FROM tblinsa GROUP BY substr(name, 1, 1);
+    
+-- 68. 출신도(CITY)별 성별 인원수.
+SELECT city, count(*) FROM tblinsa GROUP BY city;
+ 
+-- 69. 부서별 남자인원수가 5명 이상인 부서와 남자인원수.
+SELECT buseo, count(*) FROM tblinsa GROUP BY buseo HAVING count(*) >= 5;
+ 
+-- 70. 입사년도별 인원수.
+SELECT to_char(ibsadate, 'YYYY') AS 입사년도, count(*) FROM tblinsa GROUP BY to_char(ibsadate, 'YYYY');
+
+-- 71. 전체인원수, 2000년, 1999년, 1998년도에 입사한 인원을 다음의 형식으로 출력.
+--         전체 2000 1999 1998
+--          60    x    x    x
+SELECT (SELECT count(*) FROM tblinsa) AS 전체,
+        (SELECT count(*) FROM tblinsa WHERE to_char(ibsadate, 'YYYY') = '2000') AS "2000년",
+        (SELECT count(*) FROM tblinsa WHERE to_char(ibsadate, 'YYYY') = '1999') AS "1999년",
+        (SELECT count(*) FROM tblinsa WHERE to_char(ibsadate, 'YYYY') = '1998') AS "1998년"
+FROM dual;
+
+-- 72. 아래 형식으로 지역별 인원수 출력.
+--         전체 서울  인천  경기
+--          60    x     x     x
+SELECT (SELECT count(*) FROM tblinsa) AS 전체,
+        (SELECT count(*) FROM tblinsa WHERE city = '서울') AS 서울,
+        (SELECT count(*) FROM tblinsa WHERE city = '인천') AS 인천,
+        (SELECT count(*) FROM tblinsa WHERE city = '경기') AS 경기
+FROM dual;
+
+-- 73. 기본급(basicpay)이 평균 이하인 사원 출력. (이름, 기본급). AVG() 함수. 하위쿼리.
+SELECT name, basicpay FROM tblinsa WHERE basicpay <= (SELECT avg(basicpay) FROM tblinsa);
+
+-- 74. 기본급 상위 10%만 출력. (이름, 기본급)
+SELECT name, basicpay FROM (SELECT * FROM tblinsa ORDER BY basicpay DESC) WHERE rownum <= (SELECT count(*) FROM tblinsa) / 10;
+
+-- 75.기본급 순위가 5순위까지만 출력
+SELECT * FROM (SELECT * FROM tblinsa ORDER BY basicpay DESC) WHERE rownum <= 5;
+
+-- 76. 입사일이 빠른 순서로 5순위까지만 출력.
+SELECT * FROM (SELECT * FROM tblinsa ORDER BY ibsadate ASC) WHERE rownum <= 5;
+
+-- 77. 평균 급여보다 많은 급여를 받는 직원 출력  
+SELECT * FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa) < basicpay;
+
+-- 78. '이순애' 직원의 급여보다 더 많은 급여를 받는 직원 출력.
+SELECT * FROM tblinsa WHERE (SELECT basicpay FROM tblinsa WHERE name = '이순애') < basicpay;
+
+-- 79. 총무부의 평균 급여보다 많은 급여를 받는 직원들의 이름, 부서명 출력.
+SELECT name, buseo FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa WHERE buseo = '총무부') < basicpay;
+
+-- 80. 총무부 직원들보다 더 많은 급여를 받는 직원 정보.
+SELECT * FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa WHERE buseo = '총무부') < basicpay;
+
+-- 81. 직원 전체 평균 급여보다 많은 급여를 받는 직원의 수 출력.
+SELECT count(*) FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa) < basicpay;
+
+-- 82. '홍길동' 직원과 같은 부서의 직원 정보.
+SELECT * FROM tblinsa WHERE buseo = (SELECT buseo FROM tblinsa WHERE name = '홍길동');
+
+-- 83. '김신애' 직원과 같은 부서, 직위를 가진 직원 정보
+SELECT * FROM tblinsa WHERE buseo = (SELECT buseo FROM tblinsa WHERE name = '김신애') AND jikwi = (SELECT jikwi FROM tblinsa WHERE name = '김신애');
+
+-- 84. 부서별 기본급이 가장 높은 사람 출력. (이름, 부서, 기본급) ------------
+SELECT buseo, basicpay, name FROM tblinsa ORDER BY buseo, basicpay DESC;
+SELECT buseo, max(basicpay) FROM tblinsa GROUP BY buseo;
+
+-- 85. 남자 기본급 순위 출력.
+    -- 여자 기본급 순위 출력.
+SELECT * FROM tblinsa WHERE substr(ssn, 8, 1) = 1 ORDER BY basicpay DESC;
+
+-- 86. 지역(city)별로 급여(기본급+수당) 1순위 직원만 출력.
+SELECT * FROM tblinsa;
+
+-- 87. 부서별 인원수가 가장 많은 부서 및 인원수 출력. 
+SELECT max(SELECT count(*) FROM tblinsa GROUP BY buseo) FROM tblinsa;
+SELECT buseo, count(*) FROM tblinsa GROUP BY buseo;
+        
+-- 88. 지역(city)별 인원수가 가장 많은 지역 및 인원수 출력.
+
+
+-- 89. 지역(city)별 평균 급여(basicpay+sudang)가 
+ --      가장 높은 지역 및 평균급여 출력.
+
+
+-- 90. 여자 인원수가 가장 많은 부서 및 인원수 출력.
+
+-- 91. 지역별 인원수 순위 출력.
+SELECT city, count(*) FROM tblinsa GROUP BY city ORDER BY count(*) DESC;
+
+-- 92. 지역별 인원수 순위 출력하되 5순위까지만 출력.
+SELECT * FROM (SELECT city, count(*) FROM tblinsa GROUP BY city ORDER BY count(*) DESC) WHERE rownum <= 5;
+ 
+-- 93. 이름, 부서, 출신도, 기본급, 수당, 기본급+수당, 세금, 실수령액 출력
+--        세금: 총급여가 250만원 이상이면 2%, 200만원 이상이면 1%, 나머지 0.
+--        실수령액: 총급여-세금
+--        CASE~END 문 사용.
+SELECT name, buseo, city, basicpay, sudang, basicpay + sudang,
+    CASE
+        WHEN basicpay + sudang >= 2500000 THEN '2%'
+        WHEN basicpay + sudang >= 2000000 THEN '1%'
+        ELSE '0'
+    END AS 세금,
+    CASE
+        WHEN basicpay + sudang >= 2500000 THEN (basicpay + sudang) - ((basicpay + sudang) * 0.02)
+        WHEN basicpay + sudang >= 2000000 THEN (basicpay + sudang) - ((basicpay + sudang) * 0.01)
+        ELSE basicpay + sudang
+    END AS 실수령액
+FROM tblinsa;
+
+-- 94. 부서별 평균 급여를 출력하되, A, B, C 등급으로 나눠서 출력.
+-- 200만원 초과 - A등급
+-- 150~200만원 - B등급
+-- 150만원 미만 - C등급
+SELECT buseo, round(avg(basicpay)) AS 평균급여,
+    CASE
+        WHEN avg(basicpay) > 2000000 THEN 'A등급'
+        WHEN avg(basicpay) >= 1500000 THEN 'B등급'
+        WHEN avg(basicpay) < 1500000 THEN 'C등급'
+    END AS 등급
+FROM tblinsa GROUP BY buseo;
+
+-- 95. 기본급+수당이 가장 많은 사람의 이름, 기본급+수당 출력. 
+-- MAX() 함수, 하위 쿼리 이용.
+SELECT name, basicpay + sudang FROM tblinsa WHERE basicpay + sudang = (SELECT max(basicpay + sudang) FROM tblinsa);
+
+-- 96. tblinsa. 80년대생 남자 직원들의 평균 월급(basicpay)보다 더 많이 받는 70년대생 여직원들을 출력.
+SELECT * FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa WHERE substr(ssn, 1, 2) BETWEEN 80 AND 89 AND substr(ssn, 8, 1) = '1') < basicpay AND substr(ssn, 1, 2) BETWEEN 70 AND 79 AND substr(ssn, 8, 1) = '2';
+
+-- 97. tblStaff, tblProject. 현재 재직중인 모든 직원의 이름, 주소, 월급, 담당프로젝트명을 출력.
+SELECT * FROM tblstaff s INNER JOIN tblproject p ON s.seq = p.staff;
+
+-- 98. tblVideo, tblRent, tblMember. '뽀뽀할까요' 라는 비디오를 빌려간 회원의 이름?
+SELECT m.name FROM tblvideo v INNER JOIN tblrent r ON v.seq = r.video INNER JOIN tblmember m ON r.member = m.seq WHERE v.name = '뽀뽀할까요';
+
+-- 99. tblinsa. 평균 이상의 월급을 받는 직원들?
+SELECT * FROM tblinsa WHERE (SELECT avg(basicpay) FROM tblinsa) < basicpay;
+
+-- 100. tblStaff, tblProejct. '노조협상건'을 담당한 직원의 월급?
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+
+SELECT s.salary FROM tblstaff s INNER JOIN tblproject p ON s.seq = p.staff WHERE p.name = '노조 협상';
+
+-- 101. tblMember. 가장 나이가 많은 회원의 주소? (bYear)
+SELECT address FROM tblmember WHERE (SELECT min(byear) FROM tblmember) = byear;
+
+-- 102. tblvideo. '털미네이터' 비디오를 한번이라도 빌려갔던 회원들의 이름?
+SELECT m.name FROM tblvideo v INNER JOIN tblrent r ON v.seq = r.video INNER JOIN tblmember m ON r.member = m.seq WHERE v.name = '털미네이터';
+
+-- 103. tblStaff, tblProject. 서울시에 사는 직원을 제외한 나머지 직원들의
+--     이름, 월급, 담당프로젝트명을 출력하시오.
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+
+SELECT s.name, s.salary, p.name FROM tblstaff s INNER JOIN tblproject p ON s.seq = p.staff WHERE s.address <> '서울시';
+
+-- 104. tblCustomer, tblSales. 상품을 2개(단일상품) 이상 구매한 회원의
+--    연락처, 이름, 구매상품명, 수량 출력
+SELECT c.tel, c.name, s.item, s.qty FROM tblcustomer c INNER JOIN tblsales s ON c.seq = s.customer WHERE s.qty >= 2;
+
+-- 105. tblvideo. 모든 비디오 제목, 보유수량, 대여가격을 출력
+SELECT v.name, v.qty, g.price FROM tblgenre g INNER JOIN tblvideo v ON g.seq = v.genre;
+
+-- 106. tblvideo. 2007년 2월에 대여된 구매내역을 출력하시오. 회원명, 비디오명, 언제, 대여가격
+SELECT * FROM tblvideo;
+SELECT * FROM tblrent;
+
+SELECT m.name, v.name, r.rentdate, g.price FROM tblgenre g INNER JOIN tblvideo v ON g.seq = v.genre INNER JOIN tblrent r ON v.seq = r.video INNER JOIN tblmember m ON r.member = m.seq WHERE to_char(r.rentdate, 'YYYY-mm') = '2007-02';
+
+-- 107. tblvideo. 현재 반납을 안한 회원명과 비디오명, 대여날짜 출력.
+SELECT m.name, v.name, r.rentdate FROM tblvideo v INNER JOIN tblrent r ON v.seq = r.video INNER JOIN tblmember m ON r.member = m.seq WHERE r.retdate IS NULL;
+
+-- 108. tblhousekeeping. 지출 내역(가격 * 수량) 중 가장 많은 금액을 지출한 내역 3가지를 출력.
+SELECT * FROM (SELECT seq, item, price, qty, buydate, memo, price * qty FROM tblhousekeeping ORDER BY price * qty DESC) WHERE rownum <= 3;
+
+-- 109. tblinsa. 평균 급여 2위인 부서에 속한 직원들을 출력
+SELECT * FROM tblinsa;
+
+-- 110. tblinsa. 부서별 최고 연봉을 받는 직원들을 출력(7명)
+
+
+
+-- 111. tbltodo. 등록 후 가장 빠르게 완료한 할일을 순서대로 5개 출력
+
+
+
+-- 112. tblinsa. 남자 직원 중에서 급여를 3번째로 많이 받는 직원과 9번째로 많이 받는 직원의 급여 차액은 얼마?
+
+-- 84, 86, 87, 88, 89, 90, 109
