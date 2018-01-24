@@ -851,12 +851,10 @@ SELECT * FROM (SELECT seq, item, price, qty, buydate, memo, price * qty FROM tbl
 SELECT * FROM tblinsa;
 
 -- 110. tblinsa. 부서별 최고 연봉을 받는 직원들을 출력(7명)
-
-
+SELECT * FROM tblinsa;
 
 -- 111. tbltodo. 등록 후 가장 빠르게 완료한 할일을 순서대로 5개 출력
-
-
+SELECT * FROM tbltodo WHERE completedate;
 
 -- 112. tblinsa. 남자 직원 중에서 급여를 3번째로 많이 받는 직원과 9번째로 많이 받는 직원의 급여 차액은 얼마?
 

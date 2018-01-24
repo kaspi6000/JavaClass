@@ -682,3 +682,610 @@ BEGIN
     
     CLOSE vcursor; --커서 닫기(자원 해제 코드)
 END;
+
+/*
+    PL/SQL을 사용해서 SELECT 결과셋을 가져오기 + 처리하기
+    
+    1. SELECT INTO : 단일 행
+        a. 단일 컬럼 + 단일 행
+        b. 다중 컬럼 + 단일 행
+    2. CURSOR
+        a. 단일 컬럼 + 다중 행(단일 행)
+        b. 다중 컬럼 + 다중 행(단일 행)
+*/
+
+--1. SELECT INTO : 단일 행
+--        a. 단일 컬럼 + 단일 행
+--        b. 다중 컬럼 + 단일 행
+DECLARE
+    vword VARCHAR2(30); -- 검색어
+    vcount NUMBER;
+    
+    vname VARCHAR2(100); -- first + last + 공백
+    vphone employees.phone_number%type;
+    vsalary employees.salary%type;
+BEGIN
+    
+    vword := 'D';
+    
+    SELECT count(*) INTO vcount FROM employees WHERE lower(first_name) LIKE lower(vword) || '%'; --1.a
+    
+    -- 이후 업무는 알아서
+    dbms_output.put_line('''' || vword || '''로 시작하는 직원은 총 ' || vcount || '명 입니다.');
+    
+    -- 급여가 가장 많은 사람 : 이름 + 연락처 + 급여
+    SELECT name, phone_number, salary INTO vname, vphone, vsalary FROM (SELECT first_name || ' ' || last_name AS name, phone_number, salary FROM employees ORDER BY salary DESC) WHERE rownum = 1; -- 1.b
+    
+    dbms_output.put_line(vname);
+    dbms_output.put_line(vphone);
+    dbms_output.put_line(vsalary);
+END;
+
+--2. CURSOR
+--        a. 단일 컬럼 + 다중 행(단일 행)
+--        b. 다중 컬럼 + 다중 행(단일 행)
+
+CREATE TABLE tblfullname(
+    name VARCHAR2(50) PRIMARY KEY
+);
+
+DECLARE
+    CURSOR vcursor
+    IS
+    SELECT first_name || '' || last_name AS name FROM employees ORDER BY name ASC;
+    vname VARCHAR2(100);
+BEGIN
+    
+    --모든 직원의 이름
+    OPEN vcursor;
+    LOOP
+        FETCH vcursor INTO vname; --SELECT INTO 역할
+        
+        EXIT WHEN vcursor%NOTFOUND;
+        -- 추가 업무
+        INSERT INTO tblfullname VALUES(vname);
+        dbms_output.put_line(vname);
+    END LOOP;
+    CLOSE vcursor;
+END;
+
+SELECT * FROM tblfullname;
+
+-- 단일행 + 단일값 -> cursor
+DECLARE
+    vcount NUMBER;
+    CURSOR vcursor
+    IS
+    SELECT count(*) FROM employees WHERE first_name LIKE 'D%';
+BEGIN
+    OPEN vcursor;
+    --LOOP
+        FETCH vcursor INTO vcount;
+        --EXIT WHEN vcursor%NOTFOUND;
+        dbms_output.put_line('결과 : ' || vcount);
+    --END LOOP;
+    CLOSE vcursor;
+END;
+
+/*
+    단일컬럼 + 다중행
+    다중컬럼 + 다중행
+*/
+
+DECLARE
+    CURSOR vcursor
+    IS
+    SELECT name, buseo, jikwi FROM tblinsa;
+    vname tblinsa.name%type;
+    vbuseo tblinsa.buseo%type;
+    vjikwi tblinsa.jikwi%type;
+    
+    CURSOR vcursor2 IS SELECT * FROM tblname;
+    vrow tblname%rowtype;
+BEGIN
+    OPEN vcursor;
+    LOOP
+        FETCH vcursor INTO vname, vbuseo, vjikwi; -- SELECT * INTO vname, vbuseo, vjikwi
+        EXIT WHEN vcursor%NOTFOUND;
+        
+        -- 추가업무
+        dbms_output.put_line(vname);
+        dbms_output.put_line(vbuseo);
+        dbms_output.put_line(vjikwi);
+        dbms_output.put_line('------------------');
+    END LOOP;
+    CLOSE vcursor;
+    
+    OPEN vcursor2;
+    LOOP
+        FETCH vcursor2 INTO vrow;
+        EXIT WHEN vcursor2%NOTFOUND;
+        dbms_output.put_line(vrow.last || vrow.first);
+        dbms_output.put_line(vrow.nick);
+        dbms_output.put_line('------------');
+    END LOOP;
+    CLOSE vcursor2;
+END;
+
+/*
+    Cursor의 기본 사용법
+     : 커서 객체 생성(정의) -> 커서 열기 -> 루프(선택) -> 데이터 접근 + 가져오기 -> 커서 닫기
+     
+     CURSOR FOR LOOP
+     - 커서 + LOOP 조합
+     - 커서 + FOR LOOP 조합 : 커서 처리 단순화
+*/
+DECLARE
+    CURSOR vcursor
+    IS
+    SELECT * FROM tbltodo;
+    vrow tbltodo%rowtype;
+BEGIN
+    OPEN vcursor;
+    LOOP
+        FETCH vcursor INTO vrow;
+        EXIT WHEN vcursor%NOTFOUND;
+        dbms_output.put_line(vrow.title || '(' || CASE
+            WHEN vrow.completedate IS NULL THEN '미완료'
+            WHEN vrow.completedate IS NOT NULL THEN '완료'
+        END || ')');
+        dbms_output.put_line('---------------------');
+    END LOOP;
+    CLOSE vcursor;
+END;
+
+DECLARE
+    CURSOR vcursor
+    IS
+    SELECT * FROM tbltodo;
+    --vrow tbltodo%rowtype;
+BEGIN
+--    FOR i IN 1..10
+--    LOOP
+--    END LOOP;
+
+    -- 커서 열기 생략
+
+    FOR vrow IN vcursor -- FETCH vcursor INTO vrow
+    LOOP
+        dbms_output.put_line(vrow.title || '(' || CASE
+            WHEN vrow.completedate IS NULL THEN '미완료'
+            WHEN vrow.completedate IS NOT NULL THEN '완료'
+        END || ')');
+        dbms_output.put_line('---------------------');
+    END LOOP;
+    
+    -- 커서 닫기 생략
+END;
+
+-- 서브쿼리 or 인라인 뷰
+BEGIN
+
+    FOR vrow IN (SELECT * FROM tbltodo)
+    LOOP
+        dbms_output.put_line(vrow.title);
+        dbms_output.put_line('---------------------');
+    END LOOP;
+END;
+/*
+    EXCEPTION
+    - 예외 처리부
+    - 실행부에서 발생하는 예외 처리 담당
+*/
+DECLARE
+    vdata NUMBER;
+BEGIN
+    dbms_output.put_line('시작');
+    SELECT name INTO vdata FROM tblinsa WHERE num = 1001;
+    dbms_output.put_line('끝');
+    EXCEPTION
+        -- 자바 catch절
+        -- 예외 처리 코드
+        WHEN OTHERS THEN -- 예외 종류
+            dbms_output.put_line('예외 처리');
+END;
+
+-- 예외발생 기록(로그 테이블)
+CREATE TABLE tbllog(
+    seq NUMBER PRIMARY KEY, --식별자(PK) -> DB 식별자
+    code VARCHAR2(20) CHECK(code IN('AAA0001', 'BBB0001', 'ZZZ0001')) NOT NULL,  --AAA0001 -> 업무 식별자
+    message VARCHAR2(1000) NULL, --상태 메시지
+    regdate DATE DEFAULT sysdate NOT NULL --발생 시각
+);
+
+CREATE SEQUENCE logseq;
+
+DECLARE
+    vnum NUMBER;
+    vname VARCHAR2(30);
+BEGIN
+    SELECT 10000000 / 0 INTO vnum FROM tblname; --업무1
+    -- SELECT name INTO vname FROM tblinsa;--WHERE num = 1001; --업무2
+    SELECT name INTO vnum FROM tblinsa WHERE num = 1001; --업무3
+    
+    dbms_output.put_line(vnum);
+    dbms_output.put_line(vname);
+    
+    EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        dbms_output.put_line('tblname에 데이터가 없습니다.');
+        INSERT INTO tbllog VALUES(logseq.nextval, 'AAA0001', '김대리 담당', DEFAULT);
+    WHEN TOO_MANY_ROWS THEN
+        dbms_output.put_line('가져온 직원이 너무 많습니다.');
+        INSERT INTO tbllog VALUES(logseq.nextval, 'BBB0001', NULL, DEFAULT);
+    WHEN OTHERS THEN
+        dbms_output.put_line('예외 처리');
+        INSERT INTO tbllog VALUES(logseq.nextval, 'ZZZ0001', NULL, DEFAULT);
+END;
+
+SELECT * FROM tbllog;
+
+COMMIT;
+ROLLBACK;
+DELETE FROM tblname;
+
+/*
+    PL/SQL 블럭과 트랜잭션의 관계
+*/
+SELECT * FROM tbltodo;
+COMMIT;
+ROLLBACK;
+INSERT INTO tbltodo VALUES(21, 'DB 모델링 작업', sysdate, NULL);
+
+DECLARE
+    vseq NUMBER;
+    vtitle tbltodo.title%type;
+BEGIN
+    vseq := 22;
+    vtitle := '저녁에 팀회의하기';
+    INSERT INTO tbltodo VALUES(vseq, vtitle, sysdate, NULL);
+END;
+
+/*
+    PL/SQL 블럭에서 트랜잭션 처리 결과
+    1. 블럭내의 모든 업무가 성공 -> COMMIT
+    2. 블럭내의 일부 업무가 실패(예외 발생) -> ROLLBACK
+*/
+
+DECLARE
+    vcount NUMBER;
+    vstate VARCHAR2(50);
+BEGIN
+    -- 업무 1.
+    SELECT count(*) INTO vcount FROM tbltodo WHERE completedate IS NULL;
+    
+    -- 업무 2.
+    IF vcount >= 10 THEN
+        -- 할일 너무 많이 남아있음
+        vstate := '- 빨리 처리 요구';
+    ELSE
+        -- 할일이 적당함
+        vstate := '- 천천히 해도 됨';
+    END IF;
+    
+    INSERT INTO tbltodo VALUES(21, '저녁에 팀회의', sysdate, NULL);
+    
+    -- 업무 3.
+    IF vcount >= 5 THEN
+        UPDATE tbltodo SET completedate = '2018년 1월 22일';
+    END IF;
+    
+    --모든 업무 성공
+    COMMIT;
+    -- oracle + transaction + exception
+    
+    EXCEPTION
+        WHEN OTHERS THEN
+            dbms_output.put_line('err');
+            -- 로그 insert(X)
+            ROLLBACK;
+            -- 로그 insert(O)
+            -- COMMIT;
+END;
+
+SELECT * FROM tbltodo;
+
+/*
+    익명 블럭 -> 실명 블럭(가독성, 재사용 등..)
+    
+    여태까지 수업한 PL/SQL 블럭 -> 이름 붙이기 -> 블럭이 오라클 서버에 저장 -> 저장 블럭 -> 저장 프로시저(Stored Procedure)
+    - 이름을 붙인 PL/SQL 블럭
+    - 개인 코드 저장 -> 오라클 서버 저장
+    - 성능 향상(구문 분석 ~ 컴파일 과정 생략)
+    - 네트워크 트래픽 감소(코드 전체 전송 -> 프로그램 이름만 전송)
+    - 여러 계정이 동일한 코드를 사용 가능(권한 부여)
+    
+    저장 프로그램 종류
+    1. 저장 프로시저, Stored Procedure
+    2. 저장 함수, Stored Function
+    
+    저장 프로시저 구문
+    
+    CREATE [OR REPLACE] PROCEDURE 프로시저명
+    IS[AS]
+        [선언부;]
+    BEGIN
+        실행부;
+    [EXCEPTION
+        예외처리부]
+    END [프로시저명]; --m1()
+*/
+
+-- 프로시저 생성
+CREATE OR REPLACE PROCEDURE proc_test
+IS --익명 DECLARE
+    vnum NUMBER;
+BEGIN
+    vnum := 100;
+    dbms_output.put_line(vnum);
+END;
+
+/*
+    프로시저 호출(실행)
+    
+    1. PL/SQL 블럭내에서 호출
+    - 프로그래밍 방식
+    - 익명 블럭 or 다른 프로시저에 호출
+    - 주로 사용
+        
+    2. 스크립트 환경에서 호출
+    - 관리자, 담당자
+    - execute, call
+*/
+
+-- 1.
+BEGIN
+    SELECT * FROM tblname;
+ENd;
+
+-- 2.
+SELECT * FROM tblname;
+
+-- 1. 익명 PL/SQL 블럭에서 호출하기
+BEGIN
+    proc_test; -- 프로시저 호출
+    proc_test();
+END;
+
+-- proc_test();
+
+-- 1. 실명 PL/SQL 블럭에서 호출하기
+CREATE or REPLACE PROCEDURE proc_hello
+IS
+BEGIN
+    proc_test; -- 프로시저 호출
+END;
+
+BEGIN
+    proc_hello;
+END;
+
+-- 2. 스크립트 호출
+EXEC proc_test;
+EXECUTE proc_test;
+CALL proc_test();
+
+/*
+    매개변수가 있는 프로시저
+    - 자바 메소드의 매개변수와 유사
+*/
+CREATE OR REPLACE PROCEDURE proc_print(pnum NUMBER)
+IS
+    vresult NUMBER;
+BEGIN
+    vresult := pnum * 2;
+    dbms_output.put_line(vresult);
+END;
+
+BEGIN
+    proc_print(100);
+END;
+
+CREATE OR REPLACE PROCEDURE proc_area(pheight NUMBER, pwidth NUMBER)
+IS
+    varea NUMBER;
+BEGIN
+    varea := pheight * pwidth;
+    dbms_output.put_line(varea);
+END;
+
+BEGIN
+    proc_area(100, 230);
+END;
+
+CREATE OR REPLACE PROCEDURE proc_area(pheight NUMBER DEFAULT 10, pwidth NUMBER DEFAULT 20)
+IS
+    varea NUMBER;
+BEGIN
+    varea := pheight * pwidth;
+    dbms_output.put_line(varea);
+END;
+
+BEGIN
+    proc_area(100, 230);
+    proc_area;
+    proc_area(100);
+END;
+
+/*
+    매개변수 전달 방법
+    1. Call by Value
+    2. Call by Reference
+    3. Out Parameter
+    
+    매개변수 작동 모드
+    - 매개변수의 값을 전달하는 방법
+    
+    1. IN 모드
+    - 기본 모드
+    
+    2. OUT 모드
+    3. IN OUT 모드
+*/
+CREATE OR REPLACE PROCEDURE proc_sum(pnum1 NUMBER, pnum2 NUMBER)
+IS
+    vresult NUMBER;
+BEGIN
+    vresult := pnum1 + pnum2;
+    dbms_output.put_line(vresult);
+END;
+
+BEGIN
+    proc_sum(4, 6);
+END;
+
+CREATE OR REPLACE PROCEDURE proc_sum(
+pnum1 IN NUMBER, --in 파라미터
+pnum2 IN NUMBER,
+vresult OUT NUMBER, --out 파라미터(반환값)
+vresult2 OUT NUMBER
+)
+IS
+    -- vresult NUMBER;
+BEGIN
+    vresult := pnum1 + pnum2;
+    vresult2 := pnum1 * pnum2;
+    -- dbms_output.put_line(vresult);
+END;
+
+BEGIN
+    proc_sum(4, 6);
+END;
+
+DECLARE
+    vresult NUMBER;
+    vresult2 NUMBER;
+BEGIN
+    proc_sum(30, 40, vresult, vresult2);
+    dbms_output.put_line(vresult);
+    dbms_output.put_line(vresult2);
+END;
+
+-- 검색
+CREATE OR REPLACE PROCEDURE proc_getinsa
+(
+    pnum NUMBER
+)
+IS
+    vrow tblinsa%rowtype;
+BEGIN
+    SELECT * INTO vrow FROM tblinsa WHERE num = pnum;
+    dbms_output.put_line(vrow.name);
+    dbms_output.put_line(vrow.buseo);
+    dbms_output.put_line(vrow.jikwi);
+END;
+
+BEGIN
+    proc_getinsa(1001);
+    proc_getinsa(1050);
+    proc_getinsa(1051);
+END;
+
+-- tblname -> 새로 추가하기
+CREATE OR REPLACE PROCEDURE proc_addname
+(
+    pfirst VARCHAR2,
+    plast VARCHAR2,
+    pgender VARCHAR2,
+    pheight NUMBER,
+    pweight NUMBER,
+    pnick VARCHAR2
+)
+IS
+    vcount NUMBER; --동명이인이 몇명인지?
+BEGIN
+    -- 같은 이름이 있는지?
+    SELECT count(*) INTO vcount FROM tblname WHERE first = pfirst AND last = plast;
+    
+    IF vcount = 0 THEN
+        INSERT INTO tblname(first, last, gender, height, weight, nick) VALUES(pfirst, plast, pgender, pheight, pweight, pnick);
+    ELSE
+        dbms_output.put_line('동명 이인 발견');
+    END IF;
+END;
+
+BEGIN
+    proc_addname('무개', '아', 'm', 180, 60, '없음');
+    --proc_addname('길동', '홍', 'm', 180, 60, '없음');
+END;
+
+SELECT * FROM tblname;
+
+-- employees -> 번호(PK) 입력 -> 이름(성+이름) 반환 -> tblfullname에 추가
+CREATE OR REPLACE PROCEDURE proc_addfullname
+(
+    pid NUMBER
+)
+IS
+    vname VARCHAR2(50);
+BEGIN
+    SELECT first_name || ' ' || last_name INTO vname FROM employees WHERE employee_id = pid;
+    INSERT INTO tblfullname VALUES(vname);
+END;
+
+SELECT * FROM employees;
+SELECT * FROM tblfullname;
+TRUNCATE TABLE tblfullname;
+
+BEGIN
+    proc_addfullname(100);
+    proc_addfullname(123);
+    proc_addfullname(158);
+END;
+
+-- 1. ID -> Full Name 반환
+CREATE OR REPLACE PROCEDURE proc_getfullname
+(
+    pid IN VARCHAR2,
+    pname OUT VARCHAR2
+)
+IS
+
+BEGIN
+    SELECT first_name || ' ' || last_name INTO pname FROM employees WHERE employee_id = pid;
+END;
+
+-- 2. Full Name -> insert
+CREATE OR REPLACE PROCEDURE proc_insertfullname
+(
+    pname IN VARCHAR2
+)
+IS
+
+BEGIN
+    INSERT INTO tblfullname VALUES(pname);
+END;
+
+-- 조합
+DECLARE
+    vname VARCHAR2(50);
+BEGIN
+    -- 1.
+    proc_getfullname(135, vname);
+    -- 2.
+    proc_insertfullname(vname);
+END;
+
+SELECT * FROM tblfullname;
+
+-- 조합 -> 프로시저 생성
+CREATE OR REPLACE PROCEDURE proc_addfullname
+(
+    pid NUMBER
+)
+IS
+    vname VARCHAR2(50);
+BEGIN
+    -- 1.
+    proc_getfullname(pid, vname);
+    -- 2.
+    proc_insertfullname(vname);
+END;
+
+BEGIN
+    proc_addfullname(167);
+    proc_addfullname(168);
+    proc_addfullname(169);
+END;
+
+SELECT * FROM tblfullname;
