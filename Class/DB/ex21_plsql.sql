@@ -1289,3 +1289,516 @@ BEGIN
 END;
 
 SELECT * FROM tblfullname;
+
+-- 2종류 매개변수 모드
+CREATE OR REPLACE PROCEDURE proc_getname(
+    pnum IN NUMBER, -- 직원 번호(매개변수)
+    pname OUT VARCHAR2 -- 직원명(반환값)
+)
+IS
+    -- vname tblinsa.name%type;
+BEGIN
+    SELECT name INTO pname FROM tblinsa WHERE num = pnum;
+    
+    -- 위의 이름을 가지고 다른 테이블에 UPDATE 실행
+    -- UPDATE TABLE set_name = vname...
+END;
+
+SELECT * FROM tblinsa;
+
+DECLARE
+    vname VARCHAR2(50);
+BEGIN
+    proc_getname(1001, vname);
+    dbms_output.put_line(vname);
+END;
+
+CREATE TABLE tbladdress(
+    seq NUMBER PRIMARY KEY, --PK
+    name VARCHAR(30) NOT NULL, -- 이름
+    age NUMBER(3) NOT NULL, --나이
+    tel VARCHAR2(15) NOT NULL, --전화번호
+    address VARCHAR2(500) NOT NULL, --주소
+    regdate DATE DEFAULT sysdate NOT NULL --등록일
+);
+DROP TABLE tbladdress;
+
+CREATE SEQUENCE address_seq; --addressSeq
+
+SELECT address_seq.currval FROM dual;
+
+-- 주소록 항목을 추가하는 프로시저 + CRUD
+CREATE OR REPLACE PROCEDURE proc_add_address(
+    pname VARCHAR2,
+    page NUMBER,
+    ptel NUMBER,
+    paddress VARCHAR2,
+    pregdate DATE DEFAULT sysdate,
+    presult OUT NUMBER -- 성공 유무
+)
+IS
+
+BEGIN
+    INSERT INTO tbladdress(seq, name, age, tel, address, regdate) VALUES(address_seq.nextval, pname, page, ptel, paddress, pregdate);
+    presult := 1; --성공
+    COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            presult := 0; --실패
+            ROLLBACK;
+END;
+
+DECLARE
+    vresult NUMBER; --성공유무
+BEGIN
+    proc_add_address(address_seq.nextval, '홍길동', 20, '010-1111-2222', '서울시 강남구 역삼동', sysdate, vresult);
+    
+    IF vresult = 1 THEN
+        dbms_output.put_line('주소록 추가 완료');
+    ELSE
+        dbms_output.put_line('주소록 추가 실패');
+    END IF;
+END;
+
+SELECT * FROM tbladdress;
+
+-- R : 번호 -> 1명분 리턴
+-- 반환값이 다중 컬럼 or 다중 행 프로시저
+-- 1. OUT 매개변수 : 단일 행
+-- 2. CURSOR : 다중 행
+
+CREATE OR REPLACE PROCEDURE proc_read_address(
+    pseq IN NUMBER, --주소록 번호
+    pname OUT VARCHAR2,
+    page OUT NUMBER,
+    ptel OUT VARCHAR2,
+    paddress OUT VARCHAR2,
+    pregdate OUT DATE,
+    presult OUT NUMBER --성공 유무
+)
+IS
+
+BEGIN
+    SELECT name, age, tel, address, regdate INTO pname, page, ptel, paddress, pregdate FROM tbladdress WHERE seq = pseq;
+    presult := 1;
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            presult := 0;
+END;
+
+DECLARE
+    vname VARCHAR2(30);
+    vage NUMBER(3);
+    vtel VARCHAR2(15);
+    vaddress VARCHAR2(50);
+    vregdate DATE;
+    vresult NUMBER;
+BEGIN
+    proc_read_address(1, vname, vage, vtel, vaddress, vregdate, vresult);
+    IF vresult = 1 THEN
+        dbms_output.put_line(vname);
+        dbms_output.put_line(vage);
+        dbms_output.put_line(vtel);
+        dbms_output.put_line(vaddress);
+        dbms_output.put_line(vregdate);
+    ELSE
+        dbms_output.put_line('주소록 읽기 실패');
+    END IF;
+END;
+
+-- U : 수정(seq 빼고 모두 다)
+CREATE OR REPLACE PROCEDURE proc_edit_address(
+    pseq NUMBER,
+    pname VARCHAR2,
+    page NUMBER,
+    ptel VARCHAR2,
+    paddress VARCHAR2,
+    presult OUT NUMBER
+)
+IS
+    vcount NUMBER;
+BEGIN
+    SELECT count(*) INTO vcount FROM tbladdress WHERE seq = pseq;
+    
+    IF vcount = 1 THEN
+        UPDATE tbladdress SET name = pname, age = page, tel = ptel, address = paddress WHERE seq = pseq;
+        presult := 1;
+        COMMIT;
+    ELSE
+        presult := 2;
+    END IF;
+    
+    EXCEPTION
+        WHEN OTHERS THEN
+            presult := 0;
+            ROLLBACK;
+END;
+
+SELECT * FROM tbladdress;
+-- name, age, tel, address, regdate
+DECLARE
+    vresult NUMBER;
+BEGIN
+    proc_edit_address(1, '홍길동', 21, '010-1111-2222', '서울시 강남구 역삼동', vresult);
+    
+    IF vresult = 1 THEN
+        dbms_output.put_line('주소록 수정 완료');
+    ELSIF vresult = 0 THEN
+        dbms_output.put_line('주소록 수정 실패');
+    ELSIF vresult = 2 THEN
+        dbms_output.put_line('수정 대상 없음');
+    END IF;
+END;
+
+-- D : 번호 -> 삭제
+CREATE OR REPLACE PROCEDURE proc_del_address(
+    pseq NUMBER,
+    presult OUT NUMBER
+)
+IS
+    vcount NUMBER;
+BEGIN
+    SELECT count(*) INTO vcount FROM tbladdress WHERE seq = pseq;
+    
+    IF vcount = 1 THEN
+        DELETE FROM tbladdress WHERE seq = pseq;
+        presult := 1;
+        COMMIT;
+    ELSE
+        presult := 2;
+    END IF;
+    
+    EXCEPTION
+        WHEN OTHERS THEN
+        presult := 0;
+        ROLLBACK;
+END;
+
+DECLARE
+    vresult NUMBER;
+    RCOMPLETE CONSTANT NUMBER := 1;
+    RNOTFOUND CONSTANT NUMBER := 2;
+    RFAILD CONSTANT NUMBER := 0;
+BEGIN
+    proc_del_address(1, vresult);
+    
+    IF vresult = RCOMPLETE THEN
+        dbms_output.put_line('주소록 삭제 완료');
+    ELSIF vresult = RNOTFOUND THEN
+        dbms_output.put_line('삭제 대상 없음');
+    ELSIF vresult = RFAILD THEN
+        dbms_output.put_line('주소록 삭제 실패');
+    END IF;
+END;
+
+-- 부모 테이블(PK) <-> 자식 테이블(FK + 일반 컬럼) : 비식별 관계
+-- 부모 테이블(PK) <-> 자식 테이블(FK + PK 컬럼) : 식별 관계
+
+-- 회원가입
+-- 1. 회원 정보 테이블
+-- 2. 회원 부가 정보 테이블
+CREATE TABLE tblmain( -- 주요 정보 테이블
+    seq NUMBER PRIMARY KEY, -- 식별자(PK)
+    id VARCHAR2(30) UNIQUE NOT NULL, -- 아이디
+    pw VARCHAR2(30) NOT NULL, -- 암호
+    name VARCHAR2(50) NOT NULL -- 이름
+);
+
+CREATE TABLE tblsub( -- 부가 정보 테이블
+    seq NUMBER PRIMARY KEY, -- 식별자(PK)
+    age NUMBER NULL, -- 나이
+    tel VARCHAR2(15) NULL, -- 연락처
+    address VARCHAR2(100) NULL, -- 주소
+    -- id VARCHAR2(30) REFERENCES tblmain(id) NOT NULL -- 아이디(FK)
+    mseq NUMBER REFERENCES tblmain(seq) NOT NULL -- 회원번호(FK)
+);
+
+-- 시퀀스 객체
+CREATE SEQUENCE mainseq;
+CREATE SEQUENCE subseq;
+
+-- 회원가입 프로시저
+CREATE OR REPLACE PROCEDURE proc_register(
+    pid VARCHAR2,
+    ppw VARCHAR2,
+    pname VARCHAR2,
+    page NUMBER,
+    ptel VARCHAR2,
+    paddress VARCHAR2
+)
+IS
+    vseq NUMBER;
+BEGIN
+    -- 1. 주요 정보 추가
+    INSERT INTO tblmain(seq, id, pw, name) VALUES(mainseq.nextval, pid, ppw, pname);
+    
+    -- 1.5 마지막 회원 번호를 가져오기
+    SELECT max(seq) INTO vseq FROM tblmain;
+    
+    -- 2. 부가 정보 추가
+    INSERT INTO tblsub(seq, age, tel, address, mseq) VALUES(subseq.nextval, page, ptel, paddress, vseq);
+END;
+
+-- 회원 가입 -> 아이디(UNIQUE)
+CREATE OR REPLACE PROCEDURE proc_idcheck(
+    pid VARCHAR2,
+    presult OUT NUMBER
+)
+IS
+
+BEGIN
+    SELECT count(*) INTO presult FROM tblmain WHERE id = pid;
+END;
+
+DECLARE
+    vresult NUMBER;
+BEGIN
+    proc_idcheck('hong', vresult);
+    
+    IF vresult = 1 THEN
+        dbms_output.put_line('이미 사용중입니다.');
+    ELSE
+        dbms_output.put_line('사용이 가능합니다.');
+    END IF;
+END;
+
+BEGIN
+    proc_register('hong', '111', '홍길동', 20, '010-1111-2222', '서울시');
+END;
+
+SELECT * FROM tblmain;
+
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+
+-- 1. 신규 사원 입사 + 프로젝트 할당
+BEGIN
+    proc_add_employee(6, '후후후', 180, '부산시', '유지 보수');
+END;
+
+CREATE OR REPLACE PROCEDURE proc_add_employee(
+    pseq NUMBER,
+    pname VARCHAR,
+    psalary NUMBER,
+    paddress VARCHAR2,
+    pproject VARCHAR2
+)
+IS
+
+BEGIN
+
+    INSERT INTO tblstaff(seq, name, salary, address) VALUES(pseq, pname, psalary, paddress);
+    INSERT INTO tblproject(seq, name, staff) VALUES(pseq, pproject, pseq);
+END;
+
+-- 2. 직원 퇴사 + 업무 위임
+BEGIN
+    proc_del_employee(6, 2);
+END;
+
+CREATE OR REPLACE PROCEDURE proc_del_employee(
+    pstaff NUMBER,
+    pstaff2 NUMBER
+)
+IS
+
+BEGIN
+   DELETE FROM tblstaff WHERE seq = pstaff;
+   UPDATE tblproject SET staff = pstaff2;
+END;
+
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+
+/*
+    저장 프로그램
+    1. 프로시저
+    2. 함수
+    
+    함수, Function
+    - 인자(1개 이상) -> 반환값(1개) 프로시저
+    - 절대로 OUT 파라미터를 사용하지 말것 -> return 문 사용
+*/
+
+-- 프로시저
+CREATE OR REPLACE PROCEDURE proc_aaa(
+    pnum1 NUMBER,
+    pnum2 NUMBER,
+    presult OUT NUMBER
+)
+IS
+
+BEGIN
+    presult := pnum1 + pnum2;
+END;
+
+-- 프로시저 사용
+DECLARE
+    vresult NUMBER;
+    vheight NUMBER;
+    vweight NUMBER;
+    CURSOR vcursor
+    IS
+    SELECT height, weight FROM tblname;
+BEGIN
+    proc_aaa(10, 20, vresult);
+    dbms_output.put_line(vresult);
+    
+    --SELECT -> 컬럼 2개 -> 프로시저 + 컬럼값
+    SELECT height, weight INTO vheight, vweight FROM tblname WHERE nick = '메뚜기';
+    proc_aaa(vheight, vweight, vresult);
+    dbms_output.put_line(vresult);
+    
+    --SELECT -> 컬럼 2개 -> 프로시저 + 컬럼값 X 레코드 수
+    OPEN vcursor;
+    LOOP
+        FETCH vcursor INTO vheight, vweight;
+        EXIT WHEN vcursor%NOTFOUND;
+        
+        -- 프로시저 호출
+        proc_aaa(vheight, vweight, vresult);
+        dbms_output.put_line(vresult);
+    END LOOP;
+    CLOSE vcursor;
+END;
+
+-- 함수
+CREATE OR REPLACE FUNCTION fn_bbb(
+    vnum1 NUMBER,
+    vnum2 NUMBER
+) RETURN NUMBER
+IS
+
+BEGIN
+    return vnum1 + vnum2;
+END;
+
+DECLARE
+    vresult NUMBER;
+    CURSOR vcursor
+    IS
+    SELECT fn_bbb(height, weight) as result FROM tblname;
+BEGIN
+    vresult := fn_bbb(10, 20); --return
+    dbms_output.put_line(vresult);
+    
+--    SELECT fn_bbb(height, weight) INTO vresult FROM tblname WHERE nick = '메뚜기';
+--    dbms_output.put_line(vresult);
+    
+    FOR vrow IN vcursor
+    LOOP
+        dbms_output.put_line(vrow.result);
+    END LOOP;
+END;
+
+/*
+    프로시저 vs 함수 차이점
+    1. 매개변수
+        a. 프로시저 : 0 ~ 마음대로
+        b. 함수 : 1개 ~ 마음대로
+    2. 반환값
+        a. 프로시저 : 0 ~ 마음대로 + OUT 사용
+        b. 함수 : 1개 + return 사용
+    3. 사용 위치
+        a. 프로시저 : PL/SQL 일부로
+        b. 함수 : 표준 SQL 일부로
+*/
+
+-- tblinsa -> 성별
+SELECT name, 
+    CASE
+       WHEN substr(ssn, 8, 1) = '1' THEN '남자'
+       WHEN substr(ssn, 8, 1) = '2' THEN '여자'
+    END
+FROM tblinsa;
+
+CREATE OR REPLACE FUNCTION fn_get_gender(
+    pssn VARCHAR2 --ssn
+) RETURN VARCHAR2
+IS
+BEGIN
+    CASE
+        WHEN substr(pssn, 8, 1) = '1' THEN return '남자';
+        WHEN substr(pssn, 8, 1) = '2' THEN return '여자';
+        ELSE return NULL;
+    END CASE;
+END;
+
+SELECT name, fn_get_gender(ssn) FROM tblinsa;
+
+/*
+    트리거, Trigger
+    - 프로시저의 일종
+    - 특정 사건이 발생하면 자동으로 실행되는 프로시저
+    - 개발자 실행(X), DBMS 실행(O)
+    - 특정 사건 : 특정 테이블을 대상으로 오라클 실시간 감시(INSERT, UPDATE, DELETE) -> 미리 준비해 놓은 프로시저를 호출한다.
+    - 연속적 작업을 손쉽게 구현(사람이 직접 하는것보다 편함)
+    - 실시간 감시 : 비용 발생 -> 너무 많이 사용하면 안좋다.
+    
+    트리거 구문
+    CREATE OR REPLACE TRIGGER 트리거명
+        -- 트리거 옵션
+        BEFORE|AFTER
+        INSERT|UPDATE|DELETE
+        ON 테이블명 [FOR EACH ROW]
+    DECLARE
+        선언부;
+    BEGIN
+        실행부;
+    EXCEPTION
+        예외부;
+    END
+*/
+-- 특정 요일(목)에는 tblname의 데이터를 조작할 수 없다.(단, SELECT만 가능)
+CREATE OR REPLACE TRIGGER trg_name
+    BEFORE
+    INSERT OR UPDATE OR DELETE
+    ON tblname
+BEGIN
+    -- dbms_output.put_line('trg_name 트리거가 실행되었습니다');
+    IF to_char(sysdate, 'd') = 5 THEN
+        -- 강제로 예외 발생, 사용자 정의 예외 발생
+        -- 자바 : Throw new Exception();
+        -- 숫자 : -20000 ~ -29990
+        raise_application_error(-20000, '목요일에는 tblname 조작이 불가능합니다.');
+    END IF;
+END;
+-- tblname
+SELECT * FROM tblname;
+
+INSERT INTO tblname VALUES('호호', '호', 'f', 165, 50, '방글이');
+UPDATE tblname SET first = '헤헤' WHERE nick = '방글이';
+
+-- 로그 트리거
+-- tblname에 변화가 생기면 나중에 관리자가 보기 위한 로그를 기록하자
+CREATE TABLE tbllog(
+    seq NUMBER PRIMARY KEY,
+    message VARCHAR2(1000) NOT NULL,
+    regdate DATE DEFAULT sysdate NOT NULL
+);
+DROP TABLE tbllog;
+
+CREATE OR REPLACE TRIGGER trg_name
+    AFTER
+    INSERT OR DELETE
+    ON tblname
+DECLARE
+    vmessage VARCHAR2(1000);
+BEGIN
+    IF INSERTING THEN
+        vmessage := 'tblname 테이블로 새로운 행이 추가되었습니다.';
+    ELSIF DELETING THEN
+        vmessage := 'tblname 테이블로 기존 행이 삭제되었습니다.';
+    END IF;
+    INSERT INTO tbllog(seq, message, regdate) VALUES(logseq.nextval, vmessage, DEFAULT); --로그 기록
+END;
+
+DELETE FROM tblname WHERE nick = '방글이';
+
+SELECT * FROM tbllog;
+
+
+
+-- 회원 테이블(포인트) + 게시판 테이블
+-- : 글을 쓰면 회원에게 포인트 100 증가
