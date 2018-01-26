@@ -1328,18 +1328,18 @@ CREATE SEQUENCE address_seq; --addressSeq
 SELECT address_seq.currval FROM dual;
 
 -- 주소록 항목을 추가하는 프로시저 + CRUD
+SELECT * FROM tbladdress;
 CREATE OR REPLACE PROCEDURE proc_add_address(
     pname VARCHAR2,
     page NUMBER,
-    ptel NUMBER,
+    ptel VARCHAR2,
     paddress VARCHAR2,
-    pregdate DATE DEFAULT sysdate,
     presult OUT NUMBER -- 성공 유무
 )
 IS
 
 BEGIN
-    INSERT INTO tbladdress(seq, name, age, tel, address, regdate) VALUES(address_seq.nextval, pname, page, ptel, paddress, pregdate);
+    INSERT INTO tbladdress(seq, name, age, tel, address) VALUES(address_seq.nextval, pname, page, ptel, paddress);
     presult := 1; --성공
     COMMIT;
     EXCEPTION
@@ -1739,9 +1739,10 @@ SELECT name, fn_get_gender(ssn) FROM tblinsa;
     트리거 구문
     CREATE OR REPLACE TRIGGER 트리거명
         -- 트리거 옵션
-        BEFORE|AFTER
-        INSERT|UPDATE|DELETE
-        ON 테이블명 [FOR EACH ROW]
+        BEFORE|AFTER -- 사건 발생 전|후
+        INSERT|UPDATE|DELETE -- 사건 종류
+        ON 테이블명 -- 사건 대상 테이블
+        [FOR EACH ROW]
     DECLARE
         선언부;
     BEGIN
@@ -1798,7 +1799,349 @@ DELETE FROM tblname WHERE nick = '방글이';
 
 SELECT * FROM tbllog;
 
+/*
+    [FOR EACH ROW]
+    1. 생략
+    - 문장 단위 트리거
+    - 트리거 실행 횟수 1회 : 사건 발생 1회 -> 트리거 실행 1회
+    - DELETE FROM tblinsa WHERE buseo = '영업부'; -> "영업부 직원 삭제"
+    
+    2. 표현
+    - 행 단위 트리거
+    - 트리거 실행 횟수 반복 : 사건이 적용되는 행의 갯수 -> 트리거 실행 횟수
+    - DELETE FROM tblinsa WHERE buseo = '영업부'; -> "영업부 직원 1명 1명 삭제"
+*/
+SELECT * FROM tbladdress;
 
+DECLARE
+    vresult NUMBER;
+BEGIN
+    proc_add_address('홍길동', 20, '010-1234-5678', '서울시', vresult);
+    proc_add_address('아무개', 22, '010-2345-5678', '서울시', vresult);
+    proc_add_address('하하하', 24, '010-3466-5678', '서울시', vresult);
+END;
 
--- 회원 테이블(포인트) + 게시판 테이블
--- : 글을 쓰면 회원에게 포인트 100 증가
+CREATE OR REPLACE TRIGGER trg_address
+    AFTER
+    UPDATE
+    ON tbladdress
+    FOR EACH ROW
+BEGIN
+    dbms_output.put_line('[' + to_char(sysdate, 'YYYY-mm-dd hh24:mi:ss') || ']주소록이 수정되었습니다');
+END;
+
+SELECT * FROM tbladdress;
+
+UPDATE tbladdress SET age = 30 WHERE name = '홍길동';
+UPDATE tbladdress SET age = 25 WHERE name = '아무개';
+UPDATE tbladdress SET address = '서울시';
+UPDATE tbladdress SET address = '인천시' WHERE floor(age / 10) = 2;
+
+/*
+    FOR EACH ROW를 사용하는 경우
+    - 상관 관계
+    - :old, :new : 상관 관계 변수를 사용하면 사건을 발생시킨 데이터에 접근 가능
+    
+    1. INSERT 작업 발생
+    - 트리거내에서 방금 INSERT된 행의 컬럼값을 접근하고 싶다.
+    - :new <- 방금 추가된 행 참조 변수
+    - :new.컬럼명 <- 방금 추가된 행의 특정 컬럼값 참조
+    - :old 사용 불가
+    - AFTER 트리거에서만 사용 가능(BEFORE 사용 불가)
+    
+    2. UPDATE 작업 발생
+    - 트리거내에서 방금 수정된 행의 수정되기 전의 값과 수정된 후의 값을 접근하고 싶다.
+    - :new <- 방금 수정된 후의 행 참조
+    - :old <- 방금 수정되기 전의 행 참조
+    
+    3. DELETE 작업 발생
+    - 트리거내에서 방금 삭제된 행의 값을 접근하고 싶다.
+    - :old <- 방금 삭제된 행 참조
+*/
+
+-- 게시판
+CREATE TABLE tblboard(
+    seq NUMBER PRIMARY KEY, --글번호(PK)
+    subject VARCHAR2(1000) NOT NULL, --제목
+    content VARCHAR2(2000) NOT NULL, --내용
+    comment_count NUMBER DEFAULT 0 NOT NULL -- 글에 달린 댓글 수
+);
+
+-- 댓글
+CREATE TABLE tblcomment(
+    seq NUMBER PRIMARY KEY, --댓글 번호(PK)
+    subject VARCHAR2(1000) NOT NULL, --제목
+    content VARCHAR2(2000) NOT NULL, --내용
+    board_seq NUMBER REFERENCES tblboard(seq) --부모글 번호(FK)
+);
+
+CREATE SEQUENCE boardseq;
+CREATE SEQUENCE commentseq;
+
+-- 글쓰기
+INSERT INTO tblboard VALUES (boardseq.nextval, '게시판입니다', '내용입니다', DEFAULT);
+INSERT INTO tblboard VALUES (boardseq.nextval, '오라클 트리거 만드는 중', '내용입니다', DEFAULT);
+INSERT INTO tblboard VALUES (boardseq.nextval, '프로젝트 회의 내용입니다.', '내용입니다', DEFAULT);
+
+-- 댓글 쓰기
+INSERT INTO tblcomment VALUES(commentseq.nextval, '요구 분석 자료입니다', '내용', 2);
+
+UPDATE tblboard SET comment_count = comment_count + 1 WHERE seq = 3;
+
+SELECT * FROM tblboard;
+SELECT * FROM tblcomment;
+
+-- m1. 트랜잭션을 걸어놓은 프로시저 생성
+--CREATE OR REPLACE PROCEDURE 댓글쓰기(
+--    ...
+--)
+--IS
+--BEGIN
+--    INSERT : 댓글쓰기;
+--    UPDATE : 댓글 수 증가
+--    COMMIT
+--END;
+
+-- m2. tblcomment 테이블에 INSERT에 대한 트리거 생성
+CREATE OR REPLACE TRIGGER trg_comment_add
+    AFTER
+    INSERT OR DELETE
+    ON tblcomment
+    FOR EACH ROW -- :old, :new
+BEGIN
+    IF INSERTING THEN
+        UPDATE tblboard SET comment_count = comment_count + 1 WHERE seq = :new.board_seq;
+    ELSIF DELETING THEN    
+        UPDATE tblboard SET comment_count = comment_count - 1 WHERE seq = :old.board_seq;
+    END IF;
+END;
+
+DELETE FROM tblcomment WHERE seq = 1;
+SELECT * FROM tblboard;
+SELECT * FROM tblcomment;
+
+-- 회원 테이블(포인트) + 게시판 테이블 + 댓글 테이블
+-- : 게시판 글을 쓰면 회원에게 포인트 100 증가
+-- : 댓글을 쓰면 회원에게 포인트 20 증가
+
+DROP TABLE tblcomment;
+DROP TABLE tblboard;
+DROP TABLE tblrent;
+DROP TABLE tblmember;
+
+-- 회원 테이블
+CREATE TABLE tblmember(
+    seq NUMBER PRIMARY KEY, -- 기본키
+    name VARCHAR2(30) NOT NULL, -- 이름
+    point NUMBER DEFAULT 1000 NOT NULL -- 포인트(기본 1000)
+);
+
+-- 게시판 테이블
+CREATE TABLE tblboard(
+    seq NUMBER PRIMARY KEY, -- 글번호
+    subject VARCHAR2(1000) NOT NULL, -- 제목
+    mseq NUMBER REFERENCES tblmember(seq) NOT NULL, -- 글쓴이(FK)
+    comment_count NUMBER DEFAULT 0 NOT NULL -- 댓글 수
+);
+
+-- 댓글 테이블
+CREATE TABLE tblcomment(
+    seq NUMBER PRIMARY KEY, --댓글번호
+    subject VARCHAR2(1000) NOT NULL, -- 제목
+    mseq NUMBER REFERENCES tblmember(seq) NOT NULL, --글쓴이(FK)
+    board_seq NUMBER REFERENCES tblboard(seq) NOT NULL -- 부모글번호(FK)
+);
+
+INSERT INTO tblmember VALUES(1, '홍길동', DEFAULT);
+SELECT * FROM tblmember;
+
+-- 게시판 글쓰기 -> 포인트 100 증가
+CREATE OR REPLACE TRIGGER trg_board
+    AFTER
+    INSERT
+    ON tblboard
+    FOR EACH ROW
+BEGIN
+    --:new.mseq -- 방금 게시물을 작성한 회원 번호
+    UPDATE tblmember SET point = point + 100 WHERE seq = :new.mseq;
+END;
+
+-- 댓글 쓰기 -> 포인트 20 증가
+CREATE OR REPLACE TRIGGER trg_comment
+    AFTER
+    INSERT
+    ON tblcomment
+    FOR EACH ROW
+BEGIN
+    --:new.mseq -- 방금 게시물을 작성한 회원 번호
+    UPDATE tblmember SET point = point + 20 WHERE seq = :new.mseq;
+END;
+
+INSERT INTO tblboard VALUES(boardseq.nextval, '테스트', 1, DEFAULT);
+INSERT INTO tblcomment VALUES(commentseq.nextval, '테스트', 1, 4);
+
+SELECT * FROM tblmember;
+SELECT * FROM tblboard;
+SELECT * FROM tblcomment;
+
+/*
+    DB Object 구현 단계
+    
+    1. 테이블 생성
+    2. 뷰 생성
+    3. 인덱스 생성
+    4. SQL 생성(SELECT, UPDATE, INSERT, DELETE) - 요구 업무
+    5. 함수 or 프로시저 생성 + 트리거 생성
+    6. 더미 데이터 확보
+    
+*/
+
+-- 미리 완성한 SQL -> 프로시저 구현
+-- 1. 추가 작업
+CREATE OR REPLACE PROCEDURE 추가작업(
+    추가 데이터 -> IN 매개 변수
+    성공 유무 반환 -> OUT 매개 변수
+)
+IS
+    내부 변수
+BEGIN
+    INSERT..
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        예외작업
+        ROLLBACK;
+END;
+
+-- 2. 수정 작업
+CREATE OR REPLACE PROCEDURE 수정작업(
+    수정 데이터 -> IN 매개 변수
+    성공 유무 반환 -> OUT 매개 변수
+)
+IS
+    내부 변수
+BEGIN
+    UPDATE..
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        예외작업
+        ROLLBACK;
+END;
+
+-- 3. 삭제 작업
+CREATE OR REPLACE PROCEDURE 삭제작업(
+    삭제 데이터 -> IN 매개 변수
+    성공 유무 반환 -> OUT 매개 변수
+)
+IS
+    내부 변수
+BEGIN
+    DELETE..
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        예외작업
+        ROLLBACK;
+END;
+
+-- 4. 읽기 작업 - 조건 선택 + 반환(단일 컬럼 + 단일 레코드)
+CREATE OR REPLACE PROCEDURE 읽기작업(
+    조건 데이터 IN 매개변수 사용
+    단일 반환값 OUT 매개변수 사용
+)
+IS
+    내부 변수
+BEGIN
+    SELECT..
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        예외작업
+        ROLLBACK;
+END;
+
+-- 4. 읽기 작업 - 조건 선택 + 반환(다중 컬럼 + 단일 레코드)
+CREATE OR REPLACE PROCEDURE 읽기작업(
+    조건 데이터 IN 매개변수 사용
+    반환값 OUT 매개변수 사용
+    반환값 OUT 매개변수 사용
+    반환값 OUT 매개변수 사용
+    반환값 OUT 매개변수 사용
+)
+IS
+    내부 변수
+BEGIN
+    SELECT..
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        예외작업
+        ROLLBACK;
+END;
+
+-- 4. 읽기 작업 - 조건 선택 + 반환(컬럼 + 다중 레코드)
+SELECT * FROM tblinsa WHERE buseo = '?';
+
+CREATE OR REPLACE PROCEDURE proc_get_buseo(
+    pbuseo VARCHAR2, --조건
+    presult OUT SYS_REFCURSOR -- 반환값으로 사용하는 CURSOR 자료형 : 결과 테이블 자신
+)
+IS
+    -- CURSOR vcursor IS SELECT...
+BEGIN
+    OPEN presult
+        FOR SELECT * FROM tblinsa WHERE buseo = pbuseo; 
+END;
+
+DECLARE
+    vresult SYS_REFCURSOR;
+    vrow tblinsa%rowtype;
+BEGIN
+    proc_get_buseo('기획부', vresult); --SELECT -> 결과셋을 커서 형태로 반환
+    
+    -- SYS_REFCUROSR : FOR LOOP 사용 불가
+    LOOP
+        FETCH vresult INTO vrow;
+        EXIT WHEN vresult%NOTFOUND;
+        
+        dbms_output.put_line(vrow.name || ' - ' || vrow.buseo);
+        dbms_output.put_line('-------------------------------');
+    END LOOP;
+END;
+
+/*
+    기본키 -> 복합키(Composite Key)
+*/
+CREATE TABLE tblparent(
+    father VARCHAR2(50) NOT NULL, --아빠
+    mother VARCHAR2(50) NOT NULL, --엄마
+    tel VARCHAR2(15) NOT NULL,
+    address VARCHAR2(100) NOT NULL,
+    CONSTRAINT tblparent_father_mother_pk PRIMARY KEY(father, mother)
+);
+
+INSERT INTO tblparent VALUES('홍길동', '호호호', '010-1111-2222', '서울시');
+INSERT INTO tblparent VALUES('아무개', '테스트', '010-2222-1111', '서울시');
+INSERT INTO tblparent VALUES('홍길동', '호호호', '010-3333-4444', '부산시');
+INSERT INTO tblparent VALUES('홍길동', '헤헤헤', '010-3333-4444', '부산시');
+
+SELECT * FROM tblparent;
+
+-- 자식 테이블
+CREATE TABLE tblchild(
+    name VARCHAR2(50) PRIMARY KEY, --자식이름
+    corder NUMBER NOT NULL, --자식순서
+--    father VARCHAR2(50) REFERENCES tblparent(father) NOT NULL,
+--    mother VARCHAR2(50) REFERENCES tblparent(mother) NOT NULL
+    father VARCHAR2(50) NOT NULL,
+    mother VARCHAR2(50) NOT NULL,
+    CONSTRAINT tblchild_father_mother_fk FOREIGN KEY(father, mother) REFERENCES tblparent(father, mother)
+);
+
+INSERT INTO tblchild VALUES('홍순신', 1, '홍길동', '호호호');
+INSERT INTO tblchild VALUES('홍미미', 1, '홍길동', '호호호');
+
+SELECT * FROM tblchild;
+
+SELECT * FROM tblparent p INNER JOIN tblchild c ON p.father = c.father AND p.mother = c.mother;
