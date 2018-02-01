@@ -1,0 +1,12 @@
+package com.test.lambda;
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		/*
+			람다식, l a m b d a
+			
+		*/
+	}
+}

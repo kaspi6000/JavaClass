@@ -27,12 +27,16 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="video.exerd" partName="video.exerd" path="C:/var/www/workspace/JavaClass/Class/DB/class/video.exerd" title="video.exerd" tooltip="class/video.exerd" workbook="DefaultEditorWorkbook">
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="video.exerd" partName="video.exerd" path="C:/var/www/workspace/JavaClass/Class/DB/class/video.exerd" title="video.exerd" tooltip="class/video.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/class/video.exerd"/>
+</editor>
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="DBProject.exerd" partName="DBProject.exerd" title="DBProject.exerd" tooltip="C:\var\www\workspace\JavaClass\Class\DB\class\DBProject.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/var/www/workspace/JavaClass/Class/DB/class/DBProject.exerd"/>
 </editor>
 </editors>
 <views>
@@ -67,7 +71,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.views.ResourceNavigator" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -170,6 +174,7 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/class/.project"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/class/video.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/class/test.exerd"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/var/www/workspace/JavaClass/Class/DB/class/DBProject.exerd"/>
 </editors>
 <item historyLabel=".project" index="0">
 <position/>
@@ -184,7 +189,8 @@
 </item>
 <item historyLabel="video.exerd" index="1"/>
 <item historyLabel="test.exerd" index="2"/>
-<item active="true" historyLabel="video.exerd" index="1"/>
+<item historyLabel="video.exerd" index="1"/>
+<item active="true" historyLabel="DBProject.exerd" index="3"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -202,6 +208,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="DBProject.exerd" tooltip="C:\var\www\workspace\JavaClass\Class\DB\class\DBProject.exerd">
+<persistable uri="file:/C:/var/www/workspace/JavaClass/Class/DB/class/DBProject.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="test.exerd" tooltip="class/test.exerd">
 <persistable path="/class/test.exerd"/>
 </file>

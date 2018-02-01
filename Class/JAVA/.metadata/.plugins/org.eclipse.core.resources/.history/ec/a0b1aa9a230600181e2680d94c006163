@@ -1,0 +1,14 @@
+package com.test.lambda;
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		/*
+			람다식, l a m b d a
+			- 객체 지향 프로그래밍 코드 패턴 -> 함수 지향 프로그래밍 패턴
+			- JDK 1.8부터 지원
+			- 익명 객체 사용
+		*/
+	}
+}

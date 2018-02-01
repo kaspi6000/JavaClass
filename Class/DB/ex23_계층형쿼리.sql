@@ -101,3 +101,32 @@ SELECT lpad(' ',(level-1)*6)||name as name, prior name
     FROM tblcomputer
         START WITH seq = 1
             CONNECT BY PRIOR seq = pseq;
+            
+            
+-- 상관 서브쿼리, Correlated Sub Query
+-- 1. 바깥쪽의 질의 값을 안쪽의 질의에서 사용하는 서브쿼리
+-- 2. 서브 쿼리가 단독으로 실행 불가능한 쿼리
+
+-- 상관 서브 쿼리의 형태 중 일부는 group by 와 비슷한 성질을 보이는 경우가 있다.
+
+-- 각 부서별 최고 급여?
+-- group by 사용
+SELECT buseo, max(basicpay) FROM tblinsa GROUP BY buseo;
+
+-- 상관 서브 쿼리 사용
+SELECT name, jikwi, buseo, basicpay FROM tblinsa i1 WHERE basicpay = (SELECT max(basicpay) FROM tblinsa WHERE buseo = i1.buseo);
+
+-- 각 직위별 최대 급여를 받는 사람들?
+-- 상관 서브 쿼리
+SELECT name, jikwi, basicpay FROM tblinsa i1 WHERE basicpay = (SELECT max(basicpay) FROM tblinsa WHERE jikwi = i1.jikwi);
+
+-- Pairwise Sub Query
+SELECT name, jikwi, basicpay FROM tblinsa WHERE (jikwi, basicpay) IN (SELECT jikwi, max(basicpay) FROM tblinsa GROUP BY jikwi);
+
+-- 홍길동과 그 부서의 평균 급여를 가져오시오.
+SELECT name, jikwi, buseo, basicpay, (SELECT round(avg(basicpay)) FROM tblinsa WHERE buseo = (SELECT buseo FROM tblinsa WHERE name = '홍길동')) FROM tblinsa WHERE name = '홍길동';
+
+SELECT name, jikwi, buseo, basicpay, (SELECT round(avg(basicpay)) FROM tblinsa WHERE buseo = i1.buseo) FROM tblinsa i1 WHERE name = '홍길동';
+
+-- 각 부서별 최대 급여를 받는 사람 3명씩 가져오시오
+SELECT name, buseo, basicpay FROM tblinsa i1 WHERE (SELECT count(*) FROM tblinsa WHERE basicpay > i1.basicpay AND buseo = i1.buseo) < 3 ORDER BY buseo ASC, basicpay DESC;
