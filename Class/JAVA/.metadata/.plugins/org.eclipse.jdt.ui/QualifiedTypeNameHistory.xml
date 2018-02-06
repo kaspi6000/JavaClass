@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.test.collection.Position"/>
-<fullyQualifiedTypeName name="com.test.collection.Employee"/>
-<fullyQualifiedTypeName name="javax.xml.stream.events.EndDocument"/>
-<fullyQualifiedTypeName name="javax.management.Query"/>
-<fullyQualifiedTypeName name="java.util.Queue"/>
-<fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="java.util.Stack"/>
-<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.ListIterator"/>
-<fullyQualifiedTypeName name="java.awt.List"/>
-<fullyQualifiedTypeName name="javax.print.attribute.Size2DSyntax"/>
-<fullyQualifiedTypeName name="java.util.Random"/>
-<fullyQualifiedTypeName name="javax.naming.ldap.ExtendedRequest"/>
-<fullyQualifiedTypeName name="com.test.collection.Person"/>
-<fullyQualifiedTypeName name="java.util.HashSet"/>
-<fullyQualifiedTypeName name="java.lang.Iterable"/>
 <fullyQualifiedTypeName name="javax.swing.event.TreeSelectionEvent"/>
 <fullyQualifiedTypeName name="java.lang.IncompatibleClassChangeError"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="java.util.TreeSet"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
@@ -44,7 +26,6 @@
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="javax.swing.text.AbstractDocument.BranchElement"/>
 <fullyQualifiedTypeName name="com.schoolmanagement.board.Board"/>
 <fullyQualifiedTypeName name="com.schoolmanagement.achievement.Achievement"/>
@@ -57,7 +38,26 @@
 <fullyQualifiedTypeName name="com.test.question.Test1"/>
 <fullyQualifiedTypeName name="com.test.lambda.Test2"/>
 <fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.test.lambda.Test4"/>
+<fullyQualifiedTypeName name="java.util.function.BiConsumer"/>
 <fullyQualifiedTypeName name="javax.management.monitor.CounterMonitor"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.util.function.IntConsumer"/>
+<fullyQualifiedTypeName name="java.util.function.ObjIntConsumer"/>
+<fullyQualifiedTypeName name="java.util.function.Supplier"/>
+<fullyQualifiedTypeName name="java.util.function.IntSupplier"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.util.function.DoubleConsumer"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Number"/>
+<fullyQualifiedTypeName name="java.util.function.Function"/>
+<fullyQualifiedTypeName name="java.util.function.BiFunction"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.function.DoubleSupplier"/>
+<fullyQualifiedTypeName name="java.util.function.IntFunction"/>
+<fullyQualifiedTypeName name="java.util.function.DoubleFunction"/>
+<fullyQualifiedTypeName name="java.lang.AbstractMethodError"/>
+<fullyQualifiedTypeName name="java.util.function.BinaryOperator"/>
+<fullyQualifiedTypeName name="com.test.lambda.Student"/>
 </qualifiedTypeNameHistroy>

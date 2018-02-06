@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="searchOutput" key="selection"/>
+		<item value="s" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="s"/>
+			<item value="accept"/>
 			<item value="searchOutput"/>
 			<item value="CA(개발) 활동"/>
 			<item value="exit"/>
@@ -21,8 +23,6 @@
 			<item value="학교정보"/>
 			<item value="학교 정보"/>
 			<item value="signUp"/>
-			<item value="false"/>
-			<item value="load"/>
 		</list>
 		<list key="replacehistory">
 			<item value="dir"/>

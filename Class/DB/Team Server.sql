@@ -46,13 +46,24 @@ COMMIT;
 
 SELECT * FROM tbl_course;
 -------------------------------------------------------------------------------------------------------------------------
+--12
 CREATE OR REPLACE PROCEDURE proc_addcourse(pname VARCHAR2, pstart DATE, pend DATE, ppopulation NUMBER, prseq NUMBER)
 IS
 BEGIN
     INSERT INTO tbl_course(seq, name, start_date, end_date, population, rseq) VALUES(course_seq.nextval, pname, pstart, pend, ppopulation, prseq);
 END;
 
-CREATE OR REPLACE PROCEDURE proc_name_modifiedcourse(pname VARCHAR2, test NUMBER)
+SELECT * FROM tbl_subject;
+SELECT * FROM tbl_classroom;
+SELECT * FROM tbl_course;
+
+--13
+SELECT s.name, c.start_date || ' ~ ' || c.end_date, r.name, c.population FROM tbl_subject s INNER JOIN tbl_course c ON s.cseq = c.seq INNER JOIN tbl_classroom r ON r.seq = c.rseq;
+
+SELECT t.name, substr(t.ssn, 8), t.tel, t.register_date, d.result FROM tbl_subject s INNER JOIN tbl_score c ON s.seq = c.sseq INNER JOIN tbl_lecture_record r ON r.seq = c.lseq INNER JOIN tbl_student t ON t.seq = r.sseq INNER JOIN tbl_complete_record d ON r.seq = d.seq;
+
+--14
+CREATE OR REPLACE PROCEDURE proc_name_modifiedcourse(pname VARCHAR2)
 IS
 BEGIN
     UPDATE tbl_course SET name = pname;
@@ -80,4 +91,19 @@ CREATE OR REPLACE PROCEDURE proc_rseq_modifiedcourse(prseq NUMBER)
 IS
 BEGIN
     UPDATE tbl_course SET rseq = prseq;
+END;
+
+SELECT * FROM tbl_course;
+--15
+CREATE OR REPLACE PROCEDURE proc_deletecourse(pseq NUMBER)
+IS
+BEGIN
+    DELETE FROM tbl_course WHERE seq = pseq;
+END;
+
+--16
+CREATE OR REPLACE PROCEDURE proc_completioncourse
+IS
+BEGIN
+    DELETE FROM tbl_course WHERE sysdate >= end_date;
 END;
