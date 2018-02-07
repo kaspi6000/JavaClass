@@ -181,3 +181,7 @@ END;
 --1. 100건의 데이터를 난수로 INSERT
 --2. 같은사람 + 같은물품 = 수량 UPDATE
 --3. 목록 출력
+
+
+
+SELECT * FROM tblinsa;
