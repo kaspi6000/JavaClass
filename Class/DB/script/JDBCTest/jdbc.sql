@@ -183,5 +183,101 @@ END;
 --3. 목록 출력
 
 
+CREATE VIEW vw_gender
+AS
+SELECT DISTINCT substr(ssn, 8, 1) AS gender,
+    CASE
+        WHEN substr(ssn, 8, 1) = 1 THEN '남자'
+        WHEN substr(ssn, 8, 1) = 2 THEN '여자'
+    END AS gender_name
+FROM tblinsa;
+
+SELECT * FROM vw_gender ORDER BY gender_name ASC;
+
+CREATE VIEW vw_buseo
+AS
+SELECT DISTINCT buseo FROM tblinsa;
+
+SELECT * FROM vw_buseo ORDER BY buseo ASC;
+
+CREATE VIEW vw_city
+AS
+SELECT DISTINCT city FROM tblinsa;
+
+
+-- 최종 목록 가져오기
+CREATE OR REPLACE PROCEDURE proc_list_insa(
+    pgender VARCHAR2,
+    pbuseo VARCHAR2,
+    pcity VARCHAR2,
+    pcursor OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN pcursor FOR
+        SELECT * FROM tblinsa WHERE substr(ssn, 8, 1) = pgender AND buseo = pbuseo AND city = pcity ORDER BY name ASC;
+END;
 
 SELECT * FROM tblinsa;
+
+UPDATE tblinsa SET city = '서울' WHERE name = '홍길동';
+UPDATE tblinsa SET city = '경기' WHERE name = '이순신';
+COMMIT;
+
+
+-- JDBC 5번
+CREATE TABLE tbl_point
+(
+	seq NUMBER PRIMARY KEY, --PK
+	name VARCHAR(100) NOT NULL, --장소명
+	latitude NUMBER NOT NULL, --위도
+	longitude NUMBER NOT NULL --경도
+);
+
+CREATE SEQUENCE point_seq;
+
+INSERT INTO tbl_point VALUES (point_seq.nextval, '쌍용 교육원 강남 센터', 37.499306, 127.033202);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '강남역 2호선', 37.497901, 127.027631);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '역삼역 2호선', 37.500649, 127.036476);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '광화문', 37.576015, 126.976914);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '홍대 입구', 37.556724, 126.923615);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '이태원', 37.534456, 126.993887);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '인사동', 37.571734, 126.986966);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '어린이 대공원', 37.549330, 127.081160);
+INSERT INTO tbl_point VALUES (point_seq.nextval, '서울역', 37.553185, 126.971530);
+
+<<프로시저>>
+CREATE OR REPLACE PROCEDURE proc_distance (
+	구현
+)
+IS
+BEGIN
+	구현
+END;
+
+SELECT * FROM tbl_point;
+
+SELECT SQRT(30) FROM dual;
+
+-- JDBC 1번
+CREATE TABLE tblauth
+(
+	id VARCHAR2(50) PRIMARY KEY --아이디
+);
+
+INSERT INTO tblauth VALUES ('hong');
+INSERT INTO tblauth VALUES ('test');
+INSERT INTO tblauth VALUES ('aaa');
+
+<<프로시저>>
+CREATE OR REPLACE PROCEDURE proc_auth(
+	pid VARCHAR2
+)
+IS
+    vid VARCHAR2;
+BEGIN
+	SELECT id INTO vid FROM tblauth;
+    DBMS_OUTPUT.PUT_LINE(vid);
+END;
+
+SELECT * FROM tblauth;

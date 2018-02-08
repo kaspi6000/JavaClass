@@ -1,0 +1,1 @@
+member.add|INSERT INTO tbl_member(seq, name, age, tel, email, point, pw, ing) VALUES(member_seq.nextval, ?, ?, ?, ?, DEFAULT, ?, DEFAULT)
