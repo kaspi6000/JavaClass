@@ -281,3 +281,38 @@ BEGIN
 END;
 
 SELECT * FROM tblauth;
+
+
+-- 회원 + 메모
+
+-- 회원 테이블
+-- 회원 번호, 회원명, 나이, 연락처, 이메일, 포인트, 비밀번호
+
+CREATE TABLE tbl_member(
+    seq NUMBER PRIMARY KEY,
+    name VARCHAR2(50) NOT NULL,
+    age NUMBER NOT NULL,
+    tel VARCHAR2(15) NOT NULL,
+    email VARCHAR2(100) NOT NULL,
+    point NUMBER DEFAULT 1000 NOT NULL,
+    pw VARCHAR2(50) NOT NULL,
+    ing NUMBER(1) DEFAULT 1 NOT NULL
+);
+
+-- 메모 테이블
+-- 메모번호, 제목, 내용, 작성자(회원번호), 작성시간
+CREATE TABLE tbl_memo(
+    seq NUMBER PRIMARY KEY,
+    subject VARCHAR2(100) NOT NULL,
+    content VARCHAR2(1000) NOT NULL,
+    mseq NUMBER NOT NULL REFERENCES tbl_member(seq),
+    regdate DATE DEFAULT sysdate NOT NULL
+);
+
+CREATE SEQUENCE member_seq;
+CREATE SEQUENCE memo_seq;
+
+SELECT * FROM tbl_member;
+SELECT * FROM tbl_memo;
+
+SELECT m.seq, m.subject, m.content, (SELECT name FROM tbl_member WHERE seq = m.mseq) AS mname, m.regdate FROM tbl_memo m WHERE (SELECT ing FROM tbl_member WHERE seq = m.mseq) = 1 ORDER BY seq DESC

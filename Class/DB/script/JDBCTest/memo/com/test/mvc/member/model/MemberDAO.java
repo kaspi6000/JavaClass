@@ -66,4 +66,39 @@ public class MemberDAO {
 		}
 		return 0;
 	}
+
+	public String getMseq(MemberDTO dto) {
+		
+		try {
+			PreparedStatement stat = conn.prepareStatement(ds.get("member.getMseq"));
+			
+			stat.setString(1, dto.getEmail());
+			
+			ResultSet rs = stat.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getString("seq");
+			}
+		} catch (Exception e) {
+			System.out.println("MemberDAO.getMseq : " + e.toString());
+		}
+		
+		return null;
+	}
+
+	//MemberClass가 회원 번호를 줄테니 삭제(업데이트)
+	public int del(String mseq) {
+		
+		try {
+			
+			PreparedStatement stat = conn.prepareStatement(ds.get("member.del"));
+			
+			stat.setString(1, mseq);
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("MemberDAO.del : " + e.toString());
+		}
+		return 0;
+	}
 }

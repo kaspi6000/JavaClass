@@ -9,6 +9,7 @@ public class Auth {
 	
 	private MemberDAO dao;
 	public static boolean isAuth = false;
+	public static String mseq;
 	
 	public Auth() {
 		dao = new MemberDAO();
@@ -35,6 +36,7 @@ public class Auth {
 
 			//성공
 			Auth.isAuth = true;
+			Auth.mseq = dao.getMseq(dto);
 			System.out.println("**로그인 성공.");
 		} else {
 			
@@ -46,7 +48,13 @@ public class Auth {
 
 	public void logout() {
 		
+		System.out.println("[회원 로그아웃]");
 		
+		//로그아웃
+		Auth.isAuth = false;
+		Auth.mseq = null;
+		
+		System.out.println("**로그아웃 성공");
 	}
 
 }

@@ -33,16 +33,20 @@ public class MemberClass {
 			scan.skip("\r\n");
 			switch (sel) {
 			case 1:
-				add();
+				if(!Auth.isAuth)
+					add();
 				break;
 			case 2:
-				del();
+				if(Auth.isAuth)
+					del();
 				break;
 			case 3:
-				auth.login();
+				if(!Auth.isAuth)
+					auth.login();
 				break;
 			case 4:
-				auth.logout();
+				if(Auth.isAuth)
+					auth.logout();
 				break;
 			default: loop = false;
 				break;
@@ -89,6 +93,25 @@ public class MemberClass {
 
 	private void del() {
 		
+		//회원 탈퇴
+		//1. DELETE
+		//	a. tbl_memo -> 게시물 삭제
+		//	b. tbl_member -> 회원 삭제
+		//2. UPDATE
+		//	a. tbl_member -> 회원 삭제 상태로 변경
+		System.out.println("[회원 탈퇴]");
 		
+		System.out.print("**탈퇴를 하면 작성하신 모든 게시물이 사라집니다. 계속 진행하시겠습니까?(yes|no) : ");
+		if (scan.nextLine().equals("yes")) {
+			
+			if (dao.del(Auth.mseq) == 1) {
+				System.out.println("**탈퇴 성공");
+				Auth.isAuth = false;
+			} else {
+				System.out.println("**탈퇴 실패");
+			}
+		} else {
+			System.out.println("**탈퇴 취소");
+		}
 	}
 }
