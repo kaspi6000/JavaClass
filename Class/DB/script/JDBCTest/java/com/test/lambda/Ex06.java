@@ -1,4 +1,4 @@
-package com.test.mvc.model;
+package com.test.lambda;
 
 import java.util.ArrayList;
 import java.util.Arrays;
