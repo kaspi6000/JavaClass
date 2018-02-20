@@ -1,0 +1,3 @@
+course.add|{call proc_addcourse(?,?,?,?,?)}
+course.list|SELECT * FROM tbl_course
+course.list.info|SELECT s.name AS subjectName, c.start_date || ' ~ ' || c.end_date AS subjectDate, r.name AS roomName, c.population AS coursePopulation FROM tbl_subject s INNER JOIN tbl_course c ON s.cseq = c.seq INNER JOIN tbl_classroom r ON r.seq = c.rseq WHERE c.seq = ?

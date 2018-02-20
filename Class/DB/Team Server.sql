@@ -62,13 +62,34 @@ END;
 SELECT * FROM tbl_subject;
 SELECT * FROM tbl_classroom;
 SELECT * FROM tbl_course;
+DESC tbl_course;
 
 --13
-CREATE OR REPLACE PROCEDURE proc_view_subject
+CREATE OR REPLACE PROCEDURE proc_view_subject(
+    pname VARCHAR2,
+    psubjectName OUT VARCHAR2
+)
 IS
+    vcount NUMBER;
 BEGIN
-    SELECT s.name AS subjectName, c.start_date || ' ~ ' || c.end_date AS subjectDate, r.name AS roomName, c.population AS coursePopulation FROM tbl_subject s INNER JOIN tbl_course c ON s.cseq = c.seq INNER JOIN tbl_classroom r ON r.seq = c.rseq;
+    SELECT count(*) INTO vcount FROM tbl_course WHERE name = pname;
+    
+    IF vcount = 1 THEN
+        SELECT name INTO psubjectName FROM tbl_subject WHERE name = pname;
+    END IF;
 END;
+
+SELECT * FROM tbl_course;
+
+SELECT s.name AS subjectName, c.start_date || ' ~ ' || c.end_date AS subjectDate, r.name AS roomName, c.population AS coursePopulation FROM tbl_subject s INNER JOIN tbl_course c ON s.cseq = c.seq INNER JOIN tbl_classroom r ON r.seq = c.rseq WHERE c.seq = 1;
+SELECT * FROM tbl_subject s INNER JOIN tbl_course c ON s.cseq = c.seq INNER JOIN tbl_classroom r ON r.seq = c.rseq WHERE c.name =  '웹 애플리케이션 실무 개발자 양성 과정';
+
+DECLARE
+BEGIN
+    proc_view_subject('Test course');
+END;
+
+SELECT * FROM tbl_course;
 
 SELECT t.name, substr(t.ssn, 8), t.tel, t.register_date, d.result FROM tbl_subject s INNER JOIN tbl_score c ON s.seq = c.sseq INNER JOIN tbl_lecture_record r ON r.seq = c.lseq INNER JOIN tbl_student t ON t.seq = r.sseq INNER JOIN tbl_complete_record d ON r.seq = d.seq;
 
@@ -155,3 +176,5 @@ BEGIN
     UPDATE tbl_subject SET name = pname, start_date = pstart, end_date = pend, written = pwritten, performance = pperformance;
 END;
 
+SELECT * FROM tabs;
+SELECT * FROM tbl_login;
