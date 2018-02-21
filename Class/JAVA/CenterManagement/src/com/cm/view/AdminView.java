@@ -38,6 +38,7 @@ public class AdminView {
 		System.out.println("2. 과정 정보 조회");
 		System.out.println("3. 과정 정보 수정");
 		System.out.println("4. 과정 정보 삭제");
+		System.out.println("5. 수료 과정 업데이트");
 		System.out.println("선택 : ");
 	}
 

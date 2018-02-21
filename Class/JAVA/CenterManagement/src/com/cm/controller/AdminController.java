@@ -139,14 +139,108 @@ public class AdminController implements Controller {
 			break;
 
 		case 3:
-
+			cousreMod();
 			break;
-
+		
+		case 4:
+			courseDelete();
+			break;
+		case 5:
+			completeCourseUpdate();
+			break;
 		}
 
 	}
 
-	private void courseList() {
+	private void completeCourseUpdate() {
+			
+		System.out.println("[수료 과정 처리 리스트]");
+		
+		ArrayList<CourseListDTO> list = dao.completeCourseList();
+		
+		System.out.println("번호\t과정 이름\t\t\t\t시작 날짜 \t\t종료 날짜\t\t정원\t반 번호");
+		
+		for (CourseListDTO dto : list) {
+			System.out.printf("%s\t%s\t\t%s\t%s\t%s\t%s\n"
+					, dto.getSeq()
+					, dto.getName()
+					, dto.getStartDate().substring(0, 10)
+					, dto.getEndDate().substring(0, 10)
+					, dto.getPopulation() + "명"
+					, dto.getRseq() + "반");
+		}
+		
+		System.out.println("교육생들 수료 처리 할 과정 번호를 선택하여 주십시오 : ");
+		String seq = scan.nextLine();
+		
+		if (dao.courseComplete(seq) == 1) {
+			System.out.println("처리 완료.");
+		} else {
+			System.out.println("처리 실패.");
+		}
+	}
+
+	private void courseDelete() {
+		
+		test();
+		
+		System.out.println("삭제할 과정 번호를 선택하여 주십시오 : ");
+		String seq = scan.nextLine();
+		
+		if (dao.courseDelete(seq) == 1) {
+			System.out.println("삭제 완료.");
+		} else {
+			System.out.println("삭제 실패.");
+		}
+	}
+
+	private void cousreMod() {
+		
+		test();
+		
+		System.out.println("수정할 과정 번호를 선택하여 주십시오 : ");
+		String seq = scan.nextLine();
+		
+		CourseListDTO test = dao.test(seq);
+		
+		System.out.println("과정 이름 : ");
+		String name = scan.nextLine();
+		
+		System.out.println("시작 날짜 : ");
+		String startDate = scan.nextLine();
+		
+		System.out.println("종료 날짜 : ");
+		String endDate = scan.nextLine();
+		
+		System.out.println("정원 : ");
+		int population = scan.nextInt();
+		scan.skip("\r\n");
+		
+		System.out.println("반 번호 : ");
+		String classRoom = scan.nextLine();
+		
+		CourseDTO dto = new CourseDTO();
+		
+		if (name.equals("")) name = test.getName();
+		if (startDate.equals("")) startDate = test.getStartDate();
+		if (endDate.equals("")) endDate = test.getEndDate();
+		if (Integer.toString(population).equals("")) population = Integer.parseInt(test.getPopulation());
+		if (classRoom.equals("")) classRoom = test.getRseq();
+		
+		dto.setName(name);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
+		dto.setPopulation(population);
+		dto.setClassroom(classRoom);
+		
+		if (dao.courseMod(dto, seq) == 1) {
+			System.out.println("수정 완료.");
+		} else {
+			System.out.println("수정 실패.");
+		}
+	}
+	
+	private void test() {
 		
 		System.out.println("[과정 리스트]");
 		
@@ -163,6 +257,11 @@ public class AdminController implements Controller {
 					, dto.getPopulation() + "명"
 					, dto.getRseq() + "반");
 		}
+	}
+
+	private void courseList() {
+		
+		test();
 		
 		System.out.println("과정 번호를 선택하여 주십시오 : ");
 		String seq = scan.nextLine();

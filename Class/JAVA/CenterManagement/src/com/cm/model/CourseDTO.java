@@ -38,4 +38,10 @@ public class CourseDTO {
 	public void setClassroom(String classroom) {
 		this.classroom = classroom;
 	}
+	
+	@Override
+	public String toString() {
+		return "CourseDTO [name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", population="
+				+ population + ", classroom=" + classroom + "]";
+	}
 }

@@ -58,6 +58,36 @@ public class AdminDAO {
 		return null;
 	}
 	
+	public CourseListDTO test(String seq) {
+		
+		try {
+			
+			CallableStatement stat = conn.prepareCall(ds.get("course.test"));
+			
+			stat.setString(1, seq);
+			
+			ResultSet rs = stat.executeQuery();
+			
+			if (rs.next()) {
+				
+				CourseListDTO dto = new CourseListDTO();
+				
+				dto.setSeq(seq);
+				dto.setName(rs.getString("name"));
+				dto.setStartDate(rs.getString("start_date"));
+				dto.setEndDate(rs.getString("end_date"));
+				dto.setPopulation(rs.getString("population"));
+				dto.setRseq(rs.getString("rseq"));
+
+				return dto;
+			}
+		} catch (Exception e) {
+			System.out.println("AdminDAO.test : " + e.toString());
+		}
+		
+		return null;
+	}
+	
 	public ArrayList<CourseListDTO> courseList() {
 		
 		try {
@@ -107,6 +137,88 @@ public class AdminDAO {
 			System.out.println("AdminDAO.add : " + e.toString());
 		}
 		
+		return 0;
+	}
+
+	public int courseMod(CourseDTO dto, String seq) {
+		
+		try {
+			
+			CallableStatement stat = conn.prepareCall(ds.get("course.mod"));
+			
+			stat.setString(1, dto.getName());
+			stat.setString(2, dto.getStartDate());
+			stat.setString(3, dto.getEndDate());
+			stat.setInt(4, dto.getPopulation());
+			stat.setString(5, dto.getClassroom());
+			stat.setString(6, seq);
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("AdminDAO.mod" + e.toString());
+		}
+		return 0;
+	}
+
+	public int courseDelete(String seq) {
+		
+		try {
+			
+			CallableStatement stat = conn.prepareCall(ds.get("course.del"));
+			
+			stat.setString(1, seq);
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("AdminDAO.del" + e.toString());
+		}
+		
+		return 0;
+	}
+
+	public ArrayList<CourseListDTO> completeCourseList() {
+		
+		try {
+			
+			CallableStatement stat = conn.prepareCall(ds.get("course.completeList"));
+			
+			ResultSet rs = stat.executeQuery();
+			
+			ArrayList<CourseListDTO> list = new ArrayList<CourseListDTO>();
+			
+			while (rs.next()) {
+				
+				CourseListDTO dto = new CourseListDTO();
+				
+				dto.setSeq(rs.getString("seq"));
+				dto.setName(rs.getString("name"));
+				dto.setStartDate(rs.getString("start_date"));
+				dto.setEndDate(rs.getString("end_date"));
+				dto.setPopulation(rs.getString("population"));
+				dto.setRseq(rs.getString("rseq"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+		} catch (Exception e) {
+			System.out.println("AdminDAO.completeList : " + e.toString());
+		}
+		return null;
+	}
+
+	public int courseComplete(String seq) {
+		
+		try {
+			
+			CallableStatement stat = conn.prepareCall(ds.get("course.completion"));
+			
+			stat.setString(1, seq);
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("AdminDAO.complete : " + e.toString());
+		}
 		return 0;
 	}
 }

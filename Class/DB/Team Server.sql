@@ -99,12 +99,16 @@ CREATE OR REPLACE PROCEDURE proc_mod_course(
     pname VARCHAR2,
     pstart VARCHAR2,
     pend VARCHAR2,
-    ppopulation VARCHAR2
+    ppopulation VARCHAR2,
+    prseq VARCHAR2,
+    pseq VARCHAR2
 )
 IS
 BEGIN
-    UPDATE tbl_course SET name = pname, start_date = pstart, end_date = pend, population = ppopulation;
+    UPDATE tbl_course SET name = pname, start_date = pstart, end_date = pend, population = ppopulation, rseq = prseq WHERE seq = pseq;
 END;
+
+SELECT * FROM tbl_course;
 
 --15
 CREATE OR REPLACE PROCEDURE proc_deletecourse(pseq NUMBER)
@@ -114,11 +118,37 @@ BEGIN
 END;
 
 --16
-CREATE OR REPLACE PROCEDURE proc_completioncourse
+CREATE OR REPLACE PROCEDURE proc_completioncourse(
+    pseq VARCHAR2
+)
 IS
+    vdate DATE;
+    vnum NUMBER;
 BEGIN
-    DELETE FROM tbl_course WHERE sysdate >= end_date;
+    FOR cr_status IN (SELECT DISTINCT c.seq FROM tbl_course c INNER JOIN tbl_lecture_record lr ON c.seq = lr.cseq INNER JOIN tbl_complete_record cr ON lr.seq = cr.seq WHERE sysdate >= c.end_date AND cr.result = 1) LOOP
+        IF pseq = cr_status.seq THEN
+            vnum := 1;
+        END IF;
+    END LOOP;
+    
+    IF vnum = 1 THEN
+        SELECT end_date INTO vdate FROM tbl_course WHERE seq = pseq;
+        
+        UPDATE tbl_lecture_record SET status = 1 WHERE cseq = pseq;
+        
+        FOR rec_seq IN (SELECT seq FROM tbl_lecture_record WHERE cseq = 4) LOOP
+            UPDATE tbl_complete_record SET result = 2, cdate = vdate WHERE seq = rec_seq.seq;
+        END LOOP;
+    END IF;
 END;
+
+SELECT * FROM tbl_course WHERE sysdate >= end_date;
+SELECT DISTINCT c.seq, c.name, c.start_date, c.end_date, c.population, c.rseq FROM tbl_course c INNER JOIN tbl_lecture_record lr ON c.seq = lr.cseq INNER JOIN tbl_complete_record cr ON lr.seq = cr.seq WHERE sysdate >= c.end_date AND cr.result = 1 ORDER BY c.seq ASC;
+SELECT * FROM tbl_course c INNER JOIN tbl_lecture_record lr ON c.seq = lr.cseq INNER JOIN tbl_complete_record cr ON lr.seq = cr.seq WHERE sysdate >= c.end_date AND cr.result = 1;
+
+SELECT * FROM tbl_course;
+SELECT * FROM tbl_lecture_record;
+SELECT * FROM tbl_complete_record;
 
 -- 17
 -- 하나의 개설 과정에 여러 개의 개설 과목을 종속적으로 등록할 수 있어야 한다.
