@@ -8,6 +8,8 @@ import com.cm.db.DataSource;
 import com.cm.model.CourseDTO;
 import com.cm.model.CourseListDTO;
 import com.cm.model.CourseListInfoDTO;
+import com.cm.model.SubjectDTO;
+import com.cm.model.SubjectInfoDTO;
 import com.cm.model.dao.AdminDAO;
 import com.cm.view.AdminView;
 
@@ -327,15 +329,103 @@ public class AdminController implements Controller {
 			break;
 
 		case 2:
-
+			subjectInfoView();
 			break;
 
 		case 3:
-
+			subjectMod();
+			break;
+		case 4:
+			
 			break;
 
 		}
 
+	}
+	
+	private void subjectList() {
+		
+		System.out.println("[과목 리스트]");
+		
+		ArrayList<SubjectDTO> list = dao.subjectList();
+		
+		System.out.println("");
+		
+		for (SubjectDTO dto : list) {
+			System.out.printf("%s\t%s\t\t%s\t%s\t%s\t%s\n"
+					, dto.getSeq()
+					, dto.getName()
+					, dto.getStartDate().substring(0, 10)
+					, dto.getEndDate().substring(0, 10)
+					, dto.getWritten()
+					, dto.getPerformance());
+		}
+	}
+
+	private void subjectMod() {
+		
+		subjectList();
+		
+		System.out.println("수정할 과목 번호를 선택하여 주십시오 : ");
+		String seq = scan.nextLine();
+		
+		System.out.println("과목 이름 : ");
+		String name = scan.nextLine();
+		
+		System.out.println("시작 날짜 : ");
+		String startDate = scan.nextLine();
+		
+		System.out.println("종료 날짜 : ");
+		String endDate = scan.nextLine();
+		
+		System.out.println("필기비중 : ");
+		int written = scan.nextInt();
+		scan.skip("\r\n");
+		
+		System.out.println("실기 비중 : ");
+		int performance = scan.nextInt();
+		scan.skip("\r\n");
+		
+		SubjectDTO dto = dao.subjectT(seq);
+		
+		if (name.equals("")) name = dto.getName();
+		if (startDate.equals("")) startDate = dto.getStartDate();
+		if (endDate.equals("")) endDate = dto.getEndDate();
+		if (Integer.toString(written).equals("")) written = dto.getWritten();
+		if (Integer.toString(performance).equals("")) written = dto.getPerformance();
+		
+		dto.setName(name);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
+		dto.setWritten(written);
+		dto.setPerformance(performance);
+		
+		if (dao.subjectMod(dto, seq) == 1) {
+			System.out.println("수정 완료.");
+		} else {
+			System.out.println("수정 실패.");
+		}
+	}
+
+	private void subjectInfoView() {
+		
+		System.out.println("[과목 정보 조회]");
+		
+		ArrayList<SubjectInfoDTO> list = dao.subjectInfoView();
+		
+		System.out.println("과정 이름\t\t과정 기간\t\t반 번호\t반 정원\t과목 이름\t과목 기간\t\t책 이름\t\t강사 이름");
+		
+		for (SubjectInfoDTO dto : list) {
+			System.out.printf("%s\t\t%s\t\t%s\t%s\t%s\t%s\t\t%s\t\t%s\n"
+					, dto.getCourseName()
+					, dto.getCourseDate()
+					, dto.getRoomName()
+					, dto.getRoomLimit()
+					, dto.getSubjectName()
+					, dto.getSubjectDate()
+					, dto.getBookName()
+					, dto.getTeacherName());
+		}
 	}
 
 	// 교육생 관리 메뉴

@@ -184,7 +184,7 @@ END;
 CREATE OR REPLACE PROCEDURE proc_view_subject
 IS
 BEGIN
-    SELECT c.name AS courseName, c.start_date || ' ~ ' || c.end_date AS courseDate, r.name AS roomName, r.limit AS roomLimit, s.name AS subjectName, s.start_date || ' ~ ' || s.end_date, b.name AS bookName, t.name AS teacherName FROM tbl_subject s INNER JOIN tbl_course c ON c.seq = s.cseq INNER JOIN tbl_classroom r ON r.seq = c.rseq INNER JOIN tbl_textbook b ON b.seq = s.tseq INNER JOIN tbl_able a ON s.seq = a.sseq INNER JOIN tbl_teacher t ON t.seq = a.tseq;
+    SELECT c.name AS courseName, c.start_date || ' ~ ' || c.end_date AS courseDate, r.name AS roomName, r.limit AS roomLimit, s.name AS subjectName, s.start_date || ' ~ ' || s.end_date AS subjectDate, b.name AS bookName, t.name AS teacherName FROM tbl_subject s INNER JOIN tbl_course c ON c.seq = s.cseq INNER JOIN tbl_classroom r ON r.seq = c.rseq INNER JOIN tbl_textbook b ON b.seq = s.tseq INNER JOIN tbl_able a ON s.seq = a.sseq INNER JOIN tbl_teacher t ON t.seq = a.tseq;
 END;
 -- s, c, r, b, a, t
 
@@ -199,12 +199,15 @@ CREATE OR REPLACE PROCEDURE proc_mod_subject(
     pstart VARCHAR2,
     pend VARCHAR2,
     pwritten VARCHAR2,
-    pperformance VARCHAR2
+    pperformance VARCHAR2,
+    pseq VARCHAR2
 )
 IS
 BEGIN
-    UPDATE tbl_subject SET name = pname, start_date = pstart, end_date = pend, written = pwritten, performance = pperformance;
+    UPDATE tbl_subject SET name = pname, start_date = pstart, end_date = pend, written = pwritten, performance = pperformance WHERE seq = pseq;
 END;
+
+SELECT * FROM tbl_subject;
 
 SELECT * FROM tabs;
 SELECT * FROM tbl_login;

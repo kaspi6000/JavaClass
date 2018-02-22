@@ -6,3 +6,7 @@ course.mod|{call proc_mod_course(?,?,?,?,?,?)}
 course.del|{call proc_deletecourse(?)}
 course.completeList|SELECT DISTINCT c.seq, c.name, c.start_date, c.end_date, c.population, c.rseq FROM tbl_course c INNER JOIN tbl_lecture_record lr ON c.seq = lr.cseq INNER JOIN tbl_complete_record cr ON lr.seq = cr.seq WHERE sysdate >= c.end_date AND cr.result = 1 ORDER BY c.seq ASC
 course.completion|{call proc_completioncourse(?)}
+subject.info|SELECT c.name AS courseName, c.start_date || ' ~ ' || c.end_date AS courseDate, r.name AS roomName, r.limit AS roomLimit, s.name AS subjectName, s.start_date || ' ~ ' || s.end_date AS subjectDate, b.name AS bookName, t.name AS teacherName FROM tbl_subject s INNER JOIN tbl_course c ON c.seq = s.cseq INNER JOIN tbl_classroom r ON r.seq = c.rseq INNER JOIN tbl_textbook b ON b.seq = s.tseq INNER JOIN tbl_able a ON s.seq = a.sseq INNER JOIN tbl_teacher t ON t.seq = a.tseq
+subject.list|SELECT * FROM tbl_subject
+subject.mod|{call proc_mod_subject(?,?,?,?,?,?)}
+subject.t|SELECT * FROM tbl_subject WHERE seq = ?

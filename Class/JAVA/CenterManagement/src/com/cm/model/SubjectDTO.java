@@ -3,15 +3,19 @@ package com.cm.model;
 
 public class SubjectDTO {
 
+	private String seq;
 	private String name;
 	private String startDate;
 	private String endDate;
 	private int written;
-	private int perfomance;
-	private CourseDTO course;
-	private TextBookDTO textbook;
+	private int performance;
 	
-	
+	public String getSeq() {
+		return seq;
+	}
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
 	public String getName() {
 		return name;
 	}
@@ -36,23 +40,11 @@ public class SubjectDTO {
 	public void setWritten(int written) {
 		this.written = written;
 	}
-	public int getPerfomance() {
-		return perfomance;
+	public int getPerformance() {
+		return performance;
 	}
-	public void setPerfomance(int perfomance) {
-		this.perfomance = perfomance;
-	}
-	public CourseDTO getCourse() {
-		return course;
-	}
-	public void setCourse(CourseDTO course) {
-		this.course = course;
-	}
-	public TextBookDTO getTextbook() {
-		return textbook;
-	}
-	public void setTextbook(TextBookDTO textbook) {
-		this.textbook = textbook;
+	public void setPerformance(int perfomance) {
+		this.performance = perfomance;
 	}
 	
 }
