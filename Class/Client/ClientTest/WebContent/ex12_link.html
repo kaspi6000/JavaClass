@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <!--
+            링크, Link
+            - <a>, anchor, link
+            - href : 이동할 URL, reference a hyperlink
+
+            브라우저
+            - HTML 문서 실행기(뷰어)
+            - Text 뷰어
+            - 이미지 뷰어
+            - 동영상 뷰어
+            - 자신이 읽어들이지 못하는 포맷의 자원은 전부 다운로드 처리한다.
+        -->
+
+        <a href="http://naver.com">네이버(외부링크)</a>
+        <br>
+        <a href="ex11_list.html">11번 예제(내부링크)</a>
+        <br>
+        <a href="https://s.pstatic.net/static/www/mobile/edit/2018/0130/mobile_181824258956.png">이미지</a>
+        <br>
+        <a href="ex.zip">예제 압축 파일</a>
+        <br>
+        <!--
+            a.target 속성
+            - 열거형
+            1. _blank : 새창에서 링크 열기
+            2. _self : default : 현재 창에서 링크 열기
+            ===================
+            3. _parent : 부모 프레임에서 링크 열기
+            4. _top : 최상위 프레임에서 링크 열기
+            5. 프레임명 : 특정 프레임명에서 링크 열기
+        -->
+        <a href="ex11_list.html">11번 예제</a>
+        <br>
+        <a href="ex11_list.html" target="_blank">11번 예제</a>
+        <br>
+
+        <a href="mailto:hong@test.com">홍길동</a>
+        <br>
+
+        <a href="javascript:alert('hi');">자바스크립트</a>
+        <br>
+
+        <a href="#">빈링크</a>
+
+    </body>
+    <script type="text/javascript">
+        console.log("Test");
+        let test = "hello";
+
+        console.log(test);
+
+        const test1 = {
+            "subject" : "kor",
+            "subject1" : "eng"
+        }
+        console.log(test1);
+    </script>
+</html>
