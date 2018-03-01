@@ -284,3 +284,8 @@ SELECT * FROM tabs;
 
 SELECT * FROM employees;
 SELECT * FROM departments;
+
+SELECT username, account_status, lock_date FROM dba_users;
+
+ALTER USER hr ACCOUNT UNLOCK;
+COMMIT;
