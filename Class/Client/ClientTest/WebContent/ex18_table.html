@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+
+<body>
+    <!--
+        테이블 병합(셀 병합)
+    -->
+
+    <h1>2 x 2 테이블</h1>
+
+    <table border="1" width="200" height="200">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+    </table>
+
+    <h1>2 x 2 테이블</h1>
+
+    <table border="1" width="200" height="200">
+        <tr>
+            <td colspan="2">1</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+    </table>
+
+    <h1>2 x 2 테이블</h1>
+
+    <table border="1" width="200" height="200">
+        <tr>
+            <td rowspan="2">1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>4</td>
+        </tr>
+    </table>
+
+
+    <!-- 셀 병합 시 주의점: 모든 <tr> 내의 <td> 갯수는 동일하다. -->
+
+    <h1>2 x 2 테이블</h1>
+
+    <table border="1" width="200" height="200">
+        <tr>
+            <td rowspan="2">1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>4</td>
+        </tr>
+    </table>
+
+    <h1>성적표</h1>
+
+    <table border="1" width="800">
+        <tr>
+            <th colspan="7">모의고사 성적</th>
+        </tr>
+        <tr>
+            <th>번호</th>
+            <th>이름</th>
+            <th>과목</th>
+            <th>1학기</th>
+            <th>2학기</th>
+            <th>3학기</th>
+            <th>4학기</th>
+        </tr>
+        <tr>
+            <td rowspan="3">1</td>
+            <td rowspan="3">홍길동</td>
+            <td>국어</td>
+            <td>80</td>
+            <td>90</td>
+            <td>85</td>
+            <td>95</td>
+        </tr>
+        <tr>
+            <td>영어</td>
+            <td>95</td>
+            <td>99</td>
+            <td>88</td>
+            <td>78</td>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>100</td>
+            <td>88</td>
+            <td>98</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td rowspan="3">2</td>
+            <td rowspan="3">아무개</td>
+            <td>국어</td>
+            <td>90</td>
+            <td>80</td>
+            <td>95</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>영어</td>
+            <td>85</td>
+            <td>89</td>
+            <td>98</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>90</td>
+            <td>98</td>
+            <td>88</td>
+            <td>98</td>
+        </tr>
+        <tr>
+            <td rowspan="3">3</td>
+            <td rowspan="3">아이린</td>
+            <td>국어</td>
+            <td>90</td>
+            <td>80</td>
+            <td>95</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>영어</td>
+            <td>85</td>
+            <td>89</td>
+            <td>98</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>90</td>
+            <td>98</td>
+            <td>88</td>
+            <td>98</td>
+        </tr>
+        <tr>
+            <td rowspan="3">4</td>
+            <td rowspan="3">수지</td>
+            <td>국어</td>
+            <td>90</td>
+            <td>80</td>
+            <td>95</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>영어</td>
+            <td>85</td>
+            <td>89</td>
+            <td>98</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>90</td>
+            <td>98</td>
+            <td>88</td>
+            <td>98</td>
+        </tr>
+        <tr>
+            <td rowspan="3">5</td>
+            <td rowspan="3">아이유</td>
+            <td>국어</td>
+            <td>90</td>
+            <td>80</td>
+            <td>95</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>영어</td>
+            <td>85</td>
+            <td>89</td>
+            <td>98</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>90</td>
+            <td>98</td>
+            <td>88</td>
+            <td>98</td>
+        </tr>
+    </table>
+
+
+</body>
+
+</html>

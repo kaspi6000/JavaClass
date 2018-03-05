@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+
+<body>
+    <!--
+	<form>, 폼테그
+
+	HTML Form + HTML Input Cotrol
+	- 입력 양식
+	- 클라이언트(사용자)로부터 여러가지 입력 양식을 통해서 데이터 입력 -> 서버로 전송
+
+	1. <form> 태그
+	- 스스로 랜더링 결과를 만들지 않음(화면에는 안보임)
+	- 모든 입력 양식(입력 컨트롤, 태그)들의 부모 역할**
+	- <from> 의 내부 컨트롤만 전송이 된다. 외부 컨드롤은 전송 제외
+
+	a. action
+		- 데이터를 전송할 서버측 프로그램의 주소 -> URL
+		- 서버측 프로그램 -> 서버 기술을 사용해서 제작 (Servlet, JSP, Spring..)
+	b. method
+		- 데이터를 전송하는 방식
+		- POST, GET(기본값)
+
+		- GET
+		- 데이터를 전송할 URL에 붙여서 전송
+		- URL 255자 제한 > 오버플로우 > 짤려부러 데이터 손실
+		- 긴 데이터 전송하면 안되욤
+		- 보안 데이터 전송 X > 브라우저 히스토리에 기록됨
+		- URL > 한글 허용 안함 > 한글같이 URL에 쓸 수 없는 문자들은  base64라는 인코딩을 사용해서 변환 > get 방식의 데이터 전송은 한글은 적합하지 않음 > 영문 키워드 or 숫자
+
+		- 페이지 주소?키=값&키=값&키=값
+		- http://news.naver.com/main/hotissue/sectionList.nhn
+		  ?sid1=101&
+		  mid=hot&
+		  viewType=pc&
+		  cid=996387&
+		  nh=20180302101431
+
+		- POST
+		- 데이터를 패킷 본문에 넣어서 전송
+		- 데이터가 노출되지 않음 > 보안성 높음
+		- 전송 길이 제한 없음
+		- 모든 데이터 전송
+    -->
+
+    <h1>데이터 입력</h1>
+
+    <form action="ex19_ok.jsp" method="post">
+        이름 : <input name="name"><br> 나이 : <input name="age"><br><br>
+        <input type="submit" value="보내기">
+
+    </form>
+
+    <h1>네이버 검색</h1>
+    <form action="https://search.naver.com/search.naver" method="get">
+        검색어 : <input name="query"><br><br>
+        <input type="submit" value="검색하기">
+    </form>
+
+
+
+
+
+</body>
+
+</html>
