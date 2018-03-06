@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            /*
+                박스 모델, Box Model
+                - 태그를 상자 형태로 랜더링 한다 + 적용되는 규칙
+                1. 테두리
+                2. 너비, 높이
+                3. 여백
+
+                테두리
+                - 모든 태그는 자신의 영역을 가진다.
+                - 영역이 반드시 사각형의 형태를 가진다.
+                - 일부 요소는 이미 시각적인 테두리를 가진다.(테이블, 텍스트 박스 등..)
+                - 모든 태그는 테두리 속성을 사용해서 테두리를 시각화할 수 있다.
+            */
+            #box1 {
+                border-color: red;
+                border-width: 10px;
+                border-style: solid;
+            }
+
+            #box2 {
+                border: 10px solid blue;
+            }
+
+            #box3 {
+                /* border-top: 1px solid red;
+                border-right: 2px dashed green;
+                border-bottom: 3px dotted orange;
+                border-left: 4px solid yellow; */
+
+                border-width: 1px 3px 4px 6px;
+                border-color: green;
+                border-style: solid;
+            }
+
+            #txt1 {
+                border: 0px;
+                border-top: 1px solid gray;
+                border-bottom: 1px solid gray;
+                outline: none;
+                font-size: 2em;
+                font-weight: bold;
+                color: red;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>테두리</h1>
+        <div id = "box1" class = "box">상자1</div>
+        <div id = "box2" class = "box">상자2</div>
+        <div id = "box3" class = "box">상자3</div>
+        <br><br>
+        <input type="text" id = "txt1">
+    </body>
+</html>
