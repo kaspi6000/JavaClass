@@ -318,7 +318,7 @@
           <children xsi:type="advanced:Placeholder" xmi:id="_DCCpTfREEeeUpI__7qzXQA" elementId="org.eclipse.jdt.ui.PackageExplorer" ref="_DCCqkPREEeeUpI__7qzXQA"/>
         </children>
         <children xsi:type="basic:PartSashContainer" xmi:id="_DCCpTvREEeeUpI__7qzXQA" containerData="8400" selectedElement="_DCCpT_REEeeUpI__7qzXQA" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_DCCpT_REEeeUpI__7qzXQA" elementId="PartStack@6bdedbbd" containerData="6149" selectedElement="_fwMuMAe1EeigHKHb0IEQcA">
+          <children xsi:type="basic:PartStack" xmi:id="_DCCpT_REEeeUpI__7qzXQA" elementId="PartStack@6bdedbbd" containerData="6184" selectedElement="_fwMuMAe1EeigHKHb0IEQcA">
             <tags>org.eclipse.e4.primaryDataStack</tags>
             <tags>EditorStack</tags>
             <tags>active</tags>
@@ -350,7 +350,7 @@
               <tags>removeOnHide</tags>
             </children>
             <children xsi:type="basic:Part" xmi:id="_fwMuMAe1EeigHKHb0IEQcA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Ex04.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-              <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Ex04.java&quot; partName=&quot;Ex04.java&quot; title=&quot;Ex04.java&quot; tooltip=&quot;JavaTest/src/com/test/lambda/Ex04.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaTest/src/com/test/lambda/Ex04.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;4605&quot; selectionTopPixel=&quot;3352&quot;/>&#xD;&#xA;&lt;/editor>"/>
+              <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Ex04.java&quot; partName=&quot;Ex04.java&quot; title=&quot;Ex04.java&quot; tooltip=&quot;JavaTest/src/com/test/lambda/Ex04.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaTest/src/com/test/lambda/Ex04.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;4605&quot; selectionTopPixel=&quot;3287&quot;/>&#xD;&#xA;&lt;/editor>"/>
               <tags>Editor</tags>
               <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
               <tags>removeOnHide</tags>
@@ -358,7 +358,7 @@
               <tags>activeOnClose</tags>
             </children>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_DCCpsPREEeeUpI__7qzXQA" elementId="PartStack@1a2ee32c" containerData="3851" selectedElement="_7dmG4AWHEei9rpaF3yaekQ">
+          <children xsi:type="basic:PartStack" xmi:id="_DCCpsPREEeeUpI__7qzXQA" elementId="PartStack@1a2ee32c" containerData="3816" selectedElement="_7dmG4AWHEei9rpaF3yaekQ">
             <children xsi:type="basic:Part" xmi:id="_DCCpsfREEeeUpI__7qzXQA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Ex73_File.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
               <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Ex73_File.java&quot; partName=&quot;Ex73_File.java&quot; title=&quot;Ex73_File.java&quot; tooltip=&quot;JavaTest/src/com/test/io/Ex73_File.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaTest/src/com/test/io/Ex73_File.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;5260&quot; selectionTopPixel=&quot;5070&quot;/>&#xD;&#xA;&lt;/editor>"/>
               <tags>Editor</tags>
@@ -1173,7 +1173,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_DCCq1fREEeeUpI__7qzXQA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_PsR6RwoIEeizq_WOH3JSJQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_DCEh6vREEeeUpI__7qzXQA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_U6Q8wCGbEeiaA8YMiBB4hw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_DCEh6vREEeeUpI__7qzXQA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_DCCq4vREEeeUpI__7qzXQA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1206,7 +1206,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_DCCrNvREEeeUpI__7qzXQA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_PsR6UQoIEeizq_WOH3JSJQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_DCEhjfREEeeUpI__7qzXQA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_U6Q8yiGbEeiaA8YMiBB4hw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_DCEhjfREEeeUpI__7qzXQA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_DCCrQfREEeeUpI__7qzXQA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

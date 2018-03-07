@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style type="text/css">
+            #box2 {
+                background-color: rgba(255, 255, 0, 4);
+                width: 50%;
+                height: 200px;
+                /* margin-top: 20px;
+                margin-bottom: 10px; */
+                margin: -50px 0;
+                padding: 20px;
+                margin-bottom: 10px;
+            }
+
+            /*
+                box3와의 거리
+                - margin의 두개체 중에서 큰값만 적용된다.
+            */
+
+            #box3 {
+                margin-top: 10px;
+            }
+
+            body {
+                border: 10px solid blue;
+                margin: 100px;
+                padding: 30px;
+            }
+            /*
+                블럭태그
+                1. 너비 : 100%
+                2. 높이 : 컨텐츠 크기
+
+                인라인태그
+                1. 너비 : 컨텐츠 크기
+                2. 높이 : 컨텐츠 크기
+                3. CSS + width, height : 적용안됨
+                    예외) 시각적으로 크기가 눈에 보이는 태그에 한해서 적용(폼컨트롤, 이미지)
+
+                웹은 요소의 너비 정책은 마음대로 제어 가능. 높이는 불안정.(상대크기)
+                -> 높이를 상대크기로 지정하는 행동을 피한다.
+
+                크기
+                - 단위 : px(절대크기), %(상대크기)
+                1. width, 너비
+                2. height, 높이
+
+                여백, margin, padding
+                - 자신과 외부 객체간의 거리
+
+                padding, 안쪽 여백
+                - 테두리와 내용물 사이의 거리
+            */
+
+            #txt1 {
+                width: 300px;
+                height: 200px;
+                text-align: right;
+            }
+
+            #txt2 {
+                width: 300px;
+                height: 200px;
+            }
+
+            #cat {
+                width: 300px;
+            }
+
+            #name {
+                background-color: yellow;
+                width: 150px;
+                height: 150px;
+            }
+
+            a {
+                width: 150px;
+                height: 150px;
+            }
+
+            .box {
+                border: 1px solid black;
+                width: 200px;
+                height: 200px;
+            }
+
+            p {
+                margin: 0;
+            }
+
+            #list {
+                border: 1px solid blue;
+            }
+
+            #list li {
+                border: 1px solid red;
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "box1" class = "box">상자1</div>
+        <div id = "box2" class = "box">상자2상자2상자2상자2상자2</div>
+        <div id = "box3" class = "box">상자3</div>
+
+        <hr>
+
+        <p>문단입니다.</p>
+        <p>문단입니다.</p>
+        <p>문단입니다.</p>
+
+        <hr>
+
+        <h1>장보기</h1>
+        <ul id = "list">
+            <li>물티슈</li>
+            <li>종이컵 한줄</li>
+            <li>인스턴스 커피</li>
+        </ul>
+
+        <hr>
+
+        입금액 : <input type="text" name="" id="" style="padding : 10px; text-align : right">
+
+        <hr>
+
+        <input type="text" name="" value="" id = "txt1">
+
+        <textarea name="name" rows="8" cols="80" id = "txt2"></textarea>
+
+        <img src="../images/catty02.png" alt="" id = "cat">
+
+        <p>
+            안녕하세요. <sapn id = "name">홍길동</sapn> 입니다.
+            <a href="#">아무개</a>야
+        </p>
+
+        <p>
+            문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+            문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+            문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+            문자열입니다.문자열입니다.문자열입니다. <span>홍길동</span>문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+            문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+            문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.문자열입니다.
+        </p>
+    </body>
+</html>

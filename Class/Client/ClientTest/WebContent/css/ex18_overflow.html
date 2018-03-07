@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="./common.css">
+        <style>
+            #box {
+                border: 1px solid black;
+                width: 200px;
+                height: 200px;
+
+                /* 오버플로우 제어 */
+                overflow: visible;
+                word-break: break-all;
+            }
+
+            #box2 {
+                border: 1px solid black;
+                /* overflow 속성은 width, height 명시적으로 지정되었을 때 사용한다. */
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "box">
+            HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO
+        </div>
+
+        <div id = "box2">
+            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+        </div>
+
+        <table id = "tbl1" style = "width : 200px; height : 200px;">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td style = "width : 100px; height : 100px; overflow : auto;">
+                    <div style = "width : 100px; height : 100px; overflow : auto;">
+                        안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+                    </div>
+                </td>
+                <td>4</td>
+            </tr>
+        </table>
+    </body>
+</html>

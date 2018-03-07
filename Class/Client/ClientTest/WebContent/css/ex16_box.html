@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #tblmenu {
+                border: 0px solid gray;
+                width: 100%;
+                height: 50px;
+                border-collapse: collapse;
+            }
+
+            #tblmenu td {
+                border: 0px solid gray;
+                text-align: center;
+                width: 25%;
+                font-size: 14px;
+                font-weight: bold;
+                font-variant: small-caps;
+                background-color: black;
+                color: white;
+                border-right: 1px dashed gray;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            #tblmenu .last {
+                border-right: 0;
+            }
+
+            #tblmenu td:hover {
+                color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <table id = "tblmenu">
+            <tr>
+                <td>직원전용</td>
+                <td>고객전용</td>
+                <td>관리자</td>
+                <td class = "last">게시판</td>
+            </tr>
+        </table>
+    </body>
+</html>
