@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+
+#weather{
+border:0px solid black;
+width: 590px;
+
+}
+
+#weather #header img:first-child{
+
+margin-left: 3px;
+}
+
+#weather #header img:last-child{
+float: right;
+margin-top: 7px;
+
+}
+
+#weather>hr{ /* '>' 친자식이라는 표식 있으면 좋고 없음 말고   */
+ border:0px; /* 재정의  */
+ border-top: 2px solid #666;
+ margin-top: 4px;
+}
+
+#weather #content>div{
+border: 0px solid black;
+float: left;
+text-align:center;
+width: 97px;
+border-right:1px solid #eee;
+
+}
+#weather #content>div>div:first-child {
+	font-size: 13px; 
+	color: #444;
+	letter-spacing: -1px;
+	margin-top: 2px;
+	margin-bottom: 5px;
+}
+
+
+#weather #content>div>div:nth-child(3) {
+	font-size: 13px; 
+	color: #444;
+	letter-spacing: -1px;
+	margin-top: 5px;
+	
+}
+
+
+#weather #content>div>div:nth-child(4) {
+	font-size: 13px; 
+	color: #444;
+	letter-spacing: -1px;
+	
+}
+
+
+#weather #content>div>div:nth-child(4)>span:first-child{ 
+	font-weight:bold
+	
+	
+}
+
+
+
+</style>
+</head>
+<body>
+<!-- ex39_html -->
+<div id="weather">
+<div id="header">
+<img src="../images/h3_today_world.gif">
+<img src="../images/txt_more.gif">
+</div>
+<hr>
+<div id="content">
+
+<div>
+<div>베이징</div>
+<img src="../images/w_l3
+.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div>
+<div>도쿄</div>
+<img src="../images/w_l6.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div>
+<div>파리</div>
+<img src="../images/w_l6.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div>
+<div>런던</div>
+<img src="../images/w_l1.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div>
+<div>뉴욕</div>
+<img src="../images/w_l3.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div>
+<div>벤쿠버</div>
+<img src="../images/w_l3.gif">
+<div>흐림</div>
+<div><span>5</span><span>℃</span></div>
+</div>
+
+<div style="clear: both; float: none"></div>
+</div>
+
+</div>
+
+</body>
+</html>

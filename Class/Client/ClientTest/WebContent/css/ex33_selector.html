@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+   /* 
+   입력폼 선택자
+   1. :focus
+   2. :enabled
+   3. :disabled
+   4. :checked
+   5. :required
+   6. :optional
+    */
+    
+   /* input{
+      border: 1px solid white;
+      border-bottom: 1px solid #ccc;
+      opacity: .4;
+   } 
+    
+   input:focus{
+      /* background-color: yellow; */
+      /* border: 1px solid red; */
+      /* outline: none;
+      opacity: 1; */
+   
+   input{
+      border: 1px solid #ddd;
+      background-color: white;
+   }
+   input:disabled{
+      opacity: .4;
+      cursor:not-allowed;
+   }
+   
+   input:enabled{
+      cursor: wait;
+   
+   }
+   
+   input:required{
+      background-color: red;
+   }
+   input:optional{
+      background-color: yellow;
+   }
+
+	input[type=checkbox]:first-child{
+	opacity: .3;
+	cursor: default;
+	}
+	
+	input[type=checkbox]:checked {
+	opacity: 1;
+}
+
+	input#cd1+div{display: none;}
+	
+	input#cd1:checked+div{display: block;}
+	
+</style>
+</head>
+<body>
+
+   <form>
+   <!-- (input+br)*10 -->
+   <input type="text" required />
+   <br />
+   <input type="text" disabled/>
+   <br />
+   <input type="text" required/>
+   <br />
+   <input type="text" disabled/>
+   <br />
+   
+   <input type="text" readonly/>
+   <br />
+   <input type="text" required/>
+   <br />
+   <input type="text" />
+   <br />
+   <input type="text" readonly/>
+   <br />
+   <input type="text" />
+   <br />
+   <input type="text" />
+   <br />
+   
+   <input type="checkbox" style="background-color:red; border: 1px solid red; ">
+   <input type="checkbox">
+   <input type="checkbox">
+   
+   
+    설명 감추기<input type="checkbox" id="cd1">
+   <div> 안녕하세요~~</div>
+ 
+   
+   
+   </form>
+   
+   
+   
+</body>
+</html>

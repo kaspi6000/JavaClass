@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.box{
+width: 200px; height: 200px
+}
+
+#box1{
+background-color: red;
+}
+
+
+#box2{
+
+position: absolute;
+left:100px;
+top:100px;
+z-index: 2;
+background-color:rgba(255,255,0,0.5) /*  불투명도  */
+opacity: 5;/* 불투명도  */
+}
+
+
+
+#box3{
+position:relative;
+left:100px;
+top:0px;
+z-index:1;
+background-color: blue;
+}
+
+
+body{
+
+margin-bottom: 100px;
+}
+
+#list{
+
+border: 1px solid black;
+width: 1250px;
+
+}
+
+
+#list img{
+float: left;
+opacity: .4;
+}
+
+#list img:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+#logo{
+
+/* Crop */
+border: 0px solid black;
+width: 202px;
+height: 57px;
+background-image: url("../images/sp_main_v171220.png");
+background-position: 0px -67px;
+}
+
+
+#naver{
+border: 0px solid black;
+width: 50px;
+height: 57px;
+background-image: url("../images/sp_main_v171220.png");
+background-position: 0px -70px;
+}
+</style>
+</head>
+<body>
+
+
+</body>
+<!-- ex29_zindex  -->
+<div id="box1" class="box">상자1</div>
+<div id="box2" class="box">상자2</div>
+<div id="box3" class="box">상자3</div>
+
+<!-- opacity  -->
+<img src="../images/dog01.jpg" style="opacity: 0.5">
+
+<hr>
+
+<div id="list">
+<h1>고양이를 선택하시오</h1>
+<img src="../images/cat01.jpg" >
+<img src="../images/cat02.jpg" >
+<img src="../images/cat03.jpg" >
+<img src="../images/cat04.jpg" >
+<img src="../images/cat05.jpg">
+<div style="clear:both;"></div>
+</div>
+
+
+<div id="naver"></div>
+
+<div id="logo"></div>
+</html>

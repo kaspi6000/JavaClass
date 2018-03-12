@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+#main{
+border: 0px solid black;
+width: 600px
+
+
+
+
+}
+
+#menu{
+background-color: #ED1C24;
+width:600px;
+height: 80px;
+}
+
+#submenu{
+background-color: #FFAEC9;
+width: 150px;
+float: left;
+height: 400px;
+}
+
+#content{
+background-color: #FFC90E;
+width: 420px;
+float: left;
+height: 400px;
+}
+
+#footer{
+clear:left;
+background: #22814C;
+width: 600px;
+height: 50px;
+}
+</style>
+</head>
+<body>
+<!-- ex23_float.html  -->
+
+
+<!--
+레이아웃, Layout
+1. 표사용
+2. (div) + CSS사용
+
+-->
+
+<!-- (div) + CSS -->
+<div id="main">
+<div id="menu">주메뉴(빨강)</div>
+<div id="submenu">서브메뉴(핑크)</div>
+<div id="content" style="padding: 15px;">콘텐츠(노랑)
+
+<h1>상품리스트<span style="font-size:14px; color: blue; float: right; margin-top: 20px">2018.03.08</span></h1>
+
+
+</div>
+<div id="footer">하단(녹색)</div>
+</div>
+
+
+<!-- Semantic + CSS 
+<nav id="menu">주메뉴(빨강)</nav>
+<nav id="submenu">서브메뉴(핑크)</nav>
+<section id="content">콘텐츠(노랑)</section>
+<footer id="footer">하단(녹색)</footer>
+ -->
+</body>
+</html>

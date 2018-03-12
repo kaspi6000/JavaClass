@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+sublime text
+atom
+brackets
+visual studio code
+
+   Emmet, Zen-Coding
+   - HTML, CSS 코드를 쉽게 작성해주는 플러그인( 대부분 툴)
+   - http://emmet.io
+   - CSS 선택자를 사용 + CSS3 선택자 지원
+
+ -->
+ 
+    <h1>태그 선택자</h1>
+    
+    <div></div>
+    <p></p>
+    <a href="http://naver.com">네이버</a>
+    <img src="dog.jpg" alt="강아지" />
+    <input type="checkbox" />
+    
+    <h1>ID 선택자</h1>
+    
+    div#box1
+    <div id="box1"></div>
+    
+    input#age
+    <input type="text" id="age" />
+    
+    h1#title
+    <h1 id="title"></h1>
+    
+    <h1>클래스 선택자</h1>
+    
+    div.box
+    <div class="box"></div>
+   
+   img.cat
+   <img src="" alt="" class="cat" />    
+    
+    다중 클래스
+    div.red.box.one
+    <div class="red box one"></div>
+    
+    div#box1.box
+    <div id="box1" class="box"></div>
+
+   div#box1.box.red
+   <div id="box1" class="box red"></div>
+   
+   .items
+   <div class="items"></div>
+   
+    
+    <h1>속성 선택자</h1>
+    
+    div[title]{}
+    <div title="도움말">내용</div>
+    
+    div[title='상자']
+    <div title="상자">내용</div>
+    
+    a[target]
+    <a href="url" target="_blank">텍스트</a>
+    
+    a[target=_blank]
+    <a href="" target="_blank"></a>
+    
+    a[href=url target=_blank]
+    <a href="url" target="_blank"></a>
+    
+    img
+    <img src="" alt="" />
+    
+    img[width height title]
+    <img src="" alt="" width="" height="" title="" />
+    
+    <h1>PCDATA</h1>
+    
+    div{상자}
+    <div>상자</div>
+    
+    a{네이버}
+    <a href="">네이버</a>
+    
+    a[href=http://naver.com]{네이버}
+    <a href="http://naver.com">네이버</a>
+    
+    div#box1.box.red[title=상자]{내용입니다.}
+    <div id="box1" class="box red" title="상자">내용입니다.</div>
+    
+    ---------------------------------------------------------------
+    
+    반복 생산
+    
+    <div>하나</div>
+    <div>둘</div>
+    <div>셋</div>
+    <div>넷</div>
+    <div>다섯</div>
+    
+    <div class="box">상자1</div>
+    <div class="box">상자2</div>
+    <div class="box">상자3</div>
+    <div class="box">상자4</div>
+    <div class="box">상자5</div>
+    
+    div.box[title]{상자}*5
+    <div class="box" title="">상자</div>
+    <div class="box" title="">상자</div>
+    <div class="box" title="">상자</div>
+    <div class="box" title="">상자</div>
+    <div class="box" title="">상자</div>
+    
+    div#box$5
+    <div id="box"></div>
+    
+    div#box$.box{상자$}*3
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+        
+    h$*6
+    <h1></h1>
+    <h2></h2>
+    <h3></h3>
+    <h4></h4>
+    <h5></h5>
+    <h6></h6>
+    
+    div{$$.항목}*10
+    <div>01.항목</div>
+    <div>02.항목</div>
+    <div>03.항목</div>
+    <div>04.항목</div>
+    <div>05.항목</div>
+    <div>06.항목</div>
+    <div>07.항목</div>
+    <div>08.항목</div>
+    <div>09.항목</div>
+    <div>10.항목</div>
+    
+    div+p 친형이
+    <div></div>
+    <p></p>
+    
+    
+    div+p+a+img
+    <div></div>
+    <p></p>
+    <a href=""></a>
+    <img src="" alt="" />
+    
+    h1+p+p
+    <h1></h1>
+    <p></p>
+    <p></p>
+    
+    h1+p+p
+    h1#title$.title[title=제목][제목입니다.]
+    
+    
+       자손 선택자
+   자식 선택자
+   
+   div a : 이건 지원 안함!
+   div > a : 이것만 지원
+   
+   ul>li
+   <ul>
+      <li></li>
+   </ul>
+   
+   ul>li*3
+   <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+   </ul>
+   
+   ul#list1>li.item*5
+   <ul id="list1">
+      <li class="item"></li>
+      <li class="item"></li>
+      <li class="item"></li>
+      <li class="item"></li>
+      <li class="item"></li>
+   </ul>
+   
+   ul#list1>(li.item>a{링크})*5
+   <ul id="list1">
+      <li class="item"><a href="">링크</a></li>
+      <li class="item"><a href="">링크</a></li>
+      <li class="item"><a href="">링크</a></li>
+      <li class="item"><a href="">링크</a></li>
+      <li class="item"><a href="">링크</a></li>
+   </ul>
+   
+   h1{오늘의 할일}+ul#list>li{항목$}*3
+   <h1>오늘의 할일</h1>
+   <ul id="list">
+      <li>항목1</li>
+      <li>항목2</li>
+      <li>항목3</li>
+   </ul>
+   
+   
+   table+
+   <table>
+      <tr>
+         <td></td>
+      </tr>
+   </table>
+   ul+
+   ol+
+   dl+
+   select+
+   <select name="" id="">
+      <option value=""></option>
+   </select>
+   
+   select 에 여러개 옵션이 있는거!
+   select>option*5
+   <select name="" id="">
+      <option value=""></option>
+      <option value=""></option>
+      <option value=""></option>
+      <option value=""></option>
+      <option value=""></option>
+   </select>
+   
+   
+   <h1>10행 5열 테이블</h1>
+   table>tr*10>td*5
+   <table>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+   </table>
+    
+    <h1>10행 5열 테이블</h1>
+    
+    table#tbl1>tr*10>td.cell$*5
+    table#tbl1>(tr>th#col$*5)+(tr*10>td.cell$*5)
+    
+    table#tbl1
+    <table id="tbl1">
+       tr>th#cols$*5
+       <tr>
+          <th id="cols1"></th>
+          <th id="cols2"></th>
+          <th id="cols3"></th>
+          <th id="cols4"></th>
+          <th id="cols5"></th>
+       </tr>
+       (tr>td.cell$*5)*10
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+       <tr>
+          <td class="cell1"></td>
+          <td class="cell2"></td>
+          <td class="cell3"></td>
+          <td class="cell4"></td>
+          <td class="cell5"></td>
+       </tr>
+    
+    </table>
+    
+    
+    Lorem Ipsum
+    
+    <h1>목록</h1>
+    
+    <ul>
+       <li>안녕하세용</li>
+    </ul>
+    
+    <h1>목록</h1>
+    ul>(li>lorem)*5
+
+   div>lorem
+   
+   
+    
+</body>
+</html>

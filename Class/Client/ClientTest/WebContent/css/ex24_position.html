@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+.box{border: 1px soild black; width: 150px;height: 150px;}
+
+#box1{ 
+
+background: #ED1C24;
+}
+
+
+#box2{ 
+background: #FFC90E;
+/*
+
+요소의 위치를 지정하는 방법
+1. padding
+
+2. margin
+
+3. position
+
+4. transform
+
+
+Position, 요소의 위치
+
+- x좌표, y좌표
+
+- position 속성
+- 좌표를 지정하는 방식(기준이 다 다름)
+- 좌표개 지정
+
+1. position: static
+
+	- 기본값 
+	- 워드 방식 
+	- 위 -> 아래, 좌 -> 우
+	- Flow Layout
+	- x,y 없음(이동못함)
+
+2. position: avsolute
+
+	- 절대 좌표
+	- 문서의 좌측 상단을 기준으로 한다.. > 자신의 직계 조상중 가장 처음으로 만나는 position이 static이 아닌 조상을 기준으로 하는 좌표계 
+	- 원래 있던 자신의 공간은 사라진다(display : none;)
+	
+3. position: relative
+
+	- 상대 좌표
+	- 자기 자신을 기준으로 한다.
+	- 원래 있던 자신의 공간은 유지된다.(visibility: hidden;)
+	
+	
+4. position: fixed 
+
+
+
+*/
+
+/* 
+position: fixed;
+left: 0px;
+top:0px;
+/* bottom: 0px; */
+
+ */
+
+
+}
+
+
+#box3{ 
+background: #22B14C;
+}
+
+#box4{ 
+background: orange;
+width: 500px;
+height: 500px;
+padding: 100px;
+position: absolute;
+left: 700px;
+top: 300px;
+
+}
+#box5{ 
+background: skyblue;
+width: 300px;
+height: 300px;
+padding: 100px;
+
+}
+#box6{ 
+background: pink;
+position: absolute;
+left: 0px;
+top: 0px;
+}
+
+
+</style>
+</head>
+<body>
+<!-- ex24_porition.html -->
+
+<div id="box1" class="box">상자1</div>
+<div id="box2" class="box">상자2</div>
+<div id="box3" class="box">상자3</div>
+
+<hr>
+
+
+
+   
+   <div id="box4" class="box">
+      <h3>할아버지</h3>
+      <div id="box5" class="box">
+         <h3>아버지</h3>
+         <div id="box6" class="box">자식</div>
+      </div>
+   </div>
+   
+   
+   <hr>
+   
+   
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+<p>내용입니다.</p>
+
+</body>
+</html>

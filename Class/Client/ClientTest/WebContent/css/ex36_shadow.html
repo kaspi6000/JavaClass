@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+#box1{
+/* text-shadow: h-shadow v-shadow blur color; */
+/* text-shadow: 5px 2px 3px grey; */
+text-shadow: 0px 0px 5px grey; 
+}
+
+#box2{
+border: 1px solid black;
+box-shadow: 2px 2px 3px gray;
+}
+
+
+#p1 span:hover {
+	color: red;
+	text-shadow: 2px 2px 2px rgba(255,0,0,.5);
+}
+
+input{ 
+width: 300px;
+border: 0px;
+outline: none;
+padding: 4px;
+background-color: grey;
+text-shadow: 1px 1px 0px white;
+}
+
+#p2,#p3{
+border: 1px solid black;
+width: 300px;
+white-space: nowrap;
+overflow: hidden; 
+}
+
+#p2{
+text-overflow: clip;
+
+}
+
+#p3{
+text-overflow: ellipsis; /* 짤리는 부분을 ...으로 생략  */
+}
+
+
+</style>
+<title>Insert title here</title>
+</head>
+<body>
+<!-- ex36_shadow.html  -->
+
+<!-- (p#p$>lorem10)*2 -->
+
+<p id="p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea consequatur.</p>
+<p id="p3">Vitae alias dolorum corporis quaerat debitis culpa. Dolor rerum quasi.</p>
+
+
+
+<hr> 
+
+
+<input type="text">
+
+
+<div id="box1">HTML5 & CSS3</div>
+<div id="box2">HTML5 & CSS3</div>
+<div id="box3">HTML5 & CSS3</div>
+
+
+<!-- p#p1>lorem100 -->
+
+<p id="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis error maxime dignissimos sunt laboriosam doloribus voluptates explicabo 
+ad voluptas est nobis optio illo ut hic ratione ipsum debitis nam quaerat rerum ipsam <span>excepturi</span> autem perferendis necessitatibus enim recusandae deleniti 
+vitae repellat saepe eius molestiae. Autem <span>consequatur</span> nostrum aspernatur enim nobis distinctio ab harum ducimus officia quae possimus maiores delectus
+ dolorum. Molestiae harum iusto cumque fuga beatae soluta in <span>voluptatibus</span> delectus provident saepe quia nisi deleniti repellendus maiores voluptate! Ratione sed 
+ quibusdam velit reprehenderit laudantium quaerat est praesentium esse possimus asperiores adipisci nemo ea dolor atque voluptate incidunt quia soluta totam.</p>
+
+
+</body>
+</html>

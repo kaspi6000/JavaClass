@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #menu {
+                border: 0px solid black;
+                width: 630px;
+                margin: 0px auto;
+                /* transform: translate(0px, -100px); */
+                transform: translate(0px, 100px);
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                right: 0;
+            }
+
+            #menu img {
+                float: left;
+            }
+
+            #menu img:hover {
+                /* visibility: hidden; */
+                /* transform: translate(0px, 80px); */
+                transform: translate(0px, -80px);
+            }
+
+            #submenu {
+                border: 0px solid black;
+                width: 126px;
+                height: 630px;
+                transform: translate(-120px, 0px);
+            }
+
+            #submenu img {
+                float: left;
+            }
+
+            #submenu img:hover {
+                transform: translate(100px, 0px);
+            }
+        </style>
+    </head>
+    <body>
+        <nav id = "menu">
+            <img src="../images/rect_icon01.png" alt="">
+            <img src="../images/rect_icon02.png" alt="">
+            <img src="../images/rect_icon03.png" alt="">
+            <img src="../images/rect_icon04.png" alt="">
+            <img src="../images/rect_icon05.png" alt="">
+            <div style = "clear:both;"></div>
+        </nav>
+
+        <nav id = "submenu">
+            <img src="../images/rect_icon01.png" alt="">
+            <img src="../images/rect_icon02.png" alt="">
+            <img src="../images/rect_icon03.png" alt="">
+            <img src="../images/rect_icon04.png" alt="">
+            <img src="../images/rect_icon05.png" alt="">
+            <div style = "clear:both;"></div>
+        </nav>
+    </body>
+</html>
