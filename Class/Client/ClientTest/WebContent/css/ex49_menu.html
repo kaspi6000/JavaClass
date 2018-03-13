@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /*
+                메뉴
+                1. 상단 메뉴
+                2. 붙박이
+                3. 슬라이딩
+            */
+            body {
+                margin: 0;
+            }
+
+            #menu {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                height: 120px;
+                border-bottom: 1px solid #ccc;
+                background-color: white;
+                box-shadow: 0px 2px 2px #eee;
+                transform: translate(0, -80px);
+                transition: transform, 0.7s;
+
+                /* #menu가 이동하려고 하는 것이 아니라 span의 부모 역할을 하기 위해 static 아닌 값을 지정 : 본인은 이동을 안함 */
+                /* position: relative;
+                left: 0;
+                top: 0; */
+            }
+
+            #menu:hover {
+                transform: translate(0, 0);
+            }
+
+            section {
+                margin: 20px;
+                margin-top: 60px;
+            }
+
+            #menu span {
+                font-variant: small-caps;
+                font-weight: bold;
+                position: absolute;
+                right: 20px;
+                bottom: 10px;
+            }
+
+            #cat div {
+                border: 20px solid black;
+                float: left;
+                margin: 10px;
+                padding: 10px;
+                overflow: hidden;
+            }
+
+            /* <div style = "clear: both;"></div> 추가하는 것과 동일한 효과 */
+            #cat::after {
+                content: " ";
+                display: block;
+                clear: both;
+            }
+
+            #cat div img {
+                transform: translate(150px, 0);
+                transition: transform 0.5s;
+            }
+
+            #cat div:hover img {
+                transform: translate(0, 0);
+            }
+
+            #cat2 {
+                width: 128px;
+                height: 128px;
+                border: 20px solid black;
+                padding: 10px;
+                margin: 20px;
+                overflow: hidden;
+            }
+
+            #cat2 #innerBox {
+                border: 0px solid red;
+                width: 763px;
+                transition: transform 1s;
+            }
+
+            #cat2 #innerBox img {
+                margin-right: 20px;
+            }
+
+            #cat2:hover #innerBox {
+                transform: translate(-610px, 0);
+            }
+
+            #pbox, #cbox, #dbox {
+                border: 10px solid orange;
+            }
+
+            #pbox {
+                margin: 20px;
+                background-color: slateblue;
+                padding: 20px;
+                width: 340px;
+                height: 340px;
+                overflow: hidden;
+            }
+
+            #cbox {
+                width: 320px;
+                height: 320px;
+                background-color: yellow;
+                transition: transform 5s;
+            }
+
+            #dbox {
+                width: 300px;
+                height: 300px;
+                background-color: red;
+                transition: transform 7s;
+            }
+
+            #pbox:hover #cbox {
+                transform: rotate(3600deg);
+            }
+
+            #pbox:hover #dbox {
+                transform: rotate(-10200deg);
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="menu">
+            <span>Menu</span>
+        </nav>
+
+        <hr>
+
+        <section>
+            <div id="cat">
+                <div><img src="../images/catty01.png" alt=""></div>
+                <div><img src="../images/catty02.png" alt=""></div>
+                <div><img src="../images/catty03.png" alt=""></div>
+                <div><img src="../images/catty04.png" alt=""></div>
+                <div><img src="../images/catty05.png" alt=""></div>
+            </div>
+
+            <div id="cat2">
+                <div id = "innerBox">
+                    <img src="../images/catty01.png" alt="">
+                    <img src="../images/catty02.png" alt="">
+                    <img src="../images/catty03.png" alt="">
+                    <img src="../images/catty04.png" alt="">
+                    <img src="../images/catty05.png" alt="">
+                </div>
+            </div>
+
+            <div id = "pbox">
+                <div id="cbox">
+                    <div id="dbox"></div>
+                </div>
+            </div>
+        </section>
+        <!-- (p>lorem)*10 -->
+        <!-- <section>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus quibusdam dolore deserunt qui quas, sint maxime nemo autem commodi inventore, eligendi laudantium eaque? Quasi atque quod error explicabo necessitatibus consectetur.</p>
+            <p>Omnis maxime totam modi harum suscipit, ex possimus quae, voluptatum et autem illum odit perferendis aperiam tempore distinctio ad amet earum saepe, sit esse. Fuga culpa praesentium at quaerat consequatur!</p>
+            <p>Quo quod ea atque placeat in, quis reiciendis libero laborum maxime optio corporis, amet ipsam debitis voluptas facilis hic unde voluptate culpa, ullam aspernatur harum possimus. Quis harum error facilis.</p>
+            <p>Consequatur, vel cumque neque tempore omnis veritatis, eum accusamus debitis consectetur voluptates ipsam dolorem qui sed minima, quos rerum eius quidem suscipit nesciunt doloremque repudiandae! Sed veniam iste sit dicta!</p>
+            <p>Ipsum tempore voluptatibus commodi iusto, expedita dolor quisquam aliquam rem facilis odit assumenda optio suscipit modi voluptatum repudiandae harum vitae neque iste similique sint unde sunt necessitatibus qui. A, totam.</p>
+            <p>Quasi id ipsa eius libero esse eos ex placeat, pariatur laudantium! Reiciendis perferendis, molestias suscipit inventore iusto. Veniam rerum, voluptate distinctio quidem, reiciendis error quo magnam commodi aspernatur reprehenderit dolorum!</p>
+            <p>Soluta exercitationem aliquid voluptates voluptate libero velit, nemo fugiat beatae atque voluptatibus dolorem earum enim sequi quas, eveniet magnam placeat quia consectetur vitae necessitatibus, ex labore laborum ipsam inventore. Sequi.</p>
+            <p>Magni itaque placeat sed necessitatibus illo, odit consectetur sint mollitia. Maxime veritatis consequuntur ea odit vel voluptatem necessitatibus recusandae harum, temporibus quis tenetur iure reiciendis dolores nobis accusamus, sed omnis!</p>
+            <p>Est eligendi magni labore voluptatem quo velit perferendis voluptate perspiciatis, aperiam rerum quaerat, consectetur quasi numquam quod in eum recusandae expedita harum, sint. Molestiae temporibus accusamus ullam, facilis laudantium, optio.</p>
+            <p>Maiores autem, laborum, alias asperiores ex, consequatur modi suscipit accusamus commodi minima nisi saepe, ipsum et deleniti. Id, dolores. Numquam tempora obcaecati labore mollitia excepturi adipisci exercitationem nulla, illum deleniti!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, dolore nihil quae, corporis blanditiis commodi totam ratione iure itaque at ea dolorem cum nisi id accusantium explicabo rem necessitatibus, vitae!</p>
+            <p>Quod doloremque dignissimos tempore optio maiores cum temporibus est esse accusamus. Officiis maxime id veritatis obcaecati minima et beatae neque, quos ad vero totam molestias earum fuga praesentium ab nisi.</p>
+            <p>Totam, reiciendis commodi mollitia libero reprehenderit repudiandae quas voluptates cum minus officia sunt ducimus a expedita provident eos vero velit excepturi et recusandae tenetur! Officia deserunt quam, expedita recusandae ad.</p>
+            <p>Iure qui fuga, animi nisi nesciunt suscipit reprehenderit delectus. Quos recusandae quasi a magni voluptatum voluptates odit ad, consequuntur sequi ducimus accusamus labore pariatur fuga quidem reprehenderit nam dolor ratione?</p>
+            <p>Sequi quos totam necessitatibus ipsam magni exercitationem architecto voluptas veritatis perferendis debitis minus quo, quisquam at. Ut voluptatem iure rem, inventore accusamus dolore nihil, autem. At possimus iste ipsa in.</p>
+            <p>Nihil soluta et commodi numquam dolorum, recusandae fugiat suscipit est at, maxime praesentium cumque modi vitae perspiciatis eos, magni. Iusto magni temporibus ducimus, quam sint tenetur, perspiciatis commodi cupiditate quasi.</p>
+            <p>Blanditiis voluptatibus consectetur in quisquam asperiores ad adipisci enim rem fugit optio doloremque, accusamus, repellendus cumque eligendi sit voluptas inventore nulla doloribus tempora necessitatibus exercitationem illo quasi soluta provident quaerat.</p>
+            <p>Exercitationem, quis itaque ipsam. Temporibus illo, unde molestias vero natus sapiente voluptas eum minus aut excepturi aliquid exercitationem architecto saepe pariatur omnis minima ab vel perspiciatis tempora. Dolorum sed, velit!</p>
+            <p>Ab consequatur, inventore numquam hic quidem culpa ullam et maiores tenetur quam, sapiente distinctio dicta necessitatibus dolore dolores alias, tempora autem ipsum! Quia, tenetur iste exercitationem vero voluptate, possimus mollitia!</p>
+            <p>Dolorem eum corporis aperiam maiores modi qui ducimus deserunt magnam a, porro praesentium. Nostrum hic esse ea mollitia dolor, ex blanditiis iusto tempora, obcaecati quo ullam rem fuga doloremque tenetur.</p>
+        </section> -->
+    </body>
+</html>
