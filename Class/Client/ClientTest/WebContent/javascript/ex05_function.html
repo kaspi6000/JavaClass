@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+	</style>
+	<script>
+		/*
+
+			자바스크립트 함수, Function
+			- 메소드, 함수
+
+			자바 메소드 선언
+			public[static] int m1(int num){
+
+			return 10;
+			}
+
+			자바스크립트 함수 선언
+			- 매개변수는 선언문을 적으면 에러가 나기 때문에 생략
+			- 메소드임을 알려주기 위해 function을 앞에 붙인다.
+
+			function m1(num){
+
+				return 10;
+			}
+
+		*/
+		function f1() {
+
+			console.log("f1");
+
+		}
+
+		f1();
+
+		function f2(name) {
+
+			console.log(name + "안녕~");
+		}
+
+		f2("길동이");
+		f2(); /* 이름이 들어갈 곳에 undefined 출력 (null값과 유사) */
+		f2("홍길동", "아무개"); /* 매개변수의 수가 달라 아무개는 버린다. */
+
+
+		function f3() {
+			// arguments : 예약어, 실인자값의 배열
+			console.log(arguments.length);
+
+			for (var i = 0; i < arguments.length; i++) {
+				console.log(arguments[i]);
+			}
+		}
+
+
+
+		f3("홍길동"); /* 매개변수가 불일치해도 에러 X, 홍길동은 받지 않는다. */
+		f3("하나", "둘", "셋")
+
+
+		// 자바 : 컴파일 언어
+		// 자바 스크립트 : 인터프리터 언어 (실시간 번역)
+
+		// 함수 호이스팅, Hoisting(끌어올리다.)
+		f4();
+		// 선언작업부분을 짤라서 위로 끌어올리기 때문에
+		// 함수의 선언이전에 호출부터 해도 에러가 나지 않는다.
+
+		function f4() {
+
+			console.log("f4");
+
+		}
+
+		// 변수 호이스팅
+		console.log(n);
+		var n = 100;
+
+		// undefined : 변수를 생성 직후 초기화를 하지 않은 상태
+		// null : 의도적으로 값을 가지지 않는 상태
+
+		var n1; // null 상태
+		console.log(n1);
+
+		n1 = null;
+		console.log(n1)
+
+		// ===  : 진성비교
+
+		console.log(null == undefined); /* true : 자동 형변환 발생 */
+		console.log(null === undefined); /* false : 자동 형변환 없음  */
+
+		console.log(10 == "10"); /* true : 값만 비교 */
+		console.log(10 === "10"); /* false: 값과 자료형까지 비교  */
+
+		console.log(10 != "10");
+		console.log(10 !== "10");
+
+		// console.log(abc);
+
+
+
+
+		/*
+
+		자바 : 멤버 변수 vs 지역 변수
+		자바스크립트 : 전역 변수 vs 지역 변수
+
+		변수의 종류
+
+		1. 전역변수, Gloval Variable
+			- 페이지내의 모든 장소에 접근 가능한 변수
+			-  <script> 태그내에서 만든 모든 변수
+			- 함수내에서 만든 변수를 뺀 나머지는 전역변수다.
+
+		2. 지역변수 Local Variable
+			- 블럭(메소드, 제어문)내에서 선언 : 자바
+			- 블럭(함수)내에서 선언 : 자바 스크립트
+
+
+
+		*/
+		var aaa = 10; //전역변수
+
+		if (true) {
+			var num = 10;
+
+		}
+		console.log(num);
+
+		function f5() {
+			var m = 20;
+
+		}
+
+		f5(); // 함수 호출
+		/* console.log(m);  */ //에러
+	</script>
+</head>
+
+<body>
+	<!-- ex05_function.html -->
+
+	<script type="text/javascript">
+		alert(aaa);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+    </style>
+    <script>
+        /* 
+        형변환, Type Casting
+        - 대부분 상황에서는 자바 스크립트가 자동으로 형변환을 한다(암시적 형변환)
+        - ex) "10"*2
+
+         형변환 함수
+        1. int parseInt()
+        2. float parseFloat()
+
+
+
+        */
+
+        var n1 = 3.14;
+        console.log(parseInt(n1));
+
+        var n1 = 3.99;
+        console.log(parseInt(n1));
+
+        console.log(Math.round(n1)); /* 반올림 함수  */
+
+        var n2 = 10;
+        console.log(parseFloat(n2));
+
+        var n3 = "10";
+        var n4 = "3.14";
+
+        console.log(typeof n3); //typeof 연산자 : 자료형을 확인할 때 사용\
+        console.log(typeof n4);
+
+        console.log(typeof parseInt(n3));
+        console.log(n3);
+
+        console.log(parseInt(n4));
+        console.log(parseFloat(n4));
+
+
+
+        var n5 = "100점";
+        n5 = "95점입니다 아까워요ㅜㅜ";
+        n5 = "오늘 시험을 봤는데 100점이다!!!"; //NaN: 숫자가 아니다. : 처음에 나온 숫자만 형변환
+        console.log(parseInt(n5));
+        // CSS 나 HTML 을 조작할 때 많이 씀
+
+        var width = "200px";
+        console.log(width * 2); /* 에러  */
+        console.log(parseInt(width) * 2); /* 가능, 숫자만 잘라주기 때문에 */
+        console.log(parseFloat("1.5em") / 2);
+
+        //
+
+        //var age="20세"; // ?
+        //age= "스무살"; // X
+        //age = 20; // O
+        age = "20"; // O
+
+        // 위를 걸러내는 유효성 검사
+
+        console.log(isNaN(age));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

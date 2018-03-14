@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+    </style>
+    <script>
+        // 문자열 함수
+        var txt = "Hello~ Hong~ hi~";
+
+        // 1. 문자열 길이
+        console.log(txt.length);
+
+        // 2. 검색
+        // - indexOf()
+        // - lastIndexOf()
+        console.log(txt.indexOf("~"));
+        console.log(txt.indexOf("~", 6)); /* 두번째 시작: 첫번째 발견은 5번째기 때문에 */
+        console.log(txt.lastIndexOf("~"));
+        console.log(txt.indexOf("!")); /* 발견못하면 -1 반환  */
+
+        // 3. 대소문자 반환
+        console.log(txt.toUpperCase()); /* 대문자로 반환  */
+        console.log(txt.toLowerCase()); /* 소문자로 반환  */
+
+        //4. 치환
+        // - 처음 만나는 요소만 치환한다.(반복X)
+        // - 모든 요소를 치환 -> 정규 표현식 사용
+
+        console.log(txt.replace("Hong", "min"));
+        console.log(txt.replace("H", "L"));
+        console.log(txt.replace("H", "L")); /* 첫번째 만나는 H만 바꿔줌  */
+        console.log(txt.replace(/H/g, "L")); /* 모든 대문자 H를 바꾸는 약자 //g  */
+        console.log(txt.replace(/H/gi, "L")); /* 모든 대,소문자 상관없이 H를 바꾸는 약자 //i */
+
+        //5. 추출
+        console.log(txt.substring(2, 8));
+        console.log(txt.substring(2)); /* 끝나는 위치를 지정하지 않으면 끝까지 짤라줌  */
+
+        console.log(txt.substr(2, 6)); /* 뒤의 숫자는 자리를 의미X 문자열의 갯수를 말한다.  */
+        console.log(txt.substr(2));
+
+        // 6. 문자 추출
+        console.log(txt.charAt(0)); // 문자열로 돌려줌
+        console.log(txt.charCodeAt(0)); // 문자 코드값을 반환
+
+        // 7. 분할
+
+        var name = "홍길동,아무개,하하하,호호호";
+
+        console.log(name.split(","));
+
+
+
+
+        // 오후 : Code Assist 플러그인 설치
+
+        /* 헬프-> install #(*$)*)( ->  add-> 이름적고 */
+    </script>
+</head>
+
+<body>
+    <!-- ex07_string.html -->
+</body>
+
+</html>

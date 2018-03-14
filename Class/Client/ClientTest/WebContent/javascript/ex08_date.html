@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+
+        </style>
+        <script type="text/javascript">
+            let now = new Date();
+            console.log();
+
+            // 출력
+            // - toString()
+
+            // 특정 시각
+            let christmas = new Date();
+            christmas.setMonth(11, 25);
+            console.log(christmas.toLocaleString());
+
+            let birthday = new Date(1990, 4, 20);
+            let birthday2 = new Date(1990, 4, 20, 12, 20, 0);
+            console.log(birthday);
+            console.log(birthday2);
+
+            //연산
+            console.log(christmas - now); //ms
+            console.log(christmas.getTime() - now.getTime());
+            console.log((christmas - now) / 1000 / 60 / 60 / 24);
+
+            // 오늘 커플 -> 100일뒤?
+            console.log(now.getTime() + (100 * 24 * 60 * 60 *1000));
+
+            let ani = new Date();
+            ani.setTime(now.getTime() + (100 * 24 * 60 * 60 * 1000));
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

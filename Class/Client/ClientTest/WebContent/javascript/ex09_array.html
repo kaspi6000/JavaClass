@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+
+        </style>
+        <script type="text/javascript">
+            // int[] nums = new int[3];
+
+            let nums = new Array();
+
+            nums[0] = 100;
+            nums[1] = 200;
+            nums[2] = 300;
+
+            nums[5] = 500;
+
+            for (var i = 0; i < nums.length; i++) {
+                console.log(nums[i]);
+            }
+
+            nums["one"] = "하나";
+            nums["two"] = "둘";
+
+            console.log(nums["one"]);
+
+            // 배열 초기화 리스트
+            // int[] nums2 = new int[] {100, 200, 300};
+            // int[] nums2 = {100, 200, 300};
+
+            let nums2 = new Array(100, 200, 300);
+            let nums3 = [100, 200, 300];
+
+            console.log(nums2);
+            console.log(nums3);
+
+            let nums4 = new Array(); // 빈배열
+            let nums5 = []; // 빈배열
+
+            // 0 ~ 99
+            for (var i = 0; i < 100; i++) {
+                nums5[i] = i;
+            }
+
+            console.log(nums5);
+
+            let nums6 = [];
+
+            // 3의 배수 100개
+            let index = 0;
+            for (var i = 3; i < 301; i+=3) {
+                nums6.push(i); // list.add(i); - append()
+            }
+
+            console.log(nums6);
+
+            console.log(Math.round(3.5));
+            console.log(Math.ceil(3.5));
+            console.log(Math.floor(3.5));
+            console.log(Math.pow(2, 8));
+            console.log(Math.sqrt(4)); // 제곱근(루트함수)
+            console.log(Math.random());
+
+            // 1 ~ 10 사이 난수
+            console.log(parseInt(Math.random() * 10) + 1);
+
+            // 예외 처리
+            try {
+                let n = 0;
+                console.log(100 / n);
+            } catch(e) {
+                console.log("예외 처리");
+                console.log(e);
+            }
+
+            // 숫자 : 0(false), 이외(true)
+            // 문자(열) : ""(false), "문자열"(true)
+
+            // let n = 10;
+            // let n = "";
+            // let n = null;
+            // var n; //undefined
+            var n = new Date();
+
+            if (n) {
+                console.log("true");
+            } else {
+                console.log("false");
+            }
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
