@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+            function f1() {
+                // alert('hi');
+                let txt1 = window.document.form1.txt1;
+                txt1.value = 'hi';
+            }
+
+            // window.document.form1.btn2.onclick = () => {
+            //     let txt1 = window.document.form1.txt1;
+            //     txt1.value = '두번째 버튼';
+            // }
+
+            // 페이지의 생성자 역할
+            function init() {
+
+                //btn2
+                window.document.form1.btn2.onclick = () => {
+                    let txt1 = window.document.form1.txt1;
+                    txt1.value = '두번째 버튼';
+                }
+
+                //btn3
+                var btn3 = window.document.form1.btn3;
+                var btn4 = window.document.form1.btn4;
+                var btn5 = window.document.form1.btn5;
+
+                btn3.onclick = () => {
+                    var n = Math.round(Math.random()); // 0 ~ 1
+                    console.log(n);
+                    if (n == 1) {
+                        btn4.onclick = () => {
+                            alert('당첨!!');
+                        }
+                    } else {
+                        btn5.onclick = () => {
+                            alert('당첨!!');
+                        }
+                    }
+                    btn3.disabled = true;
+                }
+            }
+
+            // window.document.body.onload = ..
+
+            window.onload = init;
+        </script>
+    </head>
+    <body>
+        <!-- body 태그의 모든 내용이 브라우저에 의해서 로딩되고 난 직후에 발생 -->
+        <form action="" name = "form1">
+            <input type="text" name = "txt1">
+            <hr>
+            <!-- 버튼이 생길때 부터 클릭 이벤트 걸려있게.. -->
+            <input type="button" name = "btn1" value = "버튼1" onclick="f1()">
+            <input type="button" name = "btn2" value = "버튼2">
+            <hr>
+            <input type="button" name = "btn3" value = "버튼3">
+            <input type="button" name = "btn4" value = "버튼4">
+            <input type="button" name = "btn5" value = "버튼5">
+        </form>
+
+        <script type="text/javascript">
+            // window.document.form1.btn2.onclick = () => {
+            //     let txt1 = window.document.form1.txt1;
+            //     txt1.value = '두번째 버튼';
+            // }
+        </script>
+    </body>
+</html>

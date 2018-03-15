@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+            /*
+                키보드 관련 이벤트
+                - onkeyXXX
+                - 폼 관련 태그들만 사용(포커스를 가질 수 있는 태그) + <a>
+                1. onkeydown
+                    - 키를 눌럿을 때 발생
+                    - 물리키에 반응
+                2. onkeyup
+                    - 키를 떼었을 때 발생
+                    - 물리키에 반응
+                ---------------
+                3. onkeypress
+                    - 키를 눌렀을 때 발생
+                    - 문자 키에 반응
+            */
+
+            window.onload = () => {
+                let txt1, txt2, txt3 ,txt4, txt5;
+                txt1 = window.document.form1.txt1;
+                txt2 = window.document.form1.txt2;
+                txt3 = window.document.form1.txt3;
+                txt4 = window.document.form1.txt4;
+                txt5 = window.document.form1.txt5;
+
+                txt1.onkeydown = () => {
+                    // console.log('keydown');
+                    // console.log(event.keyCode); // 눌린 키의 코드값
+                }
+
+                txt1.onkeyup = () => {
+                    // console.log('keyup');
+                }
+
+                txt1.onkeypress = () => {
+                    // console.log('keypress');
+                    console.log(event.keyCode);
+                }
+
+                txt2.onkeyup = () => {
+                    console.log(txt2.value);
+                    if (txt2.value.length < 10) {
+                        window.document.bgColor = "white";
+                    } else if (txt2.value.length < 20) {
+                        window.document.bgColor = "yellow";
+                    } else {
+                        window.document.bgColor = "red";
+                    }
+                }
+
+                txt3.onkeyup = () => {
+                    txt4.value = txt3.value;
+                }
+
+                txt5.onkeyup = () => {
+                    // 금지어 사용 금지(바보, 멍청이)
+                    if (txt5.value.indexOf('바보') > -1 || txt5.value.indexOf('멍청이') > -1) {
+                        // txt5.value = "";
+                        // txt5.readOnly = true;
+                        //
+                        // txt5.ondblclick = () => {
+                        //     txt5.readOnly = false;
+                        // }
+
+                        // 3.
+                        txt5.value = txt5.value.replace("바보", "**").replace("멍청이", "***");
+                    }
+                }
+            }
+
+            // window 객체 키 이벤트 추가 -> 전역 이벤트(포커스가 어디에 있던 항상 발생)
+            window.onkeydown = () => {
+                // 특수키 조합
+                console.log(event.ctrlKey);
+                console.log(event.altKey);
+                console.log(event.shiftKey);
+
+                if (event.keyCode == 38 && event.ctrlKey) {
+                    window.document.body.bgColor = 'yellow';
+                } else if (event.keyCode == 40 && event.ctrlKey) {
+                    window.document.body.bgColor = 'white';
+                }
+
+                let txt1 = window.document.form1.txt1;
+                if (event.keyCode == 37) {
+                    txt1.size--;
+                } else if (event.keyCode == 39) {
+                    txt1.size++;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="" name = "form1">
+            <input type="text" name = "txt1">
+            <hr>
+            <input type="text" name = "txt2">
+            <hr>
+            <input type="text" name = "txt3">
+            <hr>
+            <input type="text" name = "txt4">
+            <hr>
+            <input type="text" name = "txt5">
+            <hr>
+        </form>
+    </body>
+</html>
