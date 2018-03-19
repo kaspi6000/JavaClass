@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+
+            let cat; // 전역 변수 : 페이지가 닫힐때까지..
+            let n = 1;
+            let number;
+
+            window.onload = () => {
+
+                let btn1, img1, img2;
+
+                btn1 = document.all.btn1;
+                img1 = document.images["img1"];
+                img2 = document.images["img2"];
+                cat = document.images["cat"];
+                number = document.images["number"];
+
+                btn1.onclick = () => {
+                    // console.log(img1.src);
+                    // console.log(img1.width);
+                    // console.log(img1.height);
+                    // img1.src = "../images/switch_on.png";
+                    img1.width = 500;
+                    img1.height = 500;
+                }
+
+                // img2.onmouseover = () => {
+                //     img2.src = "../images/switch_on.png";
+                // }
+                //
+                // img2.onmouseout = () => {
+                //     img2.src = "../images/switch_off.png";
+                // }
+
+                // document.body.bgColor = "black";
+                //
+                // img2.onclick = () => {
+                //     // img2.src = "../images/switch_on.png";
+                //     if(getFileName(img2.src) == "switch_on.png") {
+                //         img2.src = "../images/switch_off.png";
+                //         document.body.bgColor = "black";
+                //     } else {
+                //         img2.src = "../images/switch_on.png";
+                //         document.body.bgColor = "white";
+                //     }
+                //     console.log(img2.src);
+                // }
+
+                // let filename = ["switch_off.png", "switch_on.png"];
+                // filename[0] //off
+                // filename[1] //on
+
+                let filename = [];
+                filename["on"] = "switch_on.png";
+                filename["off"] = "switch_off.png";
+
+                img2.onclick = () => {
+
+                    if (getFileName(img2.src) == filename["on"]) {
+                        img2.src = "../images/" + filename["off"];
+                    } else {
+                        img2.src = "../images/" + filename["on"];
+                    }
+                }
+
+                cat.onclick = () => {
+                    n++;
+                    if (n > 5) n = 1;
+                    cat.src = "../images/cat0" + n + ".jpg";
+                }
+            }
+
+            // window.onkeydown = () => {
+            //
+            //     if (event.keyCode == 39) {
+            //         //right
+            //         // n++;
+            //         // if (n > 5) n = 1;
+            //         // cat.src = "../images/cat" + n + ".jpg";
+            //         cat.click(); // cat.onclick 호출
+            //     } else if (event.keyCode == 37) {
+            //         //left
+            //         n--;
+            //         if (n < 1) n = 5;
+            //         cat.src = "../images/cat0" + n + ".jpg";
+            //     }
+            // }
+
+            window.onkeydown = () => {
+
+                if (event.keyCode == 39) {
+                    //right
+                    n++;
+                    if (n > 5) {
+                        alert("Last image");
+                        n = 5;
+                    }
+                } else if (event.keyCode == 37) {
+                    //left
+                    n--;
+                    if (n < 1) {
+                        alert("First image");
+                        n = 1;
+                    }
+                }
+
+                cat.src = "../images/cat0" + n + ".jpg";
+
+                // console.log(event.keyCode);
+                // 0(48) ~ 9(57)
+                if (event.keyCode >= 48 && event.keyCode <= 57){
+                    number.src = "../images/"+ (event.keyCode - 48) +".png";
+                }
+
+            }
+
+            function getFileName(path) {
+
+                let index = path.lastIndexOf("/");
+
+                if(index > -1) {
+                    return path.substr(index+1);
+                } else {
+                    return null;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <!--
+            window
+                - screen : 화면 정보
+                - location : URL 제어
+                - history : 방문 기록 제어
+                - document : 문서 객체
+                    - link : <a>
+                    - anchor : <a>
+                    - image
+        -->
+        <input type="button" value = "테스트" name = "btn1">
+        <hr>
+        <img src="../images/switch.png" alt="" name = "img1">
+        <hr>
+        <img src="../images/switch_off.png" alt="" name = "img2">
+        <hr>
+        <img src="../images/cat01.jpg" alt="" name = "cat">
+        <hr>
+        <img src="../images/0.png" alt="" name = "number">
+    </body>
+</html>

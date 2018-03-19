@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /* #txt1:focus {
+                background-color: yellow;
+            } */
+            body > form > fieldset > div {
+                margin-bottom: 10px;
+            }
+
+            body > form > fieldset > div > label {
+                display: inline-block;
+                width: 80px;
+                text-align: center;
+                margin-right: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var txt1;
+            var jumin1, jumin2;
+            var btnSubmit, textname, textage;
+            var textid, btncheck;
+            var ischeck = false; // 아이디 중복 검사 버튼을 눌러서 검사를 했는지 유무
+            var textpw, textpwc;
+
+            window.onload = () => {
+
+                txt1 = document.all.txt1;
+                jumin1 = document.all.jumin1;
+                jumin2 = document.all.jumin2;
+                btnSubmit = document.form1.btnSubmit;
+                textname = document.form1.textname;
+                textage = document.form1.textage;
+
+                textid = document.form1.textid;
+                btncheck = document.form1.btncheck;
+
+                textpw = document.form1.textpw;
+                textpwc = document.form1.textpwc;
+
+                txt1.onfocus = () => {
+
+                    txt1.style.backgroundColor = "yellow"; // CSS 제어
+                }
+
+                txt1.onblur = () => {
+
+                    txt1.style.backgroundColor = "white"; // CSS 제어
+                }
+
+                // 주민번호 앞자리를 입력하면 뒷자로 포커스 이동
+                jumin1.onkeyup = () => {
+                    if (jumin1.value.length == 6) { // 주민번호 앞자리 마지막 숫자를 입력할 때..
+                        jumin2.focus();
+                    }
+                }
+
+                // 전송 버튼 클릭
+                btnSubmit.onclick = () => {
+
+                    // 유효성 검사
+                    // - 잘못된 경우를 검사
+
+                    // 이름 : 필수값
+                    if (textname.value == "") {
+                        alert("Name NULL");
+                        textname.focus();
+                        return; // 함수 종료 -> 전송 버튼 작업 취소
+                    }
+
+                    // 나이 : 필수값, 숫자만, 19 ~ 60세
+                    if (textage.value == "") {
+                        alert("Age NULL");
+                        textage.focus();
+                        return;
+                    }
+
+                    if (isNaN(textage.value)) {
+                        alert("Age only number");
+                        // textage.focus();
+                        textage.select();
+                        return;
+                    }
+
+                    if (textage.value < 19 || textage.value > 60) {
+                        alert("Age 19 ~ 60");
+                        textage.select();
+                        return;
+                    }
+
+                    // 아이디 유효성 검사
+                    // 아이디 형태 + 아이디 중복 검사를 통해 입력
+                    if (!ischeck) {
+                        alert("아이디 중복검사를 실행하시오.");
+                        return;
+                    }
+
+                    // 암호 확인하기
+                    if (textpw.value != textpwc.value) {
+                        alert("암호가 일치하지 않습니다. 다시 확인하세요.");
+                        textpw.value = "";
+                        textpwc.value = "";
+                        textpw.focus();
+                        return;
+                    }
+
+                    document.form1.submit(); // 전송 버튼 클릭과 동일
+                }
+
+                btncheck.onclick = () => {
+                    var child = window.open("ex27_idcheck.html", "idcheck", "width=300, height=200");
+
+                    // BOM
+                    // child.onload = () => {
+                    //     child.document.form1.textid.value = document.form1.textid.value;
+                    // }
+
+                    // DOM
+                    child.addEventListener("load", () => {
+                        child.document.form1.textid.value = document.form1.textid.value;
+                    });
+                }
+
+                // 버튼을 통하지 않고 직접 아이디를 수정했는지??
+                //  - onchange : 해당 컨트롤의 값이 변경이 발생하면..
+                textid.onchange = () => {
+                    ischeck = false;
+                }
+            }
+
+            // 버튼 1개가 on/off 역할을 모두 수행
+            function togglepw() {
+
+                if (textpw.type == "password") {
+                    textpw.type = "text";
+                    event.srcElement.innerText = "[암호 감추기]"
+                } else {
+                    textpw.type = "password";
+                    event.srcElement.innerText = "[암호 보이기]"
+                }
+            }
+
+            function test() {
+                alert("parent");
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" name = "txt1" id = "txt1">
+        <hr>
+
+        주민번호 :
+        <input type="text" name = "jumin1" size = "6" maxlength="6">
+        -
+        <input type="text" name = "jumin2" size = "7" maxlength="7">
+
+        <h1>유효성 검사</h1>
+
+        <form action="ex27.jsp" name = "form1">
+            <fieldset>
+                <legend>필수 입력</legend>
+                <div>
+                    <label for="">이름 : </label><input type="text" name = "textname">
+                </div>
+                <div>
+                    <label for="">나이 : </label><input type="text" name = "textage">
+                </div>
+                <div>
+                    <label for="">아이디 : </label><input type="text" name = "textid">
+                    <input type="button" value = "아이디 중복검사" name = "btncheck">
+                </div>
+                <div>
+                    <label for="">암호 : </label><input type="password" name = "textpw">
+                    <span onclick = "togglepw()">[암호 보이기]</span>
+                </div>
+                <div>
+                    <label for="">암호 확인 : </label><input type="password" name = "textpwc">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>선택 입력</legend>
+                <div>
+                    <label for="">학교 : </label><input type="text" name = "textschool">
+                </div>
+            </fieldset>
+
+            <div>
+                <input type="button" value = "등록하기" name = "btnSubmit">
+            </div>
+        </form>
+    </body>
+</html>

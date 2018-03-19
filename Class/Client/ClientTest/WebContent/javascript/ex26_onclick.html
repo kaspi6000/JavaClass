@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+
+            let btn2, btn3, btn4;
+
+            window.onload = () => {
+
+                let btn1 = document.all.btn1;
+
+                // 여러 객체(태그)가 비슷한 행동을 하는 경우
+                btn2 = document.all.btn2;
+                btn3 = document.all.btn3;
+                btn4 = document.all.btn4;
+
+                // 마우스 관련 이벤트
+                // - onmouseXXX
+
+                // onclick
+                // - 마우스 or 키 관련 X
+
+                // btn1.onclick = () => {
+                //     alert("click");
+                // }
+
+                // btn1.onmouseclick
+                btn1.onmousedown = () => {
+                    alert("click");
+                }
+
+                btn2.onclick = () => {
+                    document.body.bgColor = "white";
+                }
+
+                btn3.onclick = () => {
+                    document.body.bgColor = "yellow";
+                }
+
+                btn4.onclick = () => {
+                    document.body.bgColor = "blue";
+                }
+            }
+
+            function handleClick1() {
+                document.body.bgColor = "white";
+            }
+
+            function handleClick2() {
+                document.body.bgColor = "yellow";
+            }
+
+            function handleClick3() {
+                document.body.bgColor = "blue";
+            }
+
+            function handleClick(color) {
+                document.body.bgColor = color;
+            }
+
+            // changeCat("cat1", "catty04.png")
+            function changeCat(cat, filename) {
+                // 1 -> 4
+                // 2 -> 5
+                // 3 -> 6
+                var cat = document.images[cat];
+                cat.src = "../images/" + filename;
+            }
+
+            function changeCat2(cat, filename) {
+                // this : 이벤트 발생 해당 태그 참조
+                cat.src = "../images/" + filename;
+            }
+
+            function changeCat3(filename) {
+                // this == event.srcElement
+                // event.srcElement : 이벤트 발생시킨 태그(객체)
+                event.srcElement.src = "../images/" + filename;
+            }
+
+            function change4() {
+
+                // 버튼 3개 -> 1개의 함수 호출
+                // alert("click");
+
+                // console.log(event.srcElement);
+                // switch (event.srcElement.value) {
+                //     case "white":
+                //         document.body.bgColor = "white";
+                //         break;
+                //     case "yellow":
+                //         document.body.bgColor = "yellow";
+                //         break;
+                //     case "blue":
+                //         document.body.bgColor = "blue";
+                //         break;
+                // }
+
+                document.body.bgColor = event.srcElement.value;
+            }
+
+            function change5() {
+
+                // BOM
+                // console.log(event.srcElement.label)
+
+                // DOM
+                console.log(event.srcElement.getAttribute("lable"));
+
+                document.body.bgColor = event.srcElement.getAttribute("lable");
+            }
+
+            function change6() {
+
+                // document.body.bgColor = event.srcElement.dataset["backgroundColor"];
+                document.body.bgColor = event.srcElement.dataset.backgroundColor;
+
+                console.log(event.srcElement.dataset);
+            }
+
+            // 1. 호출 : this
+            // 2. 함수 : event.srcElement
+            // 3. 사용자 정의 속성 : data-XXX
+        </script>
+    </head>
+    <body>
+        <input type="button" value = "버튼" name = "btn1">
+        <hr>
+
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn2" value = "white">
+        <input type="button" name = "btn3" value = "yellow">
+        <input type="button" name = "btn4" value = "blue">
+
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn5" value = "white" onclick = "handleClick1()">
+        <input type="button" name = "btn6" value = "yellow" onclick = "handleClick2()">
+        <input type="button" name = "btn7" value = "blue" onclick = "handleClick3()">
+
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn8" value = "white" onclick = "handleClick('white')">
+        <input type="button" name = "btn9" value = "yellow" onclick = "handleClick('yellow')">
+        <input type="button" name = "btn10" value = "blue" onclick = "handleClick('blue')">
+
+        <h1>고양이</h1>
+        <img src="../images/catty01.png" alt="" name = "cat1" onmouseover="changeCat('cat1', 'catty04.png')" onmouseout="changeCat('cat1', 'catty01.png')">
+        <img src="../images/catty02.png" alt="" name = "cat2" onmouseover="changeCat('cat2', 'catty05.png')" onmouseout="changeCat('cat2', 'catty02.png')">
+        <img src="../images/catty03.png" alt="" name = "cat3" onmouseover="changeCat('cat3', 'catty06.png')" onmouseout="changeCat('cat3', 'catty03.png')">
+
+        <h1>고양이</h1>
+        <img src="../images/catty01.png" alt="" name = "cat4" onmouseover="changeCat2(this, 'catty04.png')" onmouseout="changeCat2(this, 'catty01.png')">
+        <img src="../images/catty02.png" alt="" name = "cat5" onmouseover="changeCat2(this, 'catty05.png')" onmouseout="changeCat2(this, 'catty02.png')">
+        <img src="../images/catty03.png" alt="" name = "cat6" onmouseover="changeCat2(this, 'catty06.png')" onmouseout="changeCat2(this, 'catty03.png')">
+
+        <h1>고양이</h1>
+        <img src="../images/catty01.png" alt="" name = "cat7" onmouseover="changeCat3('catty04.png')" onmouseout="changeCat3('catty01.png')">
+        <img src="../images/catty02.png" alt="" name = "cat8" onmouseover="changeCat3('catty05.png')" onmouseout="changeCat3('catty02.png')">
+        <img src="../images/catty03.png" alt="" name = "cat9" onmouseover="changeCat3('catty06.png')" onmouseout="changeCat3('catty03.png')">
+
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn11" value = "white" onclick="change4()">
+        <input type="button" name = "btn12" value = "yellow" onclick="change4()">
+        <input type="button" name = "btn13" value = "blue" onclick="change4()">
+        <input type="button" name = "btn14" value = "orange" onclick="change4()">
+
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn15" value = "흰색" onclick="change5()" lable = "white">
+        <input type="button" name = "btn16" value = "노랑" onclick="change5()" lable = "yellow">
+        <input type="button" name = "btn17" value = "파랑" onclick="change5()" lable = "blue">
+        <input type="button" name = "btn18" value = "주황" onclick="change5()" lable = "orange">
+
+        <!-- <태그 data-XXX = ""> -->
+        <h1>배경색 바꾸기</h1>
+        <input type="button" name = "btn19" value = "흰색" onclick="change6()" data-lable = "white" data-background-color = "white">
+        <input type="button" name = "btn20" value = "노랑" onclick="change6()" data-lable = "yellow" data-background-color = "yellow">
+        <input type="button" name = "btn21" value = "파랑" onclick="change6()" data-lable = "blue" data-background-color = "blue">
+        <input type="button" name = "btn22" value = "주황" onclick="change6()" data-lable = "orange" data-background-color = "orange">
+    </body>
+</html>

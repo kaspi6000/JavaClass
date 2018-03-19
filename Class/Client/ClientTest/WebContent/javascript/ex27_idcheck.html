@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+
+            var textid, btn1, btn2;
+
+            window.onload = () => {
+                textid = document.form1.textid;
+                btn1 = document.form1.btn1;
+                btn2 = document.form1.btn2;
+
+                // 사용하기
+                btn1.onclick = () => {
+
+                    opener.document.form1.textid.value = document.form1.textid.value;
+
+                    // 부모창이 가지고 있는 ischeck를 true로 바꾸기(** 부모 window의 전역 멤버)
+                    // 모든 전역 멤버(변수, 함수)는 자동으로 window의 멤버가 된다.
+
+                    opener.ischeck = true; // 부모창의 전역 변수 접근
+                    // opener.test(); // 부모창의 전역 함수 호출
+
+                    window.close();
+                }
+
+                btn2.onclick = () => {
+                    window.close();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>아이디 중복검사</h1>
+        <form action="" name = "form1">
+            <label for="">아이디 : </label>
+            <input type="text" name = "textid">
+            <hr>
+            <input type="button" value = "사용하기" name = "btn1">
+            <input type="button" value = "창닫기" name = "btn2">
+        </form>
+    </body>
+</html>

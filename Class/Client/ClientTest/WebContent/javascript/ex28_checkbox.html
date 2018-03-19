@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #tbl1 {
+                border: 1px solid gray;
+                border-collapse: collapse;
+                width: 700px;
+            }
+            #tbl1 td, #tbl1 th {
+                border: 1px solid gray;
+                padding: 4px;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var cball, cb;
+
+            var txt, cb2;
+
+            window.onload = () => {
+
+                cball = document.all.cball; // 단일 객체
+                cb = document.all.cb; // 배열
+
+                txt = document.all.txt; // 배열
+                cb2 = document.all.cb2; // 배열
+
+                // console.log(cb.length); // 20개의 체크박스
+                cball.onchange = () => {
+
+                    if (cball.checked) {
+                        // 전부 체크
+                        for (var i = 0; i < cb.length; i++) {
+                            cb[i].checked = true;
+                        }
+                    } else {
+                        // 전부 해제
+                        for (var i = 0; i < cb.length; i++) {
+                            cb[i].checked = false;
+                        }
+                    }
+                }
+
+                // 10개의 체크박스에 onchange 추가
+                for (var i = 0; i < cb2.length; i++) {
+                    cb2[i].onchange = () => {
+
+                        // console.log(event.srcElement.checked);
+                        if (event.srcElement.checked) {
+                            // 텍스트 활성
+                            // console.log(event.srcElement.previousSibling.previousSibling);
+                            event.srcElement.previousSibling.previousSibling.readOnly = false;
+                            event.srcElement.previousSibling.previousSibling.focus();
+                        } else {
+                            // 텍스트 비활성
+                            event.srcElement.previousSibling.previousSibling.readOnly = true;
+                        }
+                    }
+                }
+
+                for (var i = 0; i < txt.length; i++) {
+                    txt[i].ondblclick = () => {
+
+                        // txt[i] : X
+                        // event.srcElement : O
+                        event.srcElement.readOnly = false;
+                        // event.srcElement.focus();
+                        event.srcElement.nextSibling.nextSibling.checked = true;
+                    }
+
+                    txt[i].onchange = () => {
+                        
+                        event.srcElement.readOnly = true;
+
+                        event.srcElement.nextSibling.nextSibling.checked = false;
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>주소록</h1>
+
+        <table id="tbl1">
+            <tr>
+                <th><input type="checkbox" name = "cball"></th>
+                <th>번호</th>
+                <th>이름</th>
+                <th>주소</th>
+                <th>나이</th>
+            </tr>
+            <!-- (tr>td+td{$$$}+td{홍길동}+(td>lorem4)+td{$$})*20 -->
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>001</td>
+                <td>홍길동</td>
+                <td>Lorem ipsum dolor sit.</td>
+                <td>01</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>002</td>
+                <td>홍길동</td>
+                <td>Explicabo numquam repellendus deleniti?</td>
+                <td>02</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>003</td>
+                <td>홍길동</td>
+                <td>Vel sapiente ipsa asperiores!</td>
+                <td>03</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>004</td>
+                <td>홍길동</td>
+                <td>Saepe ratione alias corporis.</td>
+                <td>04</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>005</td>
+                <td>홍길동</td>
+                <td>In accusantium, distinctio tenetur.</td>
+                <td>05</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>006</td>
+                <td>홍길동</td>
+                <td>Excepturi, deserunt omnis voluptates.</td>
+                <td>06</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>007</td>
+                <td>홍길동</td>
+                <td>Facere dicta, esse vitae?</td>
+                <td>07</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>008</td>
+                <td>홍길동</td>
+                <td>Modi molestias nobis eaque.</td>
+                <td>08</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>009</td>
+                <td>홍길동</td>
+                <td>Voluptas ab accusamus mollitia.</td>
+                <td>09</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>010</td>
+                <td>홍길동</td>
+                <td>Pariatur vel repudiandae cupiditate?</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>011</td>
+                <td>홍길동</td>
+                <td>Numquam, voluptatibus mollitia molestiae.</td>
+                <td>11</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>012</td>
+                <td>홍길동</td>
+                <td>Expedita iste voluptatibus animi!</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>013</td>
+                <td>홍길동</td>
+                <td>Magnam inventore, praesentium quas.</td>
+                <td>13</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>014</td>
+                <td>홍길동</td>
+                <td>Ullam maiores sequi officia.</td>
+                <td>14</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>015</td>
+                <td>홍길동</td>
+                <td>Ipsam magni, incidunt iure.</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>016</td>
+                <td>홍길동</td>
+                <td>Illo ipsa inventore excepturi!</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>017</td>
+                <td>홍길동</td>
+                <td>Explicabo provident animi, voluptatum.</td>
+                <td>17</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>018</td>
+                <td>홍길동</td>
+                <td>Iste qui quidem deserunt.</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>019</td>
+                <td>홍길동</td>
+                <td>Ipsum delectus neque quibusdam.</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td><input type = "checkbox" name = "cb"></td>
+                <td>020</td>
+                <td>홍길동</td>
+                <td>Voluptatem officiis laudantium ducimus.</td>
+                <td>20</td>
+            </tr>
+        </table>
+
+        <h1>데이터 입력</h1>
+
+        <!-- (div>{데이터 : }+input[name='txt' readonly='readonly']+{ }+input[type='checkbox' name='cb2'])*10 -->
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+        <div>데이터 : <input type="text" name="txt" readonly> <input type="checkbox" name="cb2"></div>
+    </body>
+</html>
