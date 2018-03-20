@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src = "js/cookie.js"></script>
+        <script type="text/javascript">
+
+            let btn1, btn2;
+
+            window.onload = () => {
+
+                btn1 = document.all.btn1;
+                btn2 = document.all.btn2;
+
+                /*
+                    쿠키, Cookie
+                    - 브라우저가 관리하는 데이터 저장소 중 하나
+                    - 데이터 형식 > 텍스트(문자열), 자료형 X
+                    - 최대 용량 제한(4KB) : 사이트마다
+                    - 주로 저장하는 데이터 : 숫자 + 영문자
+                    - 사이트 전역 데이터 역할(**) + 개인 데이터(**)
+                        a. 개인 데이터 + 다른 사람이 열람 불가능
+                        b. 전역 데이터
+                            1. 웹은 기본적으로 자원 관리의 최대 영역이 페이지이다.
+                                - 페이지가 전환되면 자원 공유(유지)가 불가능하다.
+                            2. 페이지 -> (데이터 전달/공유) -> 페이지
+                                a. submit
+                                b. cookie // 전역 데이터
+                */
+
+                btn1.onclick = () => {
+
+                    // document.cookie = "name=kang&age=20";
+                    // document.cookie = {
+                    //     name : 'kang',
+                    //     age : '20'
+                    // }
+                    setCookie("name", "kang"); // 쿠키 저장
+                    setCookie("age", 20);
+                }
+
+                btn2.onclick = () => {
+
+                    console.log(getCookie("name"));
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value = "저장하기" name = "btn1">
+        <input type="button" value = "불러오기" name = "btn2">
+    </body>
+</html>
