@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            #box1 {
+                border: 10px solid black;
+                width: 200px;
+                height: 200px;
+                background: yellow;
+                margin: 20px;
+            }
+
+            #box1.one {
+                font-size: 4em;
+                width: 300px;
+                text-decoration: underline;
+            }
+
+            #box1.two {
+                background-color: orange;
+                border-style: dashed;
+            }
+
+            #box1.three {
+                color: blue;
+                font-weight: bold;
+            }
+
+            .bold {font-weight: bold;}
+            .italic {font-style: italic;}
+            .underline {text-decoration: underline;}
+        </style>
+        <script type="text/javascript">
+
+            var box1, btn1, btn2, btn3;
+
+            window.onload = () => {
+
+                box1 = document.getElementById("box1");
+                btn1 = document.getElementById("btn1");
+                btn2 = document.getElementById("btn2");
+                btn3 = document.getElementById("btn3");
+
+                btn1.onclick = () => {
+
+                    // 1. 속성을 하나씩 직접 제어
+                    // box1.style.fontSize = "4em";
+                    // box1.style.width = "300px";
+                    // box1.style.textDecoration = "underline";
+
+                    // 2. CSS 속성 집합으로 제어 > id, class, tag 선택자 등..
+                    // box1.setAttribute("class", "one");
+
+                    // 3. 여러개의 CSS class 속성을 제어
+                    // box1.setAttribute("class", "one");
+                    // box1.setAttribute("class", "two");
+                    // box1.setAttribute("class", "one two");
+                    // box1.setAttribute("class", "one two three");
+
+                    // console.log(box1.classList);
+
+                    box1.classList.add("one");
+                    box1.classList.add("two");
+                    box1.classList.add("three");
+                }
+
+                btn2.onclick = () => {
+
+                    // two 제거
+                    // box1.setAttribute("class", "one three");
+
+                    box1.classList.remove("two");
+                }
+
+                btn3.onclick = () => {
+                    
+                    box1.classList.toggle("three");
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <input type="button" id="btn1"  value="속성 추가">
+        <input type="button" id="btn2"  value="속성 삭제">
+        <input type="button" id="btn3"  value="속성 토글">
+
+        <hr>
+
+        <div id = "box1">상자</div>
+
+        <hr>
+
+        <h1>텍스트 서식</h1>
+
+        <div>
+            <input type="button" value = "B" onclick = "c1()" id = "c1">
+            <input type="button" value = "I" onclick = "c2()" id = "c2">
+            <input type="button" value = "U" onclick = "c3()" id = "c3">
+        </div>
+
+        <p id="p1">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum molestiae beatae voluptate quidem, iure totam architecto praesentium fuga harum nam accusamus ipsa eos asperiores atque provident ad, natus corporis at nisi dignissimos impedit incidunt ab optio laborum. Numquam, eligendi. Repellat id, beatae accusantium nesciunt consequatur. Eius quidem inventore totam nobis hic odit, nam vitae cum incidunt. Accusantium nulla quam nemo, voluptatum eos quae eligendi delectus adipisci maiores tenetur, repellat! Consectetur enim, assumenda ad quia nobis doloremque in sunt provident eveniet cumque doloribus, earum debitis esse impedit eligendi aliquam repellat dignissimos inventore voluptates tempora magni! Totam aperiam, vel a voluptatum nulla!
+        </p>
+
+        <script type="text/javascript">
+            document.getElementById("c1").onclick = () => {
+
+                document.getElementById("p1").classList.toggle("bold");
+            }
+
+            document.getElementById("c2").onclick = () => {
+
+                document.getElementById("p1").classList.toggle("italic");
+            }
+
+            document.getElementById("c3").onclick = () => {
+
+                document.getElementById("p1").classList.toggle("underline");
+            }
+        </script>
+    </body>
+</html>

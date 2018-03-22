@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            #s1, #d1, #b1 {
+                padding: 50px;
+            }
+
+            #s1 {
+                background: orange;
+            }
+
+            #d1 {
+                background: cornflowerblue;
+            }
+        </style>
+        <script type="text/javascript">
+
+            /*
+                DOM 이벤트 처리
+                - addEventListener("이벤트 종류", fn, boolean)
+                - 3번째 인자 : capture | non-capture
+                - Event Bubbling, Event Capturing(Tunneling)
+
+                Event Propagation, 이벤트 전파
+                - 이벤트 전파 현상은 부모 객체와 자식 객체간 발생
+                - 양방향으로 발생
+
+                1. window에서 이벤트 타겟의 부모
+                    - capture
+                    - 처리 가능한 capture 리스너가 호출된다.
+                2. 이벤트 타겟
+                    - target 단계
+                    - 해당 타겟이 가지고 있는 모든 리스너가 호출된다.
+                3. 이벤트 타겟의 부모로부터 window까지
+                    - bubble 단계
+                    - 처리 가능한 non-capture 리스너가 호출된다.
+
+            */
+
+            var s1, d1, b1;
+
+            window.addEventListener("load", f4);
+
+            function f1() {
+                s1 = document.getElementById("s1");
+                d1 = document.getElementById("d1");
+                b1 = document.getElementById("b1");
+
+                b1.onclick = () => {
+                    console.log("bt click");
+                }
+
+                d1.onclick = () => {
+                    console.log("pn click");
+                }
+
+                s1.onclick = () => {
+                    console.log("sc click");
+                }
+
+                document.onclick = () => {
+                    console.log("dc click");
+                }
+
+                // DOM에서는 window가 document의 부모가 아니다. 이벤트 관련 처리는
+                window.onclick = () => {
+                    console.log("do click");
+                }
+            }
+
+            function f2() {
+                s1 = document.getElementById("s1");
+                d1 = document.getElementById("d1");
+                b1 = document.getElementById("b1");
+
+                b1.onclick = () => {
+                    console.log("버튼 클릭");
+
+                    // 이벤트 타겟 객체(당사자)
+                    // - event.srcElement
+                    // - event.target
+
+                    // console.log(event.srcElement);
+                    // console.log(event.target);
+                    // console.log(event.currentTarget);
+                    console.log(event.eventPhase);
+                }
+
+                d1.onclick = () => {
+                    console.log("패널 클릭");
+                    // console.log(event.srcElement);
+                    // console.log(event.target);
+                    // console.log(event.currentTarget);
+                    console.log(event.eventPhase);
+                }
+
+                s1.onclick = () => {
+                    console.log("섹션 클릭");
+                    // console.log(event.srcElement);
+                    // console.log(event.target);
+                    // console.log(event.currentTarget);
+                    console.log(event.eventPhase);
+                }
+            }
+
+            function f3() {
+                s1 = document.getElementById("s1");
+                d1 = document.getElementById("d1");
+                b1 = document.getElementById("b1");
+
+                // (캡쳐 -> 타겟) -> 버블
+                // s1.addEventListener("click", () => {}); // non-capture(=bubble)
+                s1.addEventListener("click", () => {
+                    console.log("섹션 클릭");
+                    console.log(event.eventPhase);
+                }, true); // capture
+
+                d1.addEventListener("click", () => {
+                    console.log("패널 클릭");
+                    console.log(event.eventPhase);
+                }, true);
+
+                b1.addEventListener("click", () => {
+                    console.log("버튼 클릭");
+                    console.log(event.eventPhase);
+                }, true);
+
+                b1.addEventListener("click", () => {
+                    console.log("버튼 클릭");
+                    console.log(event.eventPhase);
+                });
+
+                d1.addEventListener("click", () => {
+                    console.log("패널 클릭");
+                    console.log(event.eventPhase);
+                });
+
+                s1.addEventListener("click", () => {
+                    console.log("섹션 클릭");
+                    console.log(event.eventPhase);
+                });
+            }
+
+            function f4() {
+                s1 = document.getElementById("s1");
+                d1 = document.getElementById("d1");
+                b1 = document.getElementById("b1");
+
+                // (캡쳐 -> 타겟) -> 버블
+                // s1.addEventListener("click", () => {}); // non-capture(=bubble)
+                s1.addEventListener("click", () => {
+                    console.log("섹션 클릭");
+                    console.log(event.eventPhase);
+                }, true); // capture
+
+                d1.addEventListener("click", () => {
+                    console.log("패널 클릭");
+                    console.log(event.eventPhase);
+                }, true);
+
+                b1.addEventListener("click", () => {
+                    console.log("버튼 클릭");
+                    console.log(event.eventPhase);
+                }, true);
+
+                b1.addEventListener("click", () => {
+                    console.log("버튼 클릭");
+                    console.log(event.eventPhase);
+
+                    event.cancelBubble = true;
+
+                    // 전파 중단
+                    // event.stopPropagation();
+                    // event.stopImmediatePropagation();
+                });
+
+                d1.addEventListener("click", () => {
+                    console.log("패널 클릭");
+                    console.log(event.eventPhase);
+                });
+
+                s1.addEventListener("click", () => {
+                    console.log("섹션 클릭");
+                    console.log(event.eventPhase);
+                });
+            }
+
+            function f0() {
+                s1 = document.getElementById("s1");
+                d1 = document.getElementById("d1");
+                b1 = document.getElementById("b1");
+            }
+        </script>
+    </head>
+    <body>
+        <section id = "s1">
+            <div id = "d1">
+                <input type="button" value = "버튼" id = "b1">
+            </div>
+        </section>
+
+        <hr>
+
+        <input type="text" id = "txt1">
+
+        <script type="text/javascript">
+
+            var txt1 = document.getElementById("txt1");
+
+            // txt1.onkeydown = (evt) => {
+            //
+            //     // alert(evt === event);
+            //
+            //     event.cancelBubble = true;
+            // }
+
+            txt1.onkeydown = () => {
+
+                // 컨트롤의 기본 행동을 없었던 일로
+                // console.log(event.keyCode);
+                event.preventDefault();
+                // console.log(event.keyCode);
+
+                // 영어 대문자만 입력 가능하게
+                // var regex = /^[A-Z]{1,}$/;
+
+                
+            }
+
+            // window.onkeydown = () => {
+            //
+            //     if (event.keyCode == 65) {
+            //
+            //         location.href = "admin.html";
+            //     }
+            // }
+        </script>
+    </body>
+</html>

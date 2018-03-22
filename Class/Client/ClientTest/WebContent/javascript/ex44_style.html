@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            .box {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+                position: absolute;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var list = [];
+            var length = 500;
+            var idx = 0;
+            var zidx = 1;
+
+            window.onload = () => {
+
+                for (var i = 0; i < length; i++) {
+
+                    var box = document.createElement("div");
+                    box.innerHTML = "상자";
+                    box.className = "box";
+                    // box.setAttribute("class", "box");
+
+                    var r = parseInt(Math.random() * 256);
+                    var g = parseInt(Math.random() * 256);
+                    var b = parseInt(Math.random() * 256);
+
+                    box.style.backgroundColor = "rgb("+ r +","+ g +","+ b +")";
+
+                    document.body.appendChild(box); // 화면에 보이기 위해
+                    list.push(box); // 나중에 관리하기 위해
+                }
+                console.log(list);
+            }
+
+            window.onmousedown = () => {
+
+                list[idx].style.left = event.clientX - 50 + "px";
+                list[idx].style.top = event.clientY - 50 + "px";
+                list[idx].style.zIndex = zidx;
+
+                idx++;
+                zidx++;
+
+                if (idx == list.length) idx = 0;
+            }
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

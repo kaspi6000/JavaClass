@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            #box1 {
+                border: 1px solid black;
+                width: 200px;
+                height: 200px;
+                background-color: yellow;
+            }
+
+            #small, #big {
+                font-weight: bold;
+                padding: 5px;
+                cursor: pointer;
+            }
+        </style>
+        <script type="text/javascript">
+            var btn1, box1;
+
+            window.onload = () => {
+                btn1 = document.getElementById("btn1");
+                box1 = document.getElementById("box1");
+
+                btn1.onclick = () => {
+
+                    // Javascript -> CSS 제어
+                    // - 태그.style.CSS속성명 = "CSS 속성값";
+
+                    // 속성명
+                    // 1. css 속성명 그대로 사용한다.
+                    // 2. '-'이 들어있는 속성명 -> 캐멀 표기법으로 제공
+
+                    // console.log(box1.style);
+                    // box1.style.color = "red";
+                    // box1.style.backgroundColor = "blue";
+                    // box1.style.border = "10px dashed red";
+                    // box1.style.fontSize = "3em";
+
+                    // box1.style.width = "400px";
+
+                    // box1.style.width = "200px";
+                    // console.log(box1.style.width);
+
+                    // box1.style.width = parseInt(box1.style.width) + 20 + "px";
+
+                    // 토글 버튼(Toggle Button)
+
+                    if (box1.style.visibility != "hidden") {
+                        box1.style.visibility = "hidden";
+                        btn1.value = "상자 보이기";
+                    } else {
+                        box1.style.visibility = "visible";
+                        btn1.value = "상자 감추기";
+                    }
+                }
+
+                document.getElementById("btn2").onclick = () => {
+
+                    var p1 = document.getElementById("p1");
+
+                    p1.style.color = "blue";
+                    p1.style.fontSize = "30px";
+                    p1.style.textAlign = "center";
+                }
+
+                document.getElementById("small").onclick = () => {
+
+                    var p1 = document.getElementById("p1");
+
+                    p1.style.fontSize = parseInt(p1.style.fontSize) - 2 + "px";
+                }
+
+                document.getElementById("big").onclick = () => {
+
+                    var p1 = document.getElementById("p1");
+
+                    p1.style.fontSize = parseInt(p1.style.fontSize) + 2 + "px";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value = "버튼" id = "btn1">
+        <hr>
+        <div id = "box1" style = "width: 200px">상자</div>
+
+        <hr>
+
+        <h1>News</h1>
+
+        <header>
+            <input type="button" value = "테스트" id = "btn2">
+            <span id = "small">-</span>
+            <span id = "big">+</span>
+        </header>
+
+        <p id="p1" style = "font-size: 14px">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe reprehenderit, corporis neque, illo eveniet cum? Quam laborum, nemo architecto! Debitis adipisci pariatur distinctio. Non provident fugiat saepe ab ea iste dolorum quis beatae inventore enim, eos animi minima eum similique voluptatum, omnis vero voluptates laboriosam, nemo minus nihil voluptas. A incidunt aperiam maxime voluptas magnam inventore autem modi sunt cumque, officia facilis hic commodi ut expedita, eum est? Harum nemo ad accusantium id, et quos sint. Error sapiente, deserunt esse cum consequatur incidunt in, velit eaque dolorem iure minus, recusandae vero nobis. Hic quos illum officia minus atque omnis odio!
+        </p>
+    </body>
+</html>

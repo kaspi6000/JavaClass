@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+
+            #list3 {
+                border: 0px solid black;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                width: 200px;
+            }
+
+            #list3 li {
+                border-top: 1px solid #999;
+                border-left: 1px solid #999;
+                border-right: 1px solid #999;
+                margin: 0;
+                padding: 0;
+                height: 28px;
+            }
+
+            #list3 li:last-child {
+                border-bottom: 1px solid #999;
+            }
+
+            #list3 li:nth-child(even) {
+                background-color: #eee;
+            }
+
+            #list3 li:first-child {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            #list3 li:first-child span:last-child {
+                border-top-right-radius: 5px;
+            }
+
+            #list3 li:last-child {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            #list3 li:last-child span:last-child {
+                border-top-right-radius: 5px;
+            }
+
+            #list3 li span {
+                font-size: 14px;
+                color: #444;
+                display: inline-block;
+            }
+
+            #list3 li span:first-child {
+                padding-top: 5px;
+                padding-left: 10px;
+            }
+
+            #list3 li span:last-child {
+                float: right;
+                border-left: 1px solid #999;
+                height: 100%;
+                width: 30px;
+                text-align: center;
+                background-color: #ccc;
+            }
+        </style>
+        <script type="text/javascript">
+
+        </script>
+    </head>
+    <body>
+        <h1>목록</h1>
+
+        <ul id = "list1">
+            <li>자바</li>
+            <li>오라클</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+        </ul>
+
+        <input type="button" value = "항목 삭제하기" id = "btn1">
+
+        <h1>목록</h1>
+
+        <ul id = "list2">
+            <li>자바</li>
+            <li>오라클</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+        </ul>
+
+        <h1>목록</h1>
+
+        <ul id = "list3">
+            <li><span class = "item">자바</span><span>&times;</span></li>
+            <li><span class = "item">오라클</span><span>&times;</span></li>
+            <li><span class = "item">HTML</span><span>&times;</span></li>
+            <li><span class = "item">CSS</span><span>&times;</span></li>
+            <li><span class = "item">Javascript</span><span>&times;</span></li>
+        </ul>
+
+        <script type="text/javascript">
+
+            let list1, btn1, list2;
+
+            list1 = document.getElementById("list1");
+            btn1 = document.getElementById("btn1");
+            list2 = document.getElementById("list2");
+
+            btn1.onclick = () => {
+
+                // 삭제의 형태
+                // 1. 부모가 행동
+                // 2. 자식 스스로가 행동
+
+                // list1.removeChild(list1.childNodes[5]);
+
+                // 자식 노드들
+                // 1. childNodes
+                //     - 자식 노드들(태그, PCDATA, 주석)
+                // 2. children
+                //     - 자식 태그들
+                list1.removeChild(list1.children[2]);
+            }
+
+            for (var i = 0; i < list2.children.length; i++) {
+
+                list2.children[i].onclick = () => {
+
+                    var li = event.srcElement;
+                    // alert(li.innerHTML);
+
+                    if (event.ctrlKey) {
+
+                        if (confirm("'" + li.innerHTML + "' 항목을 정말 삭제하겠습니까?")) {
+
+                            li.parentNode.removeChild(li);
+                        }
+                    }
+                }
+            }
+
+            var list3 = document.getElementById("list3");
+
+            var lis = list3.children; // <li> x 5
+
+            for (var i = 0; i < lis.length; i++) {
+                var li = lis[i];
+
+                // <span> x </span>
+                li.children[1].onclick = () => {
+                    list3.removeChild(event.srcElement.parentNode);
+                }
+            }
+        </script>
+    </body>
+</html>
