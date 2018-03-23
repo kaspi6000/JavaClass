@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            .box {
+                border: 1px dashed gray;
+                position: absolute;
+                width: 0;
+                height: 0;
+            }
+        </style>
+        <script type="text/javascript">
+
+            // 추가
+            // - 마우스 반대방향으로 이동해도 상자가 커지게
+
+            let box;
+            let isdown = false; // 마우스 버튼의 상태(안누른 상태)
+
+            window.onmousedown = () => {
+
+                isdown = true; // 누른 상태
+
+                box = document.createElement("div");
+                box.className = "box";
+                box.style.left = event.clientX + "px";
+                box.style.top = event.clientY + "px";
+
+                document.body.appendChild(box);
+            }
+
+            window.onmouseup = () => {
+
+                isdown = false; // 뗀 상태
+
+            }
+
+            window.onmousemove = () => {
+
+                if (isdown == true && box != null && box != undefined) {
+
+                    box.style.width = event.clientX - parseInt(box.style.left) + "px";
+                    box.style.height = event.clientY - parseInt(box.style.top) + "px";
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

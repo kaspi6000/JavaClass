@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            html, body {
+                margin: 0;
+            }
+
+            #main {
+
+            }
+
+            #menu {
+                border: 0px solid black;
+                width: 630px;
+                height: 126px;
+                margin: 0 auto;
+                transform: translate(0px, -100px);
+            }
+
+            #menu .item {
+                float: left;
+                cursor: pointer;
+                transition: all 1s;
+            }
+
+            /* #menu .item:hover {
+                transform: translate(0px, 100px);
+            } */
+        </style>
+        <script type="text/javascript">
+
+            var colors = ["#A67F62", "#BE4F3B", "#E7C758", "#666666", "#63AFD1"];
+            var items;
+
+            window.onload = () => {
+
+                items = document.getElementsByClassName("item");
+
+                var arr = Array.from(items);
+                console.log("arr : " , arr);
+
+                var numbers = [1, 2, 3, 4, 5];
+
+                console.log(items);
+                console.log(numbers);
+
+                numbers.map((num, idx) => {
+                    return console.log(num * 2, idx);
+                });
+
+                arr.map((value, idx) => {
+                    return console.log(value, idx);
+                });
+
+                // items.map(idx => {
+                //     return console.log(idx);
+                // });
+
+                for (var i = 0; i < items.length; i++) {
+
+
+                    items[i].onmousedown = () => {
+
+                        for (var j = 0; j < items.length; j++) {
+
+                            if (items[j] != event.target && items[j].style.transform != "translate(0px, 0px)") {
+
+                                items[j].style.transform = "translate(0px, 0px)";
+                            }
+                        }
+
+                        if (event.target.style.transform != "translate(0px, 95px)") {
+
+                            event.target.style.transform = "translate(0, 95px)";
+
+                            document.body.style.backgroundColor = colors[event.target.dataset.no];
+                        } else {
+
+                            event.target.style.transform = "translate(0px, 0px)";
+                            document.body.style.backgroundColor = "white";
+                        }
+
+                        // if(test == 1)document.body.style.backgroundColor = "#A67F62";
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="main">
+            <nav id="menu">
+                <img src="../images/rect_icon01.png" alt="" class="item" data-no="0">
+                <img src="../images/rect_icon02.png" alt="" class="item" data-no="1">
+                <img src="../images/rect_icon03.png" alt="" class="item" data-no="2">
+                <img src="../images/rect_icon04.png" alt="" class="item" data-no="3">
+                <img src="../images/rect_icon05.png" alt="" class="item" data-no="4">
+            </nav>
+            <section id="content">
+
+            </section>
+        </div>
+    </body>
+</html>

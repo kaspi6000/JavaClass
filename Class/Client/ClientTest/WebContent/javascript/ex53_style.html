@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            img, button, input, li {
+                position: absolute;
+            }
+        </style>
+        <script type="text/javascript">
+            var img1;
+            var isdown = false;
+            var imgX, imgY;
+            var zidx = 1;
+
+            window.onload = () => {
+
+                img1 = document.getElementById("img1");
+            }
+
+            // 객체 선택
+            window.onmousedown = () => {
+
+                if (event.target.nodeName != "HTML") {
+
+                    img1 = event.target; // 눌린 고양이
+
+                    isdown = true;
+                    imgX = event.offsetX;
+                    imgY = event.offsetY;
+                    img1.style.zIndex = zidx;
+                    zidx++;
+                }
+            }
+
+            // Drag
+            window.onmousemove = () => {
+
+                if (isdown) {
+
+                    img1.style.left = event.clientX - imgX + "px";
+                    img1.style.top = event.clientY - imgY + "px";
+
+                    return false;
+                }
+            }
+
+            // Drop
+            window.onmouseup = () => {
+
+                isdown = false;
+            }
+        </script>
+    </head>
+    <body>
+        <img src="../images/catty01.png" alt="" id = "img1">
+        <img src="../images/catty02.png" alt="" id = "img2">
+        <img src="../images/catty03.png" alt="" id = "img3">
+        <img src="../images/catty04.png" alt="" id = "img4">
+        <img src="../images/catty05.png" alt="" id = "img5">
+
+        <button>버튼</button>
+
+        <input type="text">
+
+        <input type="checkbox">
+
+        <ul>
+            <li>고양이</li>
+            <li>강아지</li>
+            <li>병아리</li>
+        </ul>
+    </body>
+</html>

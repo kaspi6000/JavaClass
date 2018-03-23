@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            #img1 {
+                position: absolute;
+            }
+        </style>
+        <script type="text/javascript">
+            var img1;
+            var isdown = false;
+            var imgX, imgY;
+
+            window.onload = () => {
+
+                img1 = document.getElementById("img1");
+            }
+
+            // 객체 선택
+            window.onmousedown = () => {
+
+                if (event.target.nodeName == "IMG") {
+
+                    isdown = true;
+                    imgX = event.offsetX;
+                    imgY = event.offsetY;
+                }
+            }
+
+            // Drag
+            window.onmousemove = () => {
+
+                if (isdown) {
+
+                    img1.style.left = event.clientX - imgX + "px";
+                    img1.style.top = event.clientY - imgY + "px";
+
+                    return false;
+                }
+            }
+
+            // Drop
+            window.onmouseup = () => {}
+        </script>
+    </head>
+    <body>
+        <img src="../images/catty01.png" alt="" id = "img1">
+    </body>
+</html>

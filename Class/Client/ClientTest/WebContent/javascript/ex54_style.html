@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #box1 {
+                border: 10px solid black;
+                width: 200px;
+                height: 200px;
+                background-color: yellow;
+                margin: 15px;
+                transition: all 1s;
+            }
+
+            #tbl1 {
+                border: 0px solid black;
+                border-collapse: separate;
+                width: 800px;
+                height: 800px;
+            }
+
+            #tbl1 td {
+                border: 1px solid black;
+                border-radius: 5px;
+                width: 80px;
+                height: 80px;
+                transition: all 1s;
+            }
+        </style>
+        <script type="text/javascript">
+
+            window.onload = () => {
+
+                var deg = 0;
+                var cells;
+
+                cells = document.getElementsByTagName("td");
+
+                document.getElementById("btn1").onclick = () => {
+
+                    var box1 = document.getElementById("box1");
+
+                    // box1.style.transform = "translate(500px, 300px)";
+                    // box1.style.transform = "scale(-1, 1)";
+                    // box1.style.transform = "rotate(3600deg)";
+
+                    // var x = Math.random() * screen.availWidth;
+                    // var y = Math.random() * screen.availHeight;
+                    // box1.style.transform = "translate(" + x + "px, " + y + "px)";
+
+                    deg += Math.random() * 360;
+                    box1.style.transform = "rotate(" + deg + "deg)";
+                }
+
+                // <td> 처리
+                for (var i = 0; i < cells.length; i++) {
+
+                    cells[i].innerHTML = "<img src = '../images/cat01.jpg' style = 'width:80px; height:80px'>";
+
+                    cells[i].onmouseover = () => {
+
+                        // event.target.style.backgroundColor = "red";
+                        // event.target.style.transform = "rotate(360deg)";
+                        // event.target.style.opacity = 0;
+                        // event.target.style.transform = "translate(0px, -40px)";
+                        event.target.style.transform = "scale(1, -1)";
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value = "테스트" id = "btn1">
+        <hr>
+        <div id="box1">상자</div>
+
+        <hr>
+
+        <table id="tbl1">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </body>
+</html>

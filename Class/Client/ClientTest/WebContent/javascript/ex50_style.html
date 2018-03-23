@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            #tbl1 {
+                border: 1px solid black;
+                border-collapse: collapse;
+                width: 500px;
+                height: 500px;
+            }
+
+            #tbl1 td {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var cells;
+            var now = 0; // <td>들의 index 제어
+
+            window.onload = () => {
+
+                cells = document.getElementsByTagName("td");
+                cells[now].style.backgroundColor = "#fff380";
+            }
+
+            window.onkeydown = () => {
+
+                clear();
+
+                if (event.keyCode == 37) { // 좌
+
+                    // clear();
+                    now--;
+                    if (now < 0) now = cells.length - 1;
+                    // cells[now].style.backgroundColor = "#fff380";
+                } else if (event.keyCode == 39) { // 우
+
+                    // clear();
+                    now++;
+                    if (now >=  cells.length) now = 0;
+                    // cells[now].style.backgroundColor = "#fff380";
+                }
+                cells[now].style.backgroundColor = "#fff380";
+            }
+
+            function clear() {
+                for (var i = 0; i < cells.length; i++) {
+                    cells[i].style.backgroundColor = "transparent";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <table id="tbl1">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </body>
+</html>

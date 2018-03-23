@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+            .txt {
+                outline: none;
+                width: 10px;
+                /* transition: all 1s; */
+            }
+
+            /* .txt:focus {
+                width: 300px;
+            } */
+
+            .edit {
+                visibility: hidden;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var txts, now, timer;
+
+            window.onload = () => {
+
+                txts = document.getElementsByClassName("txt");
+
+                for (var i = 0; i < txts.length; i++) {
+
+                    txts[i].onfocus = () => {
+
+                        event.target.style.transition = "all 1s";
+                        event.target.style.width = "300px";
+
+                        var temp = event.target.nextSibling.nextSibling;
+
+                        temp.style.visibility = "visible";
+
+                        timer = setInterval(() => {
+                            if (temp.style.visibility != "hidden") {
+                                temp.style.visibility = "hidden";
+                            } else {
+                                temp.style.visibility = "visible";
+                            }
+                        }, 400);
+                    }
+
+                    txts[i].onblur = () => {
+
+                        event.target.style.transition = "all 3s";
+                        event.target.style.width = "10px";
+
+                        // 클로저(Closure)
+                        var temp = event.target.nextSibling.nextSibling;
+
+                        setTimeout(() => {
+                            temp.style.visibility = "hidden";
+                            clearInterval(timer);
+                        }, 3000);
+
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>데이터 입력</h1>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+
+        <div class = "item">
+            <label for="">데이터 : </label><input type="text" class = "txt"> <img src="../images/bullet01.png" alt="" class = "edit">
+        </div>
+    </body>
+</html>
