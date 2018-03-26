@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(() => {
+
+                // 버튼 1 클릭 이벤트
+                // 1. BOM
+                // btn1.onclick = () => {};
+
+                // 2. DOM
+                // btn1.addEventListener("click", () => {});
+
+                // 3. jQuery
+                // a. 전용 이벤트 함수
+                // b. 범용 이벤트 함수
+
+                // $("#btn1").click((evt) => {
+                //     console.log("click");
+                // });
+
+                // 객체.bind(event, function);
+                // 객체.on(event, function);
+                // 객체.live(event, function);
+                // $("#btn1").on("click", (evt) => {
+                //     console.log("click");
+                // });
+
+                // jQuery() 함수
+                // - 매개변수 : 선택자(String) or 자바스크립트 객체
+
+                // $("div") // 선택자
+                // - 태그를 검색해서 jQuery 객체로 반환받는다.
+                console.log($("#btn1"));
+
+                // $(document.getElementById("box1")) // 자바스크립트 객체
+                console.log(document.getElementById("btn1"));
+
+                // Wrapping
+                // - 자바스크립트 객체 -> jQuery 객체화
+                // - 형변환 역할
+                $(document.getElementById("btn1"))
+            });
+        </script>
+    </head>
+    <body>
+
+        <input type="text"><br>
+        <input type="text" disabled><br>
+        <input type="text"><br>
+        <input type="checkbox" value="cb1">
+        <input type="checkbox" value="cb2">
+        <input type="checkbox" value="cb3">
+
+        <input type="button" value = "버튼1" id = "btn1">
+        <input type="button" value="버튼2">
+        <button type="button" name="button">버튼3</button>
+    </body>
+</html>
