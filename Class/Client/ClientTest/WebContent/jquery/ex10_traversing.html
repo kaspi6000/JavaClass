@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            div {
+                border: 5px solid #aaa;
+                margin: 10px;
+                padding: 10px;
+            }
+
+            #me {
+                border-color: orange;
+            }
+        </style>
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script type="text/javascript">
+            $(document).ready(() => {
+
+                // DOM 노드 검색
+                // 1. getXXX()
+                // 2. Axis
+                //     - childNodes, chidren
+                //     - parentNode
+                //     - nextSibling, previousSibling
+
+                // 부모 검색
+                // $("#me").parent().css("border-color", "blue"); // 친부모
+                // $("#me").parents().css("border", "5px solid red"); // 조상들
+                // $("#me").parentsUntil("body").css("border", "5px solid red"); // 조상들
+
+                // 자식 검색
+                // - childNodes, children, firstChild, lastChild : DOM
+                // - children(), find()
+                // $("#me").children().css("border-color", "green");
+                // $("#me").children().children().css("border-color", "green");
+
+                // 자식 + 자손들을 대상으로 필터 검색
+                // $("#me").find(".item")
+                // $("#me").find("div").css("border-color", "pink");
+
+                // div:first-child - CSS 문법 : 각각의 노드가 자신이 속한 집합에서 첫째 역할
+                // div:first - jQuery 문법 : 앞 선택자의 모든 집합에서 첫째 역할
+                // $("#me").find("div:first-child").css("border-color", "red");
+
+                // $(".item")
+                // $(window).find(".item")
+
+                // $("#me").children(".s").css("border-color", "yellow");
+
+                // 형제 검색
+                // $("#me").siblings().css("border-color", "blue");
+
+                // 위 아래 상관없는 형제들
+                // $("#me").siblings().css("border-color", "blue");
+
+                // 바로 밑의 동생
+                // $("#me").next().css("border-color", "blue");
+
+                // 바로 위의 형
+                // $("#me").prev().css("border-color", "red");
+
+                // 모든 형들
+                // $("#me").prevAll(".p").css("border-color", "red");
+
+                // 모든 동생들
+                // $("#me").nextAll(".p").css("border-color", "blue");
+
+                // $("div").filter(".p, .s").css("border-color", "yellow");
+                // $(".p, .s").css("border-color", "yellow");
+                // $("div").not(".p").css("border-color", "yellow");
+
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <div>
+                <div></div>
+                <div class = "p"></div>
+                <div></div>
+                <div id = "me">
+                    <div></div>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div></div>
+                </div>
+                <div class = "p"></div>
+                <div></div>
+                <div class = "p"></div>
+            </div>
+        </div>
+    </body>
+</html>

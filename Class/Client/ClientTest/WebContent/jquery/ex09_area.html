@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #box1 {
+                border: 20px solid black;
+                width: 300px;
+                height: 300px;
+                padding: 50px;
+                margin: 100px;
+            }
+        </style>
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script type="text/javascript">
+            $(document).ready(() => {
+                $("#box1").on("click", (evt) => {
+                    // jQery에서 영역에 관련된 기능들
+                    // 요구사항] box1의 너비?
+                    // document.getElementById("box1").style.width
+                    // console.log($("#box1").css("width"));
+
+                    // $("#box1")
+                    // $(this).append($(this).css("width"));
+                    // $(this).append($(this).css("height"));
+
+                    // 영역 관련 멤버
+                    // - width, height : 컨텐츠 영역
+                    $(this).append($(this).width());
+                    $(this).append("<br>");
+                    $(this).append($(this).height());
+                    $(this).append("<hr>");
+
+                    // $(this).width(500);
+
+                    // - innerWidth, innerHeight : 컨텐츠 영역 + padding
+                    $(this).append($(this).innerWidth());
+                    $(this).append("<br>");
+                    $(this).append($(this).innerHeight());
+                    $(this).append("<hr>");
+
+                    // - outerWidth, outerHeight : 컨텐츠 영역 + padding + border
+                    $(this).append($(this).outerWidth());
+                    $(this).append("<br>");
+                    $(this).append($(this).outerHeight());
+                    $(this).append("<hr>");
+
+                    // - outerWidth, outerHeight : 컨텐츠 영역 + padding + border + margin
+                    $(this).append($(this).outerWidth(true));
+                    $(this).append("<br>");
+                    $(this).append($(this).outerHeight(true));
+                    $(this).append("<hr>");
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="box1"></div>
+    </body>
+</html>
