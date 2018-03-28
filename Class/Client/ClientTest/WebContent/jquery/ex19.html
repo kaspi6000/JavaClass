@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #a1 {
+                width: 500px;
+                font-size: 14px;
+            }
+
+            * {
+                outline: none;
+            }
+
+            #slider1, #c1, #c2, #c3 {
+                margin: 20px;
+                width: 300px;
+            }
+
+            #slider2 {
+                margin: 20px;
+                width: 300px;
+                height: 8px;
+                font-size: 14px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script src = "js/jquery-ui.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(() => {
+
+                // 아코디언
+                $("#a1").accordion({
+                    collapsible: true
+                });
+
+                // 버튼
+                // $(".btn").button();
+
+                // <input type = "button">
+                // <input type = "submit">
+                // <input type = "reset">
+                // <button></button>
+                $(":button").button();
+                $("#btns").controlgroup();
+
+                // 라디오(체크박스)
+                $(":radio").button();
+                $("#level").controlgroup();
+
+                // 날짜/시간
+                // $("#birthday").datepicker(); // text
+                $("#birthday2").datepicker(); // div
+
+                $("#birthday").datepicker({
+                    minDate: -5,
+                    maxDate: "1M 5D"
+                });
+
+                $("#birthday").datepicker("option", "dateFormat", "yy-mm-dd");
+
+                // 대화 상자, Dialog Box
+                // - alert(), confirm(), prompt()
+
+                $("#dialog1").hide();
+
+                // 대화 상자의 형태
+                // - 업무 순서
+                // 1. Modless
+                // - 자식 창과 부모 창간의 포커스 전환이 자유
+                // 2. Modal
+                // - 자식 창이 포커스를 독점
+
+                $("#btn1").on("click", (e) => {
+
+                    $("#dialog1").dialog({
+                        title: "확인",
+                        width: 300,
+                        height: 250,
+                        draggable: false,
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "확인": () => {
+                                console.log("OK");
+                            },
+                            // "변경": () => {},
+                            "취소": () => {
+                                $("#dialog1").dialog("close");
+                            }
+                        }
+                    });
+                });
+
+                $("#sel1").selectmenu();
+
+                $("#slider1").slider({
+
+                    slide: (e, ui) => {
+                        // console.log("test");
+                        // ui : 해당 객체 정보
+                        console.log(ui.value);
+                        console.log(e.target);
+                    },
+                    min: 0,
+                    max: 1000,
+                    step: 100,
+                    animate: true
+                });
+
+                $("#c1, #c2, #c3").slider({
+                    min: 0,
+                    max: 255,
+                    value: 128,
+                    change: (e, ui) => {
+
+                        var r = $("#c1").slider("value");
+                        var g = $("#c2").slider("value");
+                        var b = $("#c3").slider("value");
+                        console.log(r, g, b);
+
+                        $("body").css("background-color", "rgb(" + r + ", " + g + ", " + b + ")");
+                    }
+                });
+
+                // 멀티 슬라이더(엄지 버튼 2개)
+                $("#slider2").slider({
+                    range: true,
+                    min: 0,
+                    max: 300,
+                    values: [100, 300],
+                    change: (e, ui) => {
+                        console.log(ui.values);
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>jQuery UI Controls, Components, Widgets</h1>
+
+        <!--
+            1. 정해진 규칙 > 태그 구현
+            2. 1번을 대상으로 jQuery 호출
+        -->
+
+        <h2>Accordion</h2>
+
+        <div id="a1">
+            <h3>자바, Java</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni corporis a ullam sint consectetur deserunt nulla dolores mollitia vel nobis, officia optio eaque, iure, ipsa maiores quos incidunt praesentium, vero voluptas adipisci doloremque. Fugiat reprehenderit ratione maiores ullam, fuga eos, in fugit eligendi aspernatur provident aliquid perferendis dolorum reiciendis. Incidunt maiores iure ea officia eaque. Voluptatem facilis, tenetur. Nobis explicabo, eius fugit unde, atque, omnis, nihil pariatur aliquid sint adipisci ullam! Sed minima adipisci necessitatibus nam facere, provident. Autem amet at quidem dolores perferendis cupiditate, architecto consectetur vel iusto numquam dignissimos quam assumenda fugiat earum voluptas placeat voluptates, optio consequatur!</p>
+            <h3>오라클, Oracle</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio beatae similique ducimus officia veniam. Fugiat dolore voluptatem aspernatur culpa reprehenderit, magni, repellendus voluptatibus tempore aut, modi, eaque autem voluptas sapiente architecto unde quo soluta exercitationem eum distinctio. Aperiam adipisci aliquid eligendi incidunt hic voluptates a voluptas ipsum, veritatis, quaerat doloribus, nihil, perspiciatis error asperiores mollitia molestias possimus optio. Sapiente, voluptatibus, nemo? Eos cum distinctio aliquid, maxime! Facere, fugit. Est voluptatum reiciendis cupiditate voluptatibus vel iste unde, accusamus beatae facere odit optio placeat, assumenda cumque iusto deleniti soluta officiis magni, tenetur accusantium. Quo laboriosam aut deleniti suscipit ipsam, quisquam, dicta ducimus.</p>
+            <h3>서블릿, Servlet</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ut eius quasi doloremque dolores asperiores suscipit, commodi quaerat facere, ipsam nulla! Tempora fuga unde, nam reiciendis deleniti explicabo, soluta quas accusantium! Unde dolores est nemo pariatur obcaecati, quidem quae in alias harum maxime voluptates culpa eligendi, possimus natus eius odit officiis itaque quasi. Voluptas nemo quibusdam a quidem ipsam blanditiis expedita, sequi voluptatibus beatae aperiam consectetur accusantium, velit? Quia, odit voluptatum consectetur, aspernatur earum quis voluptas officiis mollitia esse nam sed aliquid necessitatibus aliquam. Nesciunt, nobis! Dolorum delectus vel, laborum similique, nostrum unde dignissimos, est minus ducimus mollitia perspiciatis id.</p>
+            <h3>스프링, Spring</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro quam deleniti nulla doloribus? At minus, sit quo. Mollitia nobis ipsa itaque quo dicta neque id adipisci non aliquid iusto necessitatibus cumque architecto beatae illum, rerum esse, officiis quibusdam earum eligendi, harum voluptatem, assumenda cupiditate. Ipsa quaerat sequi officia error quia, labore quidem aliquam sapiente nobis, repellat nulla libero autem? Ullam eum et assumenda, laudantium eius dignissimos adipisci perferendis perspiciatis, dolore totam praesentium error, sint aperiam? Asperiores voluptas perspiciatis distinctio esse, quisquam sunt a tenetur quos facilis. Veniam quia nihil, recusandae beatae qui expedita, quas odit commodi maxime! Nostrum, omnis, fuga.</p>
+        </div>
+
+        <h2>버튼</h2>
+
+        <div id="btns">
+            <input type="button" value="버튼">
+            <input type="button" value="버튼">
+            <input type="button" value="버튼" class = "btn">
+            <input type="button" value="버튼" class = "btn">
+        </div>
+
+        <h2>라디오(체크박스)</h2>
+
+        <div id = "level">
+            <input type="radio" name = "rb" class = "rb" id = "rb1"><label for="rb1">상</label>
+            <label><input type="radio" name = "rb" class = "rb" id = "rb2">중</label>
+            <label><input type="radio" name = "rb" class = "rb" id = "rb3">하</label>
+        </div>
+
+        <h2>날짜/시간</h2>
+
+        생일 : <input type="date">
+        <hr>
+        생일 : <input type="text" id = "birthday" title = "생일을 입력하세요.">
+        <hr>
+        생일 : <div id = "birthday2"></div>
+
+        <h2>대화 상자</h2>
+
+        <input type="button" value = "확인" id = "btn1">
+        <div id="dialog1">
+            안녕하세요.
+        </div>
+
+        <h2>셀렉트 박스</h2>
+        <select name="" id="sel1">
+            <option value="">한국</option>
+            <option value="">일본</option>
+            <option value="">중국</option>
+            <option value="">미국</option>
+        </select>
+
+        <h2>Slider</h2>
+        <div id="slider1"></div>
+
+        <h2>문서 배경색</h2>
+
+        <div id="c1"></div>
+        <div id="c2"></div>
+        <div id="c3"></div>
+
+        <h2>멀티 슬라이더</h2>
+        <div id="slider2"></div>
+    </body>
+</html>

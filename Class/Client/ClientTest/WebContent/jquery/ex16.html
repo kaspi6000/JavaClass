@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+
+            #box1 {
+                border: 1px solid black;
+                width: 400px;
+                height: 400px;
+                background: yellow;
+                transform: translate(500px, 200px);
+            }
+
+            #cat1 {
+                z-index: 1;
+            }
+        </style>
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script src = "js/jquery-ui.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(() => {
+
+                // Interaction > droppable
+                $("#cat1").draggable({
+                    cursor: "move",
+                    opacity: 0.3
+                });
+
+                // 콜백 함수
+                $("#box1").droppable({
+                    drop: (e) => {
+                        console.log(e.target);
+                        console.log($(this));
+                        $("#box1").css("background-color", "red");
+                        $("#cat1").draggable({
+                            containment: "#box1"
+                        });
+                    }
+                });
+
+                $("#cat1").dblclick(() => {
+                    $("#box1").css("background-color", "yellow");
+                    $("#cat1").draggable({
+                        containment: ""
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+        <img src="../images/catty01.png" alt="" id = "cat1">
+
+        <div id = "box1"></div>
+    </body>
+</html>
