@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #container {
+                margin: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script src = "js/jquery-1.12.4.js"></script>
+        <script src = "js/jquery-ui.js"></script>
+        <script src = "js/bootstrap.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(() => {
+
+                // 소스 코드 예약어 강조
+                // text()
+                // html()
+
+                var word = ["private", "public", "package", "class", "int", "this"];
+                var source = $("pre.code.java").html();
+                // source = source.replace("private", "<span class='blue'>public</span>");
+                source = source.replace(/public/g, "<span class='blue'>public</span>");
+                $("pre.code.java").html(source);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h2>Panel</h2>
+
+            <div class="panel panel-default">
+                <div class = "panel-heading">Panel Heading</div>
+                <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                <div class = "panel-footer">Panel Footer</div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class = "panel-heading">Panel Heading</div>
+                <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                <div class = "panel-footer">Panel Footer</div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class = "panel-heading">Panel Heading</div>
+                <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                <div class = "panel-footer">Panel Footer</div>
+            </div>
+
+            <div class = "panel-group">
+                <div class="panel panel-default">
+                    <div class = "panel-heading">Panel Heading</div>
+                    <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                    <div class = "panel-footer">Panel Footer</div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class = "panel-heading">Panel Heading</div>
+                    <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                    <div class = "panel-footer">Panel Footer</div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class = "panel-heading">Panel Heading</div>
+                    <div class = "panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dignissimos facere saepe mollitia amet vitae obcaecati velit voluptatem pariatur corporis voluptates quod ea placeat, facilis magnam hic consequatur doloribus, enim blanditiis exercitationem incidunt debitis perspiciatis suscipit. Aliquam, eius consequuntur deleniti provident expedita harum nesciunt nobis reiciendis quidem quas labore similique libero, atque in minima, deserunt accusamus. Tenetur quibusdam omnis, hic in, excepturi totam quas libero minus. Modi aspernatur itaque inventore dicta culpa sunt nam libero impedit. Quaerat ratione omnis neque illo architecto voluptate unde fugiat, sint tenetur itaque non, repellendus aperiam odit impedit dignissimos, natus rerum voluptatum sequi quidem vitae?</div>
+                    <div class = "panel-footer">Panel Footer</div>
+                </div>
+            </div>
+
+            <h2>자바 클래스 수업</h2>
+
+            <div class = "panel panel-default">
+                <div class = "panel-heading">
+                    Time.java
+                </div>
+                <div class = "panel-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos perferendis nostrum et asperiores facilis facere sit odio recusandae repellat enim fugiat architecto, temporibus quas ratione similique, corporis quasi, qui quis cum? Eius quia tempore est consequatur impedit quidem, illo, optio iure, commodi ipsa sint repellat vero sapiente ducimus? Incidunt, fugit non atque ea. Cum reprehenderit quam harum porro soluta ullam nulla eveniet, qui optio veritatis quod ipsum quasi doloribus voluptatum ab error, sapiente ipsa tempore accusantium asperiores voluptate nemo. Quam ad quis quos pariatur illum cumque neque deleniti, temporibus officia, eveniet provident repellendus odit reiciendis sapiente! Saepe deserunt quas voluptatum.</p>
+                    <div class = "alert alert-danger">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima culpa, aliquam quidem odit velit dolore sequi libero! Excepturi blanditiis tempora, qui, suscipit assumenda ratione ipsam omnis consequatur amet minus culpa.</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos perferendis nostrum et asperiores facilis facere sit odio recusandae repellat enim fugiat architecto, temporibus quas ratione similique, corporis quasi, qui quis cum? Eius quia tempore est consequatur impedit quidem, illo, optio iure, commodi ipsa sint repellat vero sapiente ducimus? Incidunt, fugit non atque ea. Cum reprehenderit quam harum porro soluta ullam nulla eveniet, qui optio veritatis quod ipsum quasi doloribus voluptatum ab error, sapiente ipsa tempore accusantium asperiores voluptate nemo. Quam ad quis quos pariatur illum cumque neque deleniti, temporibus officia, eveniet provident repellendus odit reiciendis sapiente! Saepe deserunt quas voluptatum.</p>
+
+                    <pre class = "code java">
+public class GuGuDan2 {
+
+    public static void main(String[] args) {
+        for(int i=1; i<=9; i++) {
+            for(int j=2; j<=5; j++) {
+                System.out.printf("%d * %d = %2d", j, i, (j*i));
+                System.out.print("\t");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        for(int i=1; i<=9; i++) {
+            for(int j=6; j<=9; j++) {
+                System.out.printf("%d * %d = %2d", j, i, (j*i));
+                System.out.print("\t");
+            }
+            System.out.println();
+        }
+    }
+
+}
+                    </pre>
+                </div>
+            </div>
+
+            <h2>Forms</h2>
+
+            <!--
+                form-control
+                : input, textarea, select
+                : 블럭태그(너비 100%)
+            -->
+
+            <form action="" class = "form-horizontal">
+                <div class = "form-group">
+                    <label for="name" class = "col-sm-2">이름</label>
+                    <div class = "col-sm-10">
+                        <input type="text" id = "name" class = "form-control">
+                    </div>
+                </div>
+
+                <div class = "form-group">
+                    <label for="id" class = "col-sm-2">아이디</label>
+                    <div class = "col-sm-10">
+                        <input type="text" id = "id" class = "form-control">
+                    </div>
+                </div>
+
+                <div class = "form-group">
+                    <label for="pw" class = "col-sm-2">암호</label>
+                    <div class = "col-sm-10">
+                        <input type="text" id = "pw" class = "form-control">
+                    </div>
+                </div>
+                <input type="button" class = "btn btn-default" value = "Register">
+            </form>
+
+            <form action="">
+                <div class = "form-group">
+                    <div class = "input-group">
+                        <span class = "input-group-addon"><i class = "glyphicon glyphicon-user"></i></span>
+                        <input type="email" class = "form-control" id = "email" placeholder="이메일을 입력하세요">
+                    </div>
+                </div>
+
+                <div class = "form-group">
+                    <div class = "input-group">
+                        <span class = "input-group-addon"><i class = "glyphicon glyphicon-lock"></i></span>
+                        <input type="password" class = "form-control" id = "pw1" placeholder="암호를 입력하세요">
+                    </div>
+                </div>
+
+                <div class = "form-group">
+                    <div class = "input-group">
+                        <span class = "input-group-addon"><i class = "glyphicon glyphicon-user"></i></span>
+                        <input type="number" class = "form-control" id = "salary" placeholder="급여를 입력하세요" min = "0" step = "100000">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
