@@ -6,18 +6,12 @@
 	<!-- 가상 주소 = 서블릿 클래스 : 가상 URL 매핑  -->
 	<servlet>
     	<servlet-name>Ex01</servlet-name>
-    	<servlet-class>
-    		com.test.servlet.Ex01
-        </servlet-class>
+    	<servlet-class>com.test.servlet.Ex01</servlet-class>
    	</servlet>
    	
    	<servlet>
-    	<servlet-name>
-        	Ex02
-        </servlet-name>
-    	<servlet-class>
-    		com.test.servlet.Ex02
-        </servlet-class>
+    	<servlet-name>Ex02</servlet-name>
+    	<servlet-class>com.test.servlet.Ex02</servlet-class>
    	</servlet>
    	
 	<!-- 
@@ -31,35 +25,41 @@
 	
     <servlet-mapping>
     	<servlet-name>Ex01</servlet-name>
-    	<url-pattern>
-    		/ex01.do
-        </url-pattern>
+    	<url-pattern>/ex01.do</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
-    	<servlet-name>
-        	Ex02
-        </servlet-name>
-    	<url-pattern>
-    		/ex02.do
-        </url-pattern>
+    	<servlet-name>Ex02</servlet-name>
+    	<url-pattern>/ex02.do</url-pattern>
     </servlet-mapping>
     
     <servlet>
-    	<servlet-name>
-        	Ex03
-        </servlet-name>
-    	<servlet-class>
-    		com.test.servlet.Ex03_Receive
-        </servlet-class>
+    	<servlet-name>Ex03</servlet-name>
+    	<servlet-class>com.test.servlet.Ex03_Receive</servlet-class>
    	</servlet>
    	
    	<servlet-mapping>
-    	<servlet-name>
-        	Ex03
-        </servlet-name>
-    	<url-pattern>
-    		/ex03.do
-        </url-pattern>
+    	<servlet-name>Ex03</servlet-name>
+    	<url-pattern>/ex03.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>Ex04_Send</servlet-name>
+    	<servlet-class>com.test.servlet.Ex04_Send</servlet-class>
+   	</servlet>
+   	
+   	<servlet-mapping>
+    	<servlet-name>Ex04_Send</servlet-name>
+    	<url-pattern>/ex04_send.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>Ex04_Receive</servlet-name>
+    	<servlet-class>com.test.servlet.Ex04_Receive</servlet-class>
+   	</servlet>
+   	
+   	<servlet-mapping>
+    	<servlet-name>Ex04_Receive</servlet-name>
+    	<url-pattern>/ex04_receive.do</url-pattern>
     </servlet-mapping>
 </web-app>
