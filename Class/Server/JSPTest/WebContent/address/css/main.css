@@ -1,0 +1,45 @@
+@charset "UTF-8";
+body, p, div, span, li, th, td, input, textarea, option, dd, a, h1, h2, h3, h4, h5, h6 {
+	font-family: 빙그레체;
+	font-size: 14px;
+	color: #444;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 빙그레체;
+	color: #444;
+}
+
+#main {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#header {
+	padding-left: 15px;
+}
+
+#section {
+	min-height: 600px;
+}
+
+#footer {
+	text-align: center;
+	margin: 50px 0;
+}
+
+.glyphicon {
+	color: white;
+}
+
+#btns {
+	text-align: center;
+	margin: 25px 0;
+}
+
+.panel {
+	width: 250px;
+	text-align: center;
+	margin: 0 auto 0 auto;
+	transform: translate(0, 150px);
+}
