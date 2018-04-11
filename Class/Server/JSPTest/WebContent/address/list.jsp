@@ -68,6 +68,7 @@ rs = stat.executeQuery(sql);
 	
 	// 삭제하기 버튼을 눌렀을 때
 	function del(seq) {
+		if(confirm("정말 삭제하시겠습니까?"))
 		location.href = "delok.jsp?seq=" + seq;
 	}
 </script>
