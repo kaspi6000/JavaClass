@@ -470,3 +470,16 @@ WebContent > auth > admin > admin.jsp // 관리 전용 페이지
 	- code > list.jsp
 	- code > add.jsp
 	- code > addok.jsp
+	
+
+	
+레이아웃 설정하기
+
+1. 폴더 생성
+	- WebContent > layout1
+		- layout1 > images > job
+		- index.jsp
+		- board.jsp
+		- admin.jsp
+	- WebContent > layout2
+	- WebContent > layout3

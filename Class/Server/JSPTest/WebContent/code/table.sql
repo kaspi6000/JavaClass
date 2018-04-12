@@ -41,3 +41,5 @@ DROP TABLE tblCode;
 CREATE SEQUENCE code_seq;
 
 SELECT * FROM tblCode;
+
+SELECT * FROM tblAddress;
