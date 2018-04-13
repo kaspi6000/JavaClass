@@ -31,8 +31,6 @@ public class test {
 			tt = (int) Math.floor(t/60);
 			mm = Integer.parseInt(m) + tt;
 			
-			
-			
 			/*if(mm.length() == 1) {
 				
 			}*/
