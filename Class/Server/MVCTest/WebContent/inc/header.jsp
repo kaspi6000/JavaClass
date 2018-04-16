@@ -13,7 +13,7 @@
 					</ul>
 					<ul class="nav navbar-nav">
 			
-						<li id = "menu2"><a href="#">게시판</a></li>
+						<li id = "menu2"><a href="/mvc/board/list.do">게시판</a></li>
 					</ul>
 					<ul class = "nav navbar-nav navbar-right">
 						<li><a href = "#" style = "cursor:default;">${auth}</a></li>
