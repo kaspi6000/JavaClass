@@ -1,6 +1,7 @@
 -- MVCTest > board.sql
 
 DROP TABLE tblBoard CASCADE CONSTRAINTS;
+DELETE FROM tblBoard WHERE id = 'test' CASCADE;
 
 -- 2. 寃뚯떆�뙋 �뀒�씠釉�(�썝湲�)
 CREATE TABLE tblBoard (
@@ -23,3 +24,5 @@ SELECT * FROM tblBoard;
 
 DELETE FROM tblBoard WHERE seq = 13;
 COMMIT;
+
+SELECT * FROM (SELECT a.*, rownum as rnum FROM (SELECT seq, subject, id, (SELECT name FROM tblMember WHERE id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content FROM tblBoard b ORDER BY seq DESC) a) WHERE rnum >= 11 and rnum >= 20 ORDER BY seq DESC;

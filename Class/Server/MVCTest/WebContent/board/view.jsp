@@ -73,8 +73,23 @@
 		</table>
 		
 		<div id = "btns">
+			<c:if test = "${empty word && empty column}">
 			<input type = "button" value = "뒤로가기" class = "btn btn-default" onclick = "location.href='/mvc/board/list.do'">
-			<input type = "submit" value = "글쓰기" class = "btn btn-primary">
+			</c:if>
+			
+			<c:if test="${!empty word && !empty column}">
+			<input type = "button" value = "뒤로가기" class = "btn btn-default" onclick = "location.href='/mvc/board/list.do?column=${column}&word=${word}'">
+			</c:if>
+			
+			<c:if test = "${dto.id == auth}">
+			<input type = "button" value = "수정하기" class = "btn btn-primary" onclick = "location.href='/mvc/board/edit.do?seq=${dto.seq}'">
+			<input type = "button" value = "삭제하기" class = "btn btn-primary" onclick = "location.href='/mvc/board/delok.do?seq=${dto.seq}&id=${dto.id}'">
+			</c:if>
+			
+			<c:if test = "${dto.id != auth}">
+			<input type = "button" value = "수정하기" class = "btn btn-primary" onclick = "alert('권한이 없습니다.')">
+			<input type = "button" value = "삭제하기" class = "btn btn-primary" onclick = "alert('권한이 없습니다.')">
+			</c:if>
 		</div>
 		
 	</div>

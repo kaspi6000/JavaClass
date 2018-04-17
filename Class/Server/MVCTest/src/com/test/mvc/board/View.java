@@ -23,6 +23,9 @@ public class View extends HttpServlet {
 		
 		// 1.
 		String seq = req.getParameter("seq");
+		String column = req.getParameter("column");
+		String word = req.getParameter("word");
+		
 		HttpSession session = req.getSession();
 		
 		// 2.
@@ -76,8 +79,17 @@ public class View extends HttpServlet {
 		content = content.replace("\n", "<br>");
 		dto.setContent(content);
 		
+		// c. 글 내용 검색 > 키워드 표시
+		if (column != null && column.equals("content")) {
+			
+			content = content.replace(word, "<span style = 'background-color: yellow; color: red;'>" + word + "</span>");
+			dto.setContent(content);
+		}
+		
 		// 3.
 		req.setAttribute("dto", dto);
+		req.setAttribute("column", column);
+		req.setAttribute("word", word);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/view.jsp");
 		dispatcher.forward(req, resp);

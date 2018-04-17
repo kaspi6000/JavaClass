@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.test.mvc.address.DBUtil;
 
@@ -45,11 +46,22 @@ public class BoardDAO {
 	}
 
 	// List 서블릿이 목록달라고 위임
-	public ArrayList<BoardDTO> list() {
+	public ArrayList<BoardDTO> list(HashMap<String, String> map) {
 		
 		try {
 			
-			String sql = "SELECT seq, subject, id, (SELECT name FROM tblMember WHERE id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap FROM tblBoard b ORDER BY seq DESC";
+			String where = "";
+			
+			if(map.get("isSearch").equals("true")) {
+				
+				where = String.format("WHERE %s LIKE '%%%s%%'", map.get("column"), map.get("word"));
+			}
+			
+			// My-SQL : limit
+			// Oracle : rownum
+			// MS-SQL : top
+			// String sql = "SELECT * FROM (SELECT seq, subject, id, (SELECT name FROM tblMember WHERE id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content FROM tblBoard b) " + where + " ORDER BY seq DESC";
+			String sql = String.format("SELECT * FROM (SELECT a.*, rownum as rnum FROM (SELECT seq, subject, id, (SELECT name FROM tblMember WHERE id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content FROM tblBoard b %s ORDER BY seq DESC) a) WHERE rnum >= %s and rnum <= %s ORDER BY seq DESC", where, map.get("start"), map.get("end"));
 			
 			stat = conn.prepareStatement(sql);
 			
@@ -132,5 +144,69 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int edit(BoardDTO dto) {
+		
+		try {
+			
+			String sql = "UPDATE tblBoard SET subject = ?, content = ?, tag = ?" + " WHERE seq = ?";
+			
+			stat = conn.prepareStatement(sql);
+			
+			stat.setString(1, dto.getSubject());
+			stat.setString(2, dto.getContent());
+			stat.setString(3, dto.getTag());
+			stat.setString(4, dto.getSeq());
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public int del(String seq) {
+		
+		try {
+		
+			String sql = "DELETE FROM tblBoard WHERE seq = " + seq;
+			
+			stat = conn.prepareStatement(sql);
+			
+			return stat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	// List 서블릿이 게시물의 총 갯수를 반환해달라고 요청
+	public int getTotalCount(HashMap<String, String> map) {
+		
+		try {
+			
+			String where = "";
+			
+			if(map.get("isSearch").equals("true")) {
+				
+				where = String.format("WHERE %s LIKE '%%%s%%'", map.get("column"), map.get("word"));
+			}
+			
+			String sql = "SELECT count(*) AS cnt FROM tblBoard " + where;
+			stat = conn.prepareStatement(sql);
+			ResultSet rs = stat.executeQuery();
+			
+			if(rs.next()) {
+				
+				return rs.getInt("cnt");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 }
