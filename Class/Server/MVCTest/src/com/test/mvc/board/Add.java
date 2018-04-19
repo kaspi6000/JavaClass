@@ -17,6 +17,15 @@ public class Add extends HttpServlet {
 		
 		// 서블릿 작업 없음 > 나중에 생김
 		
+		// 자신을 새글쓰기? 답변글 쓰기?
+		String mode = req.getParameter("mode");
+		String thread = req.getParameter("thread");
+		String depth = req.getParameter("depth");
+		
+		req.setAttribute("mode", mode);
+		req.setAttribute("thread", thread);
+		req.setAttribute("depth", depth);
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/add.jsp");
 		dispatcher.forward(req, resp);
 	}

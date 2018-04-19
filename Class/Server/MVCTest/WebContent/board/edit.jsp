@@ -30,6 +30,25 @@
 		/* $("#subject").val("${dto.subject}");
 		$("#content").val("${dto.content}"); */
 	})
+	
+	function delfile() {
+		// 첨부 파일 삭제
+		// $(event.srcElement).hide();
+		if ($(event.srcElement).css("opacity") == "1"){
+			$(event.srcElement).css({
+				"opacity": ".4",
+				"text-decoration": "line-through"
+			});
+			$("#delfile").val("y"); // 첨부파일 삭제O
+		} else {
+			$(event.srcElement).css({
+				"opacity": "1",
+				"text-decoration": "none"
+			});
+			$("#delfile").val("n"); // 첨부파일 삭제X
+		}
+		console.log($("#delfile").val());
+	}
 </script>
 </head>
 <body>
@@ -41,7 +60,7 @@
 	
 	<h2 class = "page-header">게시판 <small>수정하기</small></h2>
 	
-		<form method = "POST" action = "/mvc/board/editok.do">
+		<form method = "POST" action = "/mvc/board/editok.do" enctype = "multipart/form-data">
 			<table id = "tbl1" class = "table table-striped">
 				<tr>
 					<th>제목</th>
@@ -64,6 +83,14 @@
 						</select>
 					</td>
 				</tr>
+				
+				<tr>
+					<th>파일</th>
+					<td class = "form-inline">
+						<input type = "file" name = "attach" class = "form-control middle">
+						<code style = "cursor: pointer;" title = "파일을 삭제합니다." onclick = "delfile();">${dto.orgfilename} &times;</code>
+					</td>
+				</tr>
 			</table>
 			
 			<div id = "btns">
@@ -72,6 +99,7 @@
 			</div>
 			
 			<input type = "hidden" name = "seq" value = "${dto.seq}">
+			<input type = "hidden" name = "delfile" id = "delfile" value = "n">
 		</form>
 		
 	</div>
