@@ -133,8 +133,12 @@
 				<tr>
 					
 					<td>
-						<c:if test = "${dto.depth == 0}">
+						<c:if test = "${dto.depth == 0 && dto.notice != 1}">
 						${dto.seq}
+						</c:if>
+					
+						<c:if test = "${dto.notice == 1}">
+						<span class = "glyphicon glyphicon-user"></span>
 						</c:if>
 					</td>
 					
@@ -145,7 +149,7 @@
 						</c:if>
 						
 						<c:if test = "${map.isSearch == false}">
-						<a href = "/mvc/board/view.do?seq=${dto.seq}">${dto.subject}</a>
+						<a href = "/mvc/board/view.do?seq=${dto.seq}"><c:if test = "${dto.notice == 1}">[공지사항] </c:if>${dto.subject}</a>
 						</c:if>
 						
 						<c:if test = "${map.isSearch == true}">

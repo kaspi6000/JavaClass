@@ -67,6 +67,28 @@
 		cursor:pointer;		
 	}
 	
+	#good {
+		text-align: center;
+		margin: 20px;
+	}
+	
+	#btngood, #btnbad {
+		font-size: 20px;
+		border: 1px solid #ddd;
+		background-color: #f9f9f9;
+		padding: 10px;
+		border-radius: 20%;
+		color: #aaa;
+	}
+	
+	#good > div { display: inline-block; margin: 0 2px; }
+	
+	#labelgood, #labelbad { color: #999; font-weight: bold; font-size: 15px; margin: 2px;}
+	
+	#good .good { color: #D43F3A; }
+	
+	#good .bad { color: #5BC0DE; }
+	
 </style>
 <script>
 	function cdel(seq, pseq) {
@@ -82,6 +104,26 @@
 		$("#seq").val(seq); // 수정할 댓글 seq
 		
 	}
+	
+	$(function() {
+		$("#btngood").click(function() {
+			location.href = "/mvc/board/good.do?state=g&seq=${dto.seq}";
+		})
+		
+		$("#btnbad").click(function() {
+			location.href = "/mvc/board/good.do?state=b&seq=${dto.seq}";
+		})
+	});
+	
+	function search() {
+		
+		// #태그 클릭
+		var tag = $(event.srcElement).text();
+		// console.log(tag);
+		
+		location.href = "/mvc/board/list.do?column=hashtag&word=" + tag;
+	}
+	
 </script>
 </head>
 <body>
@@ -108,7 +150,20 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td id = "content">${dto.content}</td>
+				<td id = "content">
+					<div>${dto.content}</div>
+					<div id = "good">
+						<div class = "<c:if test = "${gdto.good > 0}">good</c:if>">
+							<span class = "glyphicon glyphicon-thumbs-up" id = "btngood"></span>
+							<div id = "labelgood">${gdto.good}</div>
+						</div>
+						<div class = "<c:if test = "${gdto.bad > 0}">bad</c:if>">
+							<span class = "glyphicon glyphicon-thumbs-down" id = "btnbad"></span>
+							<div id = "labelbad">${gdto.bad}</div>
+						</div>
+					</div>
+					
+				</td>
 			</tr>
 			<tr>
 				<th>날짜</th>
@@ -127,6 +182,15 @@
 					<c:if test = "${empty dto.orgfilename}">
 					첨부파일이 없습니다.
 					</c:if>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>#태그</th>
+				<td>
+					<c:forEach items = "${tlist}" var = "tag">
+						<code onclick = "search();" style = "cursor: pointer"><span class = "glyphicon glyphicon-tag"></span> ${tag}</code>
+					</c:forEach>
 				</td>
 			</tr>
 		</table>
@@ -156,8 +220,10 @@
 						onclick = "alert('권한이 없습니다.');"> 	
 				</c:if>
 				
+				<c:if test = "${dto.notice == 0}">
 				<input type = "button" value = "답변하기" class = "btn btn-primary"
 						onclick = "location.href='/mvc/board/add.do?mode=reply&thread=${dto.thread}&depth=${dto.depth}';">
+				</c:if>
 				
 				
 				

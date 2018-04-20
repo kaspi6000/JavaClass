@@ -38,7 +38,7 @@ public class List extends HttpServlet {
 		// 페이징 사전 작업
 		
 		int nowPage = 0;					// 현재 페이지 번호				
-		int pageSize = 15;                   // 한페이지에서 보여줄 게시물 수
+		int pageSize = 10;                   // 한페이지에서 보여줄 게시물 수
 		int totalPage = 0;                  // 총 페이지 수
 		int start = 0;                      // 쿼리의 조건절 rnum >= start
 		int end = 0;						// rnum <= end

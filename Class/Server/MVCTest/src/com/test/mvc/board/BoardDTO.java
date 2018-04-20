@@ -17,6 +17,7 @@ public class BoardDTO {
 	private String filename;
 	private String orgfilename;
 	private String downloadcount;
+	private String notice;
 	
 	public int getCcount() {
 		return ccount;
@@ -108,6 +109,12 @@ public class BoardDTO {
 	}
 	public void setDownloadcount(String downloadcount) {
 		this.downloadcount = downloadcount;
+	}
+	public String getNotice() {
+		return notice;
+	}
+	public void setNotice(String notice) {
+		this.notice = notice;
 	}
 	
 	

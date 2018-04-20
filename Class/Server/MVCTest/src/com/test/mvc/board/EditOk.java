@@ -73,9 +73,9 @@ public class EditOk extends HttpServlet {
 				orgfilename = "";
 				
 				// dao.updateFileName(seq);
-			} else {
-				filename = temp.getFilename();
-				orgfilename = temp.getOrgfilename(); 
+			} else if (delfile.equals("y")) {
+				filename = multi.getFilesystemName("attach");
+				orgfilename = multi.getOriginalFileName("attach");
 			}
 			
 			// 첨부 파일명 얻기
