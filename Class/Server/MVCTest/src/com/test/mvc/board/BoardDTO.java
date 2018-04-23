@@ -18,6 +18,8 @@ public class BoardDTO {
 	private String orgfilename;
 	private String downloadcount;
 	private String notice;
+	private String secret;
+	private String movie;
 	
 	public int getCcount() {
 		return ccount;
@@ -115,6 +117,18 @@ public class BoardDTO {
 	}
 	public void setNotice(String notice) {
 		this.notice = notice;
+	}
+	public String getSecret() {
+		return secret;
+	}
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+	public String getMovie() {
+		return movie;
+	}
+	public void setMovie(String movie) {
+		this.movie = movie;
 	}
 	
 	

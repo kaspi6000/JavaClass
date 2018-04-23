@@ -89,6 +89,11 @@
 	
 	#good .bad { color: #5BC0DE; }
 	
+	#div1 {border: 0px solid black; position: relative;}
+	
+	#btnSort {position: absolute; top: 0; right: 50px; border: 1px solid #ddd; background-color: #F9F9F9; padding: 10px; cursor: pointer;}
+	
+	#url {width: 1px; height: 1px; border: 0; margin: 0; padding: 0;}
 </style>
 <script>
 	function cdel(seq, pseq) {
@@ -106,6 +111,7 @@
 	}
 	
 	$(function() {
+		
 		$("#btngood").click(function() {
 			location.href = "/mvc/board/good.do?state=g&seq=${dto.seq}";
 		})
@@ -122,6 +128,24 @@
 		// console.log(tag);
 		
 		location.href = "/mvc/board/list.do?column=hashtag&word=" + tag;
+	}
+	
+	/* $("#btnSort").click(function() {
+		
+		location.href = "/mvc/board/view.do?seq=${dto.seq}&sort=${sort}#tbl2";
+	}); */
+	
+	function handleClick() {
+		
+		location.href = "/mvc/board/view.do?seq=${dto.seq}&sort=${sort}#tbl2";
+	}
+	
+	function copy() {
+		
+		$("#url").val(location.href);
+		$("#url").select();
+		
+		document.execCommand("copy");
 	}
 	
 </script>
@@ -225,7 +249,8 @@
 						onclick = "location.href='/mvc/board/add.do?mode=reply&thread=${dto.thread}&depth=${dto.depth}';">
 				</c:if>
 				
-				
+				<input type = "button" value = "URL 복사하기" class = "btn btn-success" onclick = "copy()">
+				<input type = "text" id = "url">
 				
 				<!-- 댓글 -->
 				<form class = "form-inline" id = "cform" method = "post" action="/mvc/board/addcomment.do">
@@ -237,25 +262,44 @@
 				
 				<!-- <div>댓글목록</div> -->
 				
-				<table id = "tbl2" class = "table table-striped">
-					<c:forEach items = "${clist}" var = "cdto">
-					<tr>
-						<td style = "vertical-align:middle;">
-							${cdto.content}
-						</td>
-						<td>
-							<div>${cdto.name}</div>
-							<div>${cdto.regdate}</div>
-							<c:if test = "${cdto.id == auth}">
-								<div>
-									<span class = "glyphicon glyphicon-refresh" onclick = "edit(${cdto.seq}, ${dto.seq});"></span>
-									<span class = "glyphicon glyphicon-trash" onclick = "cdel(${cdto.seq});"></span>
-								</div>
+				<div id = "div1">
+					<table id = "tbl2" class = "table table-striped">
+						<c:forEach items = "${clist}" var = "cdto">
+						<tr>
+							<td style = "vertical-align:middle;">
+								${cdto.content}
+							</td>
+							<td>
+								<div>${cdto.name}</div>
+								<div>${cdto.regdate}</div>
+								<c:if test = "${cdto.id == auth}">
+									<div>
+										<span class = "glyphicon glyphicon-refresh" onclick = "edit(${cdto.seq}, ${dto.seq});"></span>
+										<span class = "glyphicon glyphicon-trash" onclick = "cdel(${cdto.seq});"></span>
+									</div>
+								</c:if>
+							</td>
+						</tr>
+						</c:forEach>
+					</table>
+					
+					<c:if test = "${clist.size() > 0}">
+					
+						<span
+						 
+							<c:if test = "${sort == 'desc'}">
+							
+								class = "glyphicon glyphicon-sort-by-attributes"
 							</c:if>
-						</td>
-					</tr>
-					</c:forEach>
-				</table>
+							 
+							<c:if test = "${sort == 'asc'}">
+							
+								class = "glyphicon glyphicon-sort-by-attributes-alt"
+							</c:if>
+							
+							id = "btnSort" onclick = "handleClick()"></span>
+					</c:if>
+				</div>
 				
 				
 		</div>

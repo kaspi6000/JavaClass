@@ -76,6 +76,12 @@ public class AddOk extends HttpServlet {
 			// - 체크박스 선택 X : null
 			String notice = multi.getParameter("notice") != null ? "1" : "0"; // "on" or null
 			
+			// 비밀글
+			String secret = multi.getParameter("secret") != null ? "1" : "0";
+			
+			// 동영상
+			String movie = multi.getParameter("movie");
+			
 			// 2.
 			BoardDTO dto = new BoardDTO();
 			
@@ -90,6 +96,11 @@ public class AddOk extends HttpServlet {
 			
 			// 공지글 추가
 			dto.setNotice(notice);
+			// 비밀글 추가
+			dto.setSecret(secret);
+			
+			// 동영상 추가
+			dto.setMovie(movie);
 			
 			BoardDAO dao = new BoardDAO();
 			

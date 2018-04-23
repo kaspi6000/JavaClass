@@ -167,6 +167,12 @@ public class List extends HttpServlet {
 				dto.setSubject(dto.getSubject().replace(word, "<span style = 'background-color:yellow;'>" + word + "</span>"));
 				
 			}
+			
+			// f. 비밀글 제목 바꾸기
+			if(dto.getSecret().equals("1")) {
+				
+				dto.setSubject("비밀글입니다.");
+			}
 		}
 		
 		// JSP에 보낼 페이지바 태그들 작성

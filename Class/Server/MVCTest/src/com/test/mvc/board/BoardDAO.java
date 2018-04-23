@@ -26,7 +26,7 @@ public class BoardDAO {
 		
 		try {
 			
-			String sql = "INSERT INTO tblBoard(seq, subject, content, id, regdate, readcount, tag, thread, depth, filename, orgfilename, notice) VALUES (board_seq.nextval, ?, ?, ?, DEFAULT, DEFAULT, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO tblBoard(seq, subject, content, id, regdate, readcount, tag, thread, depth, filename, orgfilename, notice, secret, movie) VALUES (board_seq.nextval, ?, ?, ?, DEFAULT, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			
 			stat = conn.prepareStatement(sql);
@@ -40,6 +40,8 @@ public class BoardDAO {
 			stat.setString(7, dto.getFilename());
 			stat.setString(8, dto.getOrgfilename());
 			stat.setString(9, dto.getNotice());
+			stat.setString(10, dto.getSecret());
+			stat.setString(11, dto.getMovie());
 			
 			return stat.executeUpdate();
 			
@@ -77,7 +79,7 @@ public class BoardDAO {
 				sql = "SELECT * FROM tblBoard WHERE seq IN (SELECT b.seq FROM tblBoard b INNER JOIN tblHashTag t ON b.seq = t.bseq GROUP BY b.seq)";
 			} else {*/
 				
-				sql = String.format("select distinct seq, subject, id, name, regdate, readcount, gap, content, ccount, depth, orgfilename, thread, notice from (select seq, subject, id, (select name from tblMember where id = c.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content, (select count(*) from tblComment where pseq = c.seq) as ccount, depth, orgfilename, thread, notice, seq as rnum from tblBoard c where c.notice = 1 union select * from (select a.*, rownum as rnum from (select seq, subject, id, (select name from tblMember where id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content, (select count(*) from tblComment where pseq = b.seq) as ccount, depth, orgfilename, thread, notice from tblBoard b where b.notice = 0  %s  order by thread desc) a %s) where rnum >= %s and rnum <= %s) order by notice desc, thread desc",
+				sql = String.format("select distinct seq, subject, id, name, regdate, readcount, gap, content, ccount, depth, orgfilename, thread, notice, secret from (select seq, subject, id, (select name from tblMember where id = c.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content, (select count(*) from tblComment where pseq = c.seq) as ccount, depth, orgfilename, thread, notice, secret, seq as rnum from tblBoard c where c.notice = 1 union select * from (select a.*, rownum as rnum from (select seq, subject, id, (select name from tblMember where id = b.id) as name, regdate, readcount, round((sysdate - regdate) * 24 * 60) as gap, content, (select count(*) from tblComment where pseq = b.seq) as ccount, depth, orgfilename, thread, notice, secret from tblBoard b where b.notice = 0  %s  order by thread desc) a %s) where rnum >= %s and rnum <= %s) order by notice desc, thread desc",
 						where, hashwhere, map.get("start"), map.get("end"));
 			/*}*/
 			
@@ -103,6 +105,7 @@ public class BoardDAO {
 				dto.setDepth(rs.getInt("depth"));
 				dto.setOrgfilename(rs.getString("orgfilename"));
 				dto.setNotice(rs.getString("notice"));
+				dto.setSecret(rs.getString("secret"));
 				
 				list.add(dto);
 			}
@@ -147,6 +150,8 @@ public class BoardDAO {
 				 dto.setOrgfilename(rs.getString("orgfilename"));
 				 dto.setDownloadcount(rs.getString("downloadcount"));
 				 dto.setNotice(rs.getString("notice"));
+				 dto.setSecret(rs.getString("secret"));
+				 dto.setMovie(rs.getString("movie"));
 			 }
 			 
 			 return dto;
@@ -274,14 +279,16 @@ public class BoardDAO {
 	}
 	
 	// View 서블릿이 댓글 목록 달라고 요청
-	public ArrayList<CommentDTO> clist(String pseq) {
+	public ArrayList<CommentDTO> clist(String pseq, String sort) {
 		try {
 			
-			String sql = "SELECT c.*, (SELECT name FROM tblMember WHERE id = c.id) as name FROM tblComment c WHERE pseq = ? ORDER BY seq ASC";
+			String sql = "SELECT c.*, (SELECT name FROM tblMember WHERE id = c.id) as name FROM tblComment c WHERE pseq = ? ORDER BY seq " + sort;
 			
 			stat = conn.prepareStatement(sql);
+			
 			stat.setString(1, pseq);
-			System.out.println(sql);
+			
+			// System.out.println(sql);
 			ResultSet rs = stat.executeQuery();
 			
 			ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();

@@ -42,6 +42,21 @@ public class View extends HttpServlet {
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.get(seq);
 		
+		// 본인과 관리자 등급만 열람 가능
+		if(!dto.getId().equals(req.getSession().getAttribute("auth").toString()) && req.getSession().getAttribute("lv").toString().equals("1") && dto.getSecret().equals("1")) {
+			
+			// 본인이 아닌 일반 회원
+			// 가끔씩 중간에 출력
+			resp.setCharacterEncoding("UTF-8");
+			
+			String html = "<html><head><meta charset='utf-8'></meta></head><body>";
+			html += "<script>alert('비밀글은 열람할 수 없습니다.'); history.back();</script>";
+			html += "</body></html>";
+			
+			resp.getWriter().println(html);
+			resp.getWriter().close();
+		}
+		
 		// 2.2 조회수 증가하기
 		if (session.getAttribute("read") != null &&
 			session.getAttribute("read").toString().equals("n")) {
@@ -114,8 +129,29 @@ public class View extends HttpServlet {
 			}
 		}
 		
+		// e. 동영상 첨부되었으면 출력..
+		// "<iframe width='420' height='380' src='https://www.youtube.com/embed/" + key + "' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"
+		String movie = dto.getMovie();
+		// System.out.println(movie);
+		
+		if (movie != null) {
+			
+			dto.setContent(content + "<br><iframe width='420' height='380' src='https://www.youtube.com/embed/" + movie + "?autoplay=1&loop=1' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>");
+		}
+		
+		// 댓글 정렬 상태
+		String sort = req.getParameter("sort");
+		
+		if(sort == null) {
+			
+			sort = "desc";
+		}
+		
 		// 댓글 목록 가져오기
-		ArrayList<CommentDTO> clist = dao.clist(seq);
+		ArrayList<CommentDTO> clist = dao.clist(seq, sort);
+		
+		if(sort.equals("desc")) sort = "asc";
+		else sort = "desc";
 		
 		// 좋아요/ 싫어요
 		// - good : count
@@ -123,7 +159,7 @@ public class View extends HttpServlet {
 		GoodResultDTO gdto = dao.getGoodResult(seq);
 		
 		// 해시태그 목록 가져오기
-		ArrayList<String> tlist = dao.listHashTag(seq); 
+		ArrayList<String> tlist = dao.listHashTag(seq);
 		
 		// 3.
 		req.setAttribute("dto", dto);
@@ -135,6 +171,8 @@ public class View extends HttpServlet {
 		req.setAttribute("gdto", gdto);
 		
 		req.setAttribute("tlist", tlist);
+		
+		req.setAttribute("sort", sort);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/view.jsp");
 		dispatcher.forward(req, resp);

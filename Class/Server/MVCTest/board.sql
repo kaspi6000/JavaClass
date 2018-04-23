@@ -156,3 +156,46 @@ CREATE SEQUENCE hashtag_seq;
 SELECT * FROM tblHashTag;
 
 SELECT * FROM tblBoard WHERE seq IN (SELECT b.seq, t.tag FROM tblBoard b INNER JOIN tblHashTag t ON b.seq = t.bseq GROUP BY b.seq);
+
+CREATE TABLE tblBoard (
+    seq NUMBER PRIMARY KEY, -- �떆���뒪
+    subject VARCHAR2(500) NOT NULL, -- 湲� �젣紐�
+    content VARCHAR2(2000) NOT NULL, -- 湲��궡�슜
+    id VARCHAR2(30) not null REFERENCES tblMember(id), -- �옉�꽦�옄
+    regdate DATE DEFAULT sysdate NOT NULL, -- 湲��벖�떆媛�
+    readcount NUMBER DEFAULT 0 NOT NULL, -- 議고쉶�닔
+    tag VARCHAR2(1) NOT NULL CHECK(tag in('y', 'n')),-- 湲� �궡�슜�뿉 �깭洹� �뿀�슜
+    thread NUMBER NOT NULL,     -- 답변형(정렬)
+    depth NUMBER NOT NULL,       -- 답변형(들여쓰기)
+    filename VARCHAR2(100) NULL,    -- 첨부파일명(물리명)
+    orgfilename VARCHAR2(100) NULL,  -- 첨부파일명(원본명)
+    downloadcount NUMBER DEFAULT 0 NULL,     -- 파일 다운로드 횟수
+    notice VARCHAR2(1) NOT NULL CHECK(notice in ('1', '0')),
+    secret VARCHAR2(1) NOT NULL check(secret in('1', '0'))
+);
+
+DROP TABLE tblBoard CASCADE CONSTRAINT;
+
+SELECT * FROM tblBoard;
+SELECT * FROM tblHashTag;
+SELECT * FROM tblComment;
+SELECT * FROM tblBoard;
+
+
+CREATE TABLE tblBoard (
+    seq NUMBER PRIMARY KEY, -- �떆���뒪
+    subject VARCHAR2(500) NOT NULL, -- 湲� �젣紐�
+    content VARCHAR2(2000) NOT NULL, -- 湲��궡�슜
+    id VARCHAR2(30) not null REFERENCES tblMember(id), -- �옉�꽦�옄
+    regdate DATE DEFAULT sysdate NOT NULL, -- 湲��벖�떆媛�
+    readcount NUMBER DEFAULT 0 NOT NULL, -- 議고쉶�닔
+    tag VARCHAR2(1) NOT NULL CHECK(tag in('y', 'n')),-- 湲� �궡�슜�뿉 �깭洹� �뿀�슜
+    thread NUMBER NOT NULL,     -- 답변형(정렬)
+    depth NUMBER NOT NULL,       -- 답변형(들여쓰기)
+    filename VARCHAR2(100) NULL,    -- 첨부파일명(물리명)
+    orgfilename VARCHAR2(100) NULL,  -- 첨부파일명(원본명)
+    downloadcount NUMBER DEFAULT 0 NULL,     -- 파일 다운로드 횟수
+    notice VARCHAR2(1) NOT NULL CHECK(notice in ('1', '0')),
+    secret VARCHAR2(1) NOT NULL check(secret in('1', '0')),
+    movie VARCHAR2(100) NULL
+);

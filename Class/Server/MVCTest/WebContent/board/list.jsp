@@ -148,6 +148,10 @@
 						<span style = "margin-left: ${dto.depth * 20}px;">☞</span>
 						</c:if>
 						
+						<c:if test = "${dto.secret == 1}">
+							<span class = "glyphicon glyphicon-lock"></span>
+						</c:if>
+						
 						<c:if test = "${map.isSearch == false}">
 						<a href = "/mvc/board/view.do?seq=${dto.seq}"><c:if test = "${dto.notice == 1}">[공지사항] </c:if>${dto.subject}</a>
 						</c:if>
