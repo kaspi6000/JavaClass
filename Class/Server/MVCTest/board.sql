@@ -199,3 +199,26 @@ CREATE TABLE tblBoard (
     secret VARCHAR2(1) NOT NULL check(secret in('1', '0')),
     movie VARCHAR2(100) NULL
 );
+
+
+-- 전체 회원수
+SELECT count(*) FROM tblMember;
+
+-- 전체 게시물 수
+SELECT count(*) FROM tblBoard;
+
+-- 전체 댓글 수
+SELECT count(*) FROM tblComment;
+
+-- 미디어 수(첨부 이미지, 첨부 동영상)
+SELECT count(filename) + count(movie) FROM tblBoard;
+
+-- 회원별 게시물 카운트
+SELECT cnt FROM (SELECT count(*) AS cnt, (SELECT name FROM tblMember WHERE id = b.id) AS name FROM tblBoard b GROUP BY id) ORDER BY name ASC;
+
+SELECT count(b.seq) FROM tblMember m LEFT OUTER JOIN tblBoard b ON m.id = b.id GROUP BY m.name ORDER BY m.name;
+
+-- 회원별 댓글 카운트
+SELECT cnt FROM (SELECT count(*) AS cnt, (SELECT name FROM tblMember WHERE id = b.id) AS name FROM tblComment b GROUP BY id) ORDER BY name ASC;
+
+SELECT count(b.seq) FROM tblMember m LEFT OUTER JOIN tblComment b ON m.id = b.id GROUP BY m.name ORDER BY m.name;

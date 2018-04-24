@@ -15,6 +15,12 @@
 			
 						<li id = "menu2"><a href="/mvc/board/list.do">게시판</a></li>
 					</ul>
+					
+					<ul class="nav navbar-nav">
+			
+						<li id = "menu3"><a href="/mvc/admin/index.do">관리자</a></li>
+					</ul>
+					
 					<ul class = "nav navbar-nav navbar-right">
 						<li><a href = "#" style = "cursor:default;">${auth}</a></li>
 					</ul>
