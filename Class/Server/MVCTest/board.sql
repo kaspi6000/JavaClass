@@ -222,3 +222,19 @@ SELECT count(b.seq) FROM tblMember m LEFT OUTER JOIN tblBoard b ON m.id = b.id G
 SELECT cnt FROM (SELECT count(*) AS cnt, (SELECT name FROM tblMember WHERE id = b.id) AS name FROM tblComment b GROUP BY id) ORDER BY name ASC;
 
 SELECT count(b.seq) FROM tblMember m LEFT OUTER JOIN tblComment b ON m.id = b.id GROUP BY m.name ORDER BY m.name;
+
+
+CREATE TABLE tblResearch (
+    seq NUMBER PRIMARY KEY,
+    question VARCHAR2(500) NOT NULL,
+    answer1 VARCHAR2(100),
+    answer2 VARCHAR2(100),
+    answer3 VARCHAR2(100),
+    answer4 VARCHAR2(100),
+    cnt1 NUMBER,
+    cnt2 NUMBER,
+    cnt3 NUMBER,
+    cnt4 NUMBER
+);
+
+INSERT INTO tblResearch VALUES (1, 'test1', 'test2', 'test3', 'test4', 1, 2, 3, 4);
