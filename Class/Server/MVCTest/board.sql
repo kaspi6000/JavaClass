@@ -238,3 +238,24 @@ CREATE TABLE tblResearch (
 );
 
 INSERT INTO tblResearch VALUES (1, 'test1', 'test2', 'test3', 'test4', 1, 2, 3, 4);
+
+SELECT * FROM departments;
+
+SELECT * FROM departments d WHERE (SELECT count(*) FROM employees WHERE department_id = d.department_id) > 0;
+
+-- 특정 부서의 1000불 단위의 인원수
+SELECT count(*), ceil(salary / 1000) * 1000 FROM employees WHERE department_id = 10 GROUP BY ceil(salary / 1000) ORDER BY ceil(salary / 1000);
+
+SELECT count(*), ceil(salary / 1000) * 1000 FROM employees WHERE department_id = 30 GROUP BY ceil(salary / 1000);
+
+-- 고양이 위치값 테이블
+CREATE TABLE tblPosition (
+    seq NUMBER PRIMARY KEY,
+    id VARCHAR2(100) NOT NULL,
+    x NUMBER NOT NULL,
+    y NUMBER NOT NULL
+);
+
+CREATE SEQUENCE position_seq;
+
+SELECT * FROM tblPosition;
