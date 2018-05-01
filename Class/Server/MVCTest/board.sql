@@ -259,3 +259,10 @@ CREATE TABLE tblPosition (
 CREATE SEQUENCE position_seq;
 
 SELECT * FROM tblPosition;
+
+-- 추천 검색어
+CREATE TABLE tblWord(
+    word VARCHAR2(200)
+);
+
+SELECT * FROM tblWord;

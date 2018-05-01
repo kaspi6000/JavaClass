@@ -288,5 +288,35 @@ public class AjaxDAO {
 		return null;
 	}
 
+
+	public ArrayList<String> query(String query) {
+		
+		try {
+			
+			String sql = "SELECT * FROM tblWord WHERE word like ? || '%'";
+			
+			stat = conn.prepareStatement(sql);
+			
+			stat.setString(1, query);
+			
+			ResultSet rs = stat.executeQuery();
+			
+			ArrayList<String> list = new ArrayList<String>();
+			
+			while(rs.next()) {
+				
+				list.add(rs.getString("word"));
+			}
+			
+			conn.close();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 	
 }
