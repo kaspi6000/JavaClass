@@ -3,7 +3,7 @@ package com.test.spring;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class Ex03_File {
+public class Ex04_File implements IData {
 
 	public int getCount() {
 		

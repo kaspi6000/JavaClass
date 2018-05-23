@@ -1,0 +1,19 @@
+package com.test.spring;
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		// Ex03.java : 컨트롤러 역할
+		// Ex03_DAO.java : DAO
+		// Ex03_File.java : File 데이터 처리
+		// Ex03_DB.java : DB 데이터 처리
+		
+		// 학생 데이터 -> 인원수 출력
+		Ex04_DAO dao = new Ex04_DAO();
+		
+		int count = dao.getCount();
+		
+		System.out.println("학생 수 : " + count);
+	}
+}
