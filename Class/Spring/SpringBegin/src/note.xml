@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체 생성 + 의존 관계(의존 주입) -->
+	
+	<!-- new Pen(); -->
+	<bean id = "pen" class = "com.test.spring.Pen"></bean>
+	
+	<!-- new Note(); -->
+	<bean id = "note" class = "com.test.spring.Note">
+		<!-- <constructor-arg ref = "pen"></constructor-arg> --> <!-- 의존 주입(DI) 발생 -->
+		<property name="pen" ref = "pen"></property>
+	</bean>
+</beans>
